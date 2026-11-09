@@ -127,8 +127,17 @@ export function PriceChart({
         vertLine: { color: "#2d3743", width: 1, labelBackgroundColor: "#1a222b" },
         horzLine: { color: "#2d3743", width: 1, labelBackgroundColor: "#1a222b" },
       },
-      handleScroll: true,
-      handleScale: true,
+      handleScroll: {
+        mouseWheel: true,
+        pressedMouseMove: true,
+        horzTouchDrag: true,
+        vertTouchDrag: false,
+      },
+      handleScale: {
+        axisPressedMouseMove: true,
+        mouseWheel: true,
+        pinch: true,
+      },
     });
 
     const candleSeries = chart.addSeries(CandlestickSeries, {
@@ -312,13 +321,15 @@ export function PriceChart({
     const api = markersApiRef.current;
     if (!api) return;
     api.setMarkers(
-      markers.map((m) => ({
-        time: candles[m.index]?.time as UTCTimestamp,
-        position: m.position ?? "aboveBar",
-        color: m.color ?? "#f0b429",
-        shape: m.shape ?? "arrowDown",
-        text: m.text,
-      })),
+      markers
+        .filter((m) => candles[m.index])
+        .map((m) => ({
+          time: candles[m.index].time as UTCTimestamp,
+          position: m.position ?? "aboveBar",
+          color: m.color ?? "#f0b429",
+          shape: m.shape ?? "arrowDown",
+          text: m.text,
+        })),
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [JSON.stringify(markers), candles, overlaysKey]);
