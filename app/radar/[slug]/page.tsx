@@ -73,7 +73,7 @@ export default async function ExplicadorPage({
                 </a>
               ),
           }}
-          options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
+          options={{ blockJS: false, mdxOptions: { remarkPlugins: [remarkGfm] } }}
         />
       </div>
 

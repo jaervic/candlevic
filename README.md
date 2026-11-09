@@ -116,6 +116,8 @@ Texto de la lección.
 
 El frontmatter se valida con Zod en el build: si falta un campo, el build falla con un mensaje claro.
 
+> El MDX se compila con `blockJS: false` porque el contenido es propio y de confianza (usa props JSX como `from={600}` o `markers={[...]}`). No se renderiza MDX enviado por usuarios.
+
 ## Despliegue
 
 Pensado para Vercel:

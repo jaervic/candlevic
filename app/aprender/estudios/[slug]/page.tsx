@@ -89,7 +89,7 @@ export default async function EstudioPage({
         <MDXRemote
           source={doc.content}
           components={components}
-          options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
+          options={{ blockJS: false, mdxOptions: { remarkPlugins: [remarkGfm] } }}
         />
       </div>
 
