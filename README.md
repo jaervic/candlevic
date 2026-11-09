@@ -6,6 +6,11 @@ Web app educativa, gratuita y mobile-first para aprender trading de acciones y c
 
 > Candlevic es contenido educativo. No es asesoramiento financiero, no da señales y no promete rentabilidad.
 
+| Móvil | Laboratorio |
+| --- | --- |
+| ![Inicio en móvil](docs/home-mobile.png) | ![Laboratorio en escritorio](docs/lab-desktop.png) |
+
+
 ## Qué incluye
 
 - **14 lecciones** repartidas en 7 módulos: mentalidad, fundamentos, estilos de trading, velas, tendencia, indicadores y gestión de riesgo.
