@@ -1,0 +1,84 @@
+---
+title: "Stop loss y tamaño de posición: la fórmula que te mantiene vivo"
+module: "m6"
+order: 1
+minutes: 5
+level: "principiante"
+summary: "No se trata de cuánto puedes ganar, sino de cuánto puedes perder sin quedarte fuera del juego."
+objectives:
+  - "Calcular el tamaño de posición a partir del riesgo y del stop"
+  - "Entender por qué el 1 % por operación es un punto de partida sensato"
+  - "Evitar el error de decidir el tamaño antes que el stop"
+dataset: "btc-1d"
+related: ["ratio-riesgo-beneficio", "costes"]
+tags: ["riesgo", "posición", "stop"]
+---
+
+La mayoría de los principiantes hace la pregunta equivocada: "¿cuánto puedo ganar?". La pregunta correcta es: "¿cuánto puedo perder si me equivoco?".
+
+## La fórmula
+
+```
+Riesgo en dinero = Capital × % de riesgo
+Tamaño = Riesgo en dinero / Distancia al stop
+```
+
+Ejemplo: capital de 1.000 $, riesgo del 1 %, entrada en 80.000 y stop en 76.000.
+
+- Riesgo en dinero: 1.000 × 1 % = **10 $**
+- Distancia al stop: 80.000 − 76.000 = **4.000 $**
+- Tamaño: 10 / 4.000 = **0,0025 BTC**
+- Valor de la posición: 0,0025 × 80.000 = **200 $**
+
+Arriesgas 10 $, no 200 $. La posición es grande en valor, pero tu pérdida máxima está acotada.
+
+<DatasetChart
+  dataset="btc-1d"
+  from={670}
+  to={700}
+  height={240}
+  priceLines={[80504, 75208]}
+  caption="Ejemplo: entrada en 80.504 y stop en 75.208. La distancia define el tamaño, no al revés."
+/>
+
+<RiskCalculator />
+
+## Por qué el 1 %
+
+Con un 1 % por operación, una racha de 10 pérdidas seguidas te deja aproximadamente un −9,6 % de la cuenta. Doloroso, pero recuperable.
+
+Con un 10 % por operación, esa misma racha te deja en −65 %. Para recuperarte necesitarías casi triplicar la cuenta. Ahí es donde la gente abandona o duplica el riesgo para "recuperar", y pierde el resto.
+
+<KeyIdea>
+El tamaño de posición es la variable que más controlas y la que más impacta en tu supervivencia. Más que la señal de entrada.
+</KeyIdea>
+
+## El error de calcular al revés
+
+Muchos deciden "compro 1 BTC" y luego miran dónde poner el stop. Eso es empezar por el final. Primero defines cuánto estás dispuesto a perder; después, el stop; después, el tamaño.
+
+<Callout type="warning" title="El stop tiene que tener sentido técnico">
+Un stop a 0,5 % de la entrada casi siempre salta por ruido. Uno a 20 % no protege nada. El stop se coloca donde tu idea queda invalidada (por debajo de un soporte, por ejemplo) y **después** se ajusta el tamaño para que esa distancia respete tu riesgo.
+</Callout>
+
+## Qué hacer si el tamaño no cabe
+
+Si el tamaño calculado requiere más capital del que tienes, tienes tres opciones:
+
+1. Aceptar menos riesgo (bajar el %).
+2. Buscar una entrada con un stop más cercano.
+3. No hacer la operación.
+
+La tercera es perfectamente válida. No hay obligación de operar.
+
+<Quiz
+  slug="stop-loss"
+  question="Capital 2.000 $, riesgo 1 %, entrada 50 $, stop 48 $. ¿Qué tamaño de posición corresponde?"
+  options={["10 unidades", "20 unidades", "40 unidades", "100 unidades"]}
+  correct={0}
+  explanation="Riesgo = 2.000 × 1 % = 20 $. Distancia al stop = 2 $. Tamaño = 20 / 2 = 10 unidades. Pérdida máxima si salta el stop: 20 $."
+/>
+
+<Callout type="tip" title="Regla personal">
+Escribe tu % de riesgo máximo antes de abrir cualquier operación. Si un día quieres subirlo porque "esta es segura", ese es exactamente el día en que no debes hacerlo.
+</Callout>

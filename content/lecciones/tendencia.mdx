@@ -1,0 +1,86 @@
+---
+title: "Tendencias: máximos y mínimos que hablan"
+module: "m4"
+order: 1
+minutes: 5
+level: "principiante"
+summary: "Una tendencia no es una línea bonita: es una secuencia de máximos y mínimos. Aprende a leerla sin indicadores."
+objectives:
+  - "Definir tendencia alcista, bajista y lateral con estructura de precio"
+  - "Identificar máximos y mínimos relevantes"
+  - "Evitar el error de operar contra la tendencia dominante"
+dataset: "btc-1d"
+related: ["soporte-resistencia", "medias-moviles"]
+tags: ["tendencia", "estructura"]
+---
+
+Antes de añadir medias, RSI o MACD, hay una pregunta que debes responder: **¿el precio sube, baja o está en un rango?** La respuesta está en la estructura, no en los indicadores.
+
+## La regla de la estructura
+
+- **Tendencia alcista:** máximos más altos y mínimos más altos.
+- **Tendencia bajista:** máximos más bajos y mínimos más bajos.
+- **Rango o lateral:** máximos y mínimos sin dirección clara, dentro de una zona.
+
+<DatasetChart
+  dataset="btc-1d"
+  from={560}
+  to={700}
+  height={260}
+  overlays={[{ type: "sma", period: 50 }]}
+  markers={[
+    { index: 580, text: "mínimo", color: "#2fd47c", position: "belowBar", shape: "arrowUp" },
+    { index: 650, text: "máximo", color: "#ff5c6c", position: "aboveBar", shape: "arrowDown" },
+  ]}
+  caption="BTC diario. Del mínimo de julio al máximo de septiembre, la estructura fue alcista."
+/>
+
+En el gráfico, el precio hizo un mínimo en julio, subió, corrigió sin perder ese mínimo y volvió a subir hasta septiembre. Esa secuencia es una tendencia alcista. La media de 50 periodos acompaña, pero no es la que define la tendencia: la estructura sí.
+
+<KeyIdea>
+Si los mínimos dejan de subir, la tendencia alcista está en duda. No hace falta que el precio caiga un 30 %: basta con que rompa el último mínimo relevante.
+</KeyIdea>
+
+## Tendencias y temporalidades
+
+Una tendencia en 4 horas puede ser una corrección dentro de una tendencia alcista en diario. Esto se llama **tendencia principal** frente a **tendencia menor**.
+
+No es contradictorio: es contexto. Si operas en 4 horas, la tendencia de diario te dice si vas a favor o en contra del viento.
+
+<Callout type="info" title="Regla práctica">
+Define tu temporalidad de análisis y tu temporalidad de ejecución. Una buena combinación para empezar: análisis en diario, ejecución en 4 horas.
+</Callout>
+
+## El error de operar contra la tendencia
+
+Comprar en una tendencia bajista porque "ya ha caído mucho" es una de las formas más rápidas de perder. El precio puede seguir cayendo mucho más de lo que parece razonable.
+
+No significa que no se pueda operar en contra: significa que, si lo haces, el stop y el tamaño deben ser más conservadores.
+
+## Cómo practicarlo
+
+<StepList
+  steps={[
+    { title: "Marca los últimos 3 máximos y mínimos", body: "Usa una temporalidad alta. Anota si suben o bajan." },
+    { title: "Define la tendencia en una frase", body: "Alcista, bajista o lateral. Sin matices." },
+    { title: "Busca el último punto de invalidación", body: "El nivel que, si se rompe, cambia tu lectura." },
+    { title: "Espera a que el precio llegue a una zona", body: "No persigas el precio: espera a que vuelva a un nivel con sentido." },
+  ]}
+/>
+
+<Quiz
+  slug="tendencia"
+  question="El precio hace máximos de 100, 105 y 103, y mínimos de 90, 95 y 94. ¿Qué estructura es?"
+  options={[
+    "Tendencia alcista clara",
+    "Tendencia bajista",
+    "Rango con máximos y mínimos crecientes pero último máximo más bajo",
+    "No se puede saber",
+  ]}
+  correct={2}
+  explanation="Los mínimos suben (90, 95, 94) pero el último máximo (103) es menor que el anterior (105). Es una señal de pérdida de impulso, no una tendencia alcista limpia."
+/>
+
+<Callout type="tip" title="Siguiente paso">
+Abre el laboratorio, elige BTC en diario y marca tres máximos y tres mínimos. Después cambia a 4 horas y repite. ¿Coincide la lectura?
+</Callout>

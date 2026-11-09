@@ -1,0 +1,78 @@
+---
+title: "Acciones y cripto: qué estás comprando realmente"
+module: "m1"
+order: 1
+minutes: 5
+level: "principiante"
+summary: "Una acción es propiedad de una empresa; una cripto es un activo digital sin flujo de caja. Esa diferencia lo cambia todo."
+objectives:
+  - "Entender qué representa una acción y qué representa una cripto"
+  - "Conocer las diferencias prácticas: horarios, custodia, volatilidad"
+  - "Saber qué es un ETF y por qué se usa tanto"
+dataset: "spy-1d"
+related: ["ordenes", "costes", "que-es-invertir"]
+tags: ["fundamentos", "acciones", "cripto"]
+---
+
+Cuando compras una acción, compras una fracción de una empresa. Cuando compras una criptomoneda, compras un activo digital que no genera beneficios por sí mismo. Parece un detalle técnico, pero explica casi todas las diferencias entre ambos mercados.
+
+## Acciones: eres dueño de una parte
+
+Una acción representa una parte del capital de una empresa. Como socio, tienes derecho a una parte de los beneficios (vía dividendos, si se reparten) y a votar en algunas decisiones.
+
+- **Horario limitado:** las bolsas abren y cierran. Hay subastas de apertura y cierre.
+- **Regulación fuerte:** información trimestral obligatoria, reglas de mercado y supervisión.
+- **Flujo de caja:** una empresa puede generar beneficios, pagar dividendos o recomprar acciones.
+- **Gaps:** el precio puede saltar entre el cierre y la apertura, especialmente tras resultados.
+
+Un **ETF** es un fondo que cotiza como una acción. En lugar de elegir una empresa, compras una cesta. El SPY, por ejemplo, replica el S&P 500: 500 empresas en una sola orden.
+
+<DatasetChart dataset="spy-1d" height={220} overlays={[{ type: "sma", period: 50 }]} caption="SPY: un ETF que agrupa las 500 mayores empresas de EE. UU." />
+
+## Cripto: un activo sin flujo de caja
+
+Bitcoin no reparte dividendos ni tiene empleados. Su valor depende de la adopción, la escasez programada y la demanda. Eso no lo hace mejor ni peor: lo hace **distinto**.
+
+- **24/7:** no hay cierre. El precio se mueve mientras duermes.
+- **Custodia:** en un exchange no controlas las claves; en tu wallet, sí. "Not your keys, not your coins".
+- **Volatilidad:** caídas del 30 % en una semana son parte de la historia del activo.
+- **Regulación variable:** cambia por país y por momento.
+- **Oferta programada:** en Bitcoin, la emisión se reduce a la mitad cada ~4 años (halving).
+
+<DatasetChart dataset="btc-1d" height={220} overlays={[{ type: "sma", period: 50 }]} caption="BTC: mismo periodo aproximado, otra escala de volatilidad." />
+
+## La comparación honesta
+
+| | Acciones | Cripto |
+|---|---|---|
+| Qué compras | Propiedad de una empresa | Activo digital |
+| Horario | Limitado | 24/7 |
+| Flujo de caja | Dividendos posibles | No |
+| Volatilidad típica | Media | Muy alta |
+| Custodia | Bróker regulado | Exchange o wallet propia |
+| Riesgo específico | Resultados, competencia | Custodia, regulación, liquidez |
+
+<KeyIdea>
+No existe el activo "mejor". Existe el activo que entiendes y el tamaño de posición que puedes soportar. La volatilidad no es un defecto que haya que eliminar: es el precio de la rentabilidad potencial.
+</KeyIdea>
+
+<Callout type="warning" title="El error clásico">
+Comparar la rentabilidad de una cripto con la de un dividendo sin comparar también el riesgo. Un 8 % anual estable y un +80 % con caídas del 70 % no son el mismo producto.
+</Callout>
+
+<Quiz
+  slug="acciones-y-cripto"
+  question="¿Cuál de estas diferencias es clave entre una acción y Bitcoin?"
+  options={[
+    "Las acciones solo se pueden comprar con apalancamiento",
+    "Bitcoin genera dividendos trimestrales",
+    "Una acción representa propiedad de una empresa; Bitcoin no genera flujo de caja",
+    "Bitcoin solo cotiza en horario de bolsa",
+  ]}
+  correct={2}
+  explanation="La acción es una participación en una empresa con beneficios potenciales. Bitcoin es un activo digital escaso, sin flujo de caja, que cotiza 24/7."
+/>
+
+<Callout type="tip" title="Siguiente paso">
+Abre el laboratorio y cambia entre SPY y BTC con la misma temporalidad. Observa la diferencia de rango entre velas. Ese es el riesgo que vas a tener que dimensionar.
+</Callout>

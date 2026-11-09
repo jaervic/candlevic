@@ -1,0 +1,60 @@
+---
+title: "El crash del COVID: pánico, liquidez y un rebote que nadie esperaba"
+kind: "caso"
+date: "2020-03-12"
+minutes: 4
+level: "principiante"
+summary: "En un mes, Bitcoin cayó más del 50 % y el S&P 500 vivió su caída más rápida de la historia. Después, todo rebotó."
+tags: ["caso", "cripto", "volatilidad", "liquidez"]
+related: ["expectativas-realistas", "stop-loss"]
+---
+
+En febrero de 2020, Bitcoin cotizaba cerca de 10.300 dólares. El 12 de marzo, en pleno pánico global por la pandemia, cerró en 4.800. Al día siguiente marcó un mínimo de 3.782.
+
+<DatasetChart
+  dataset="btc-covid"
+  from={40}
+  to={100}
+  height={260}
+  showVolume
+  markers={[
+    { index: 71, text: "12 mar", color: "#ff5c6c", position: "aboveBar", shape: "arrowDown" },
+    { index: 72, text: "mínimo", color: "#2fd47c", position: "belowBar", shape: "arrowUp" },
+  ]}
+  caption="BTC diario, febrero–abril de 2020. La caída fue vertical y el rebote, igual de rápido."
+/>
+
+## Qué pasó realmente
+
+No fue solo miedo. Fue **liquidez**. En una crisis, los fondos venden lo que pueden, no lo que quieren, para cubrir márgenes y reembolsos. Bitcoin, que cotiza 24/7 y tiene un mercado relativamente pequeño, fue uno de los primeros activos que se vendió para obtener efectivo.
+
+El resultado: caídas del 40 % en un día, stops saltados y exchanges con problemas de ejecución.
+
+<Callout type="info" title="Dato clave">
+El S&P 500 tardó aproximadamente un mes en caer un 30 %. Bitcoin hizo algo parecido en dos días. La velocidad del mercado cripto amplifica todo.
+</Callout>
+
+## Las tres lecciones
+
+**1. La liquidez desaparece justo cuando la necesitas.** En pánico, el spread se abre y las órdenes a mercado se ejecutan muy por debajo del precio que veías.
+
+**2. El stop protege, pero no es infinito.** Un gap puede saltarlo. Por eso el tamaño de posición importa tanto como el stop.
+
+**3. El rebote no valida la caída.** Quien vendió en el mínimo por pánico perdió dos veces: la caída y la recuperación.
+
+<Quiz
+  slug="caso-covid"
+  question="¿Por qué muchos stops no protegieron a los traders durante el crash de marzo de 2020?"
+  options={[
+    "Porque los stops no funcionan en cripto",
+    "Porque el precio cayó con gaps y la liquidez se redujo, ejecutando muy por debajo del nivel",
+    "Porque los exchanges cerraron",
+    "Porque el gobierno los canceló",
+  ]}
+  correct={1}
+  explanation="Un stop se convierte en orden a mercado al activarse. Con gaps y poca liquidez, el precio de ejecución puede estar muy por debajo del nivel del stop."
+/>
+
+<Callout type="tip" title="Ejercicio">
+En el laboratorio, abre el dataset del crash y mide la distancia entre el cierre anterior y el mínimo del 12 de marzo. Ese hueco es el riesgo que tu stop no cubre.
+</Callout>

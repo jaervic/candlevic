@@ -1,0 +1,93 @@
+---
+title: "Anatomía de una vela japonesa"
+module: "m3"
+order: 1
+minutes: 5
+level: "principiante"
+summary: "Cuatro precios, un cuerpo y dos mechas. Aprender a leerlos es el primer paso para entender cualquier gráfico."
+objectives:
+  - "Identificar apertura, máximo, mínimo y cierre en una vela"
+  - "Interpretar el cuerpo y las mechas"
+  - "Reconocer un doji y un martillo sin sobreinterpretarlos"
+dataset: "btc-1d"
+related: ["tendencia", "soporte-resistencia"]
+tags: ["gráficos", "velas"]
+---
+
+Cada vela resume una batalla. En el periodo que representa (un minuto, una hora, un día), hubo compradores y vendedores, y el resultado quedó dibujado en cuatro precios.
+
+## Los cuatro precios
+
+- **Apertura (O):** el primer precio del periodo.
+- **Máximo (H):** el precio más alto alcanzado.
+- **Mínimo (L):** el precio más bajo.
+- **Cierre (C):** el último precio del periodo.
+
+El **cuerpo** va de la apertura al cierre. Las **mechas** (o sombras) van del cuerpo al máximo y al mínimo.
+
+<DatasetChart
+  dataset="btc-1d"
+  from={670}
+  to={700}
+  height={260}
+  showVolume
+  markers={[
+    { index: 685, text: "doji", color: "#5aa9ff", position: "belowBar", shape: "circle" },
+    { index: 695, text: "cuerpo grande", color: "#ff5c6c", position: "aboveBar", shape: "arrowDown" },
+  ]}
+  caption="BTC diario, últimas 30 velas. Dos velas muy distintas."
+/>
+
+## Cuerpo y mechas
+
+**Cuerpo grande** significa que el precio recorrió mucho entre apertura y cierre: un lado dominó con claridad.
+
+**Mecha larga** significa que el precio se movió en esa dirección y fue rechazado. Una mecha inferior larga sugiere que los vendedores empujaron hacia abajo, pero los compradores recuperaron el terreno.
+
+**Cuerpo pequeño** significa indecisión: apertura y cierre casi iguales.
+
+<KeyIdea>
+La mecha cuenta dónde estuvo el precio, pero el cierre cuenta quién ganó. Por eso el cierre pesa más que el máximo o el mínimo.
+</KeyIdea>
+
+## Tres velas que conviene conocer
+
+**Doji.** Apertura y cierre casi iguales. Indica equilibrio o indecisión. Por sí solo no dice nada: necesita contexto.
+
+**Martillo.** Cuerpo pequeño en la parte superior y mecha inferior larga. Sugiere rechazo de precios bajos. En un soporte pesa más que en mitad de un rango.
+
+**Marubozu.** Cuerpo grande y mechas mínimas. Muestra que un lado dominó todo el periodo.
+
+<Callout type="warning" title="El error del principiante">
+Ver un martillo y comprar sin mirar el contexto. Un patrón de una sola vela tiene poca información. Lo que importa es dónde aparece y qué volumen lo acompaña.
+</Callout>
+
+<ChartQuiz
+  slug="velas"
+  dataset="btc-1d"
+  from={670}
+  to={700}
+  question="Toca la vela con el cuerpo más grande, la que muestra un dominio claro de un lado."
+  answerIndex={695}
+  explanation="La vela del 5 de noviembre abrió en 80.504 y cerró en 76.088: un cuerpo de más de 4.400 dólares. Los vendedores dominaron el periodo."
+/>
+
+## Cómo practicar
+
+1. Abre el laboratorio y elige una temporalidad.
+2. Pasa el dedo por las velas y mira los cuatro precios.
+3. Antes de leer la noticia, intenta explicar qué pasó solo con la vela.
+4. Compara el volumen: ¿la vela grande tuvo más participación?
+
+<Quiz
+  slug="velas"
+  question="Una vela tiene apertura 100, máximo 110, mínimo 95 y cierre 103. ¿Qué es cierto?"
+  options={[
+    "Es bajista, porque el máximo fue 110",
+    "Es alcista: cerró por encima de la apertura, con mechas en ambos lados",
+    "Es un doji",
+    "El cuerpo mide 15 puntos",
+  ]}
+  correct={1}
+  explanation="Cierre 103 mayor que apertura 100: vela alcista. El cuerpo mide 3 puntos; las mechas llegan a 110 y 95."
+/>

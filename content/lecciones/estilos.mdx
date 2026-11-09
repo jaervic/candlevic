@@ -1,0 +1,84 @@
+---
+title: "¿Qué estilo de trading existe?"
+module: "m2"
+order: 1
+minutes: 5
+level: "principiante"
+summary: "Scalping, day trading, swing, posición y DCA. Cada estilo exige un tiempo, un capital y una cabeza distintos."
+objectives:
+  - "Conocer los estilos principales y su horizonte"
+  - "Entender el coste real en tiempo y estrés de cada uno"
+  - "Identificar qué estilo encaja con tu situación"
+dataset: "btc-4h"
+related: ["costes", "stop-loss", "ratio-riesgo-beneficio"]
+tags: ["estilos", "principiante"]
+---
+
+No existe "el trading". Existe un conjunto de estilos con reglas, ritmos y riesgos muy diferentes. Elegir el equivocado es una de las causas más comunes de abandono.
+
+## El mapa
+
+| Estilo | Horizonte | Tiempo en pantalla | Estrés | Capital |
+|---|---|---|---|---|
+| Scalping | Segundos–minutos | 3–6 h/día | Muy alto | Alto (comisiones bajas) |
+| Day trading | Minutos–horas | 2–4 h/día | Alto | Medio |
+| Swing | Días–semanas | 30–60 min/día | Medio | Bajo |
+| Posición | Meses–años | 15 min/semana | Bajo | Bajo |
+| DCA | Años | 5 min/mes | Muy bajo | Bajo |
+
+## Scalping
+
+Muchas operaciones muy cortas para capturar movimientos pequeños. Depende de la ejecución, el spread y la velocidad. Es el estilo con mayor desgaste y peor base estadística para principiantes.
+
+**Qué necesitas:** comisiones muy bajas, ejecución rápida, concentración extrema y una disciplina de hierro.
+
+## Day trading
+
+Abres y cierras el mismo día. Evitas el riesgo nocturno, pero te expones al ruido intradía y a la tentación de sobreoperar.
+
+**Qué necesitas:** una rutina, una temporalidad fija y un límite diario de operaciones.
+
+## Swing trading
+
+Buscas movimientos de varios días. Analizas en diario o 4 horas y puedes compaginarlo con un trabajo.
+
+**Qué necesitas:** paciencia, aceptar gaps y revisar el mercado una o dos veces al día. Es el punto de entrada más razonable para la mayoría.
+
+<DatasetChart dataset="btc-4h" height={220} showVolume overlays={[{ type: "sma", period: 50 }]} caption="BTC en 4 horas: el ruido intradía que el swing trading intenta filtrar." />
+
+## Posición y DCA
+
+Compras pensando en meses o años. El DCA (Dollar Cost Averaging) consiste en aportar una cantidad fija de forma periódica, sin intentar adivinar el momento.
+
+**Qué necesitas:** tolerar drawdowns grandes y no mirar el precio todos los días.
+
+<KeyIdea>
+El mejor estilo no es el que más gana en un backtest: es el que puedes ejecutar de forma consistente durante años sin destruir tu vida ni tu cuenta.
+</KeyIdea>
+
+## Cómo elegir
+
+Responde con honestidad:
+
+1. ¿Cuántas horas reales puedo dedicar, sin contar el móvil en el baño?
+2. ¿Cómo reacciono cuando veo rojo?
+3. ¿Cuánto capital puedo permitirme perder sin cambiar mi vida?
+4. ¿Quiero tomar decisiones muchas veces al día o pocas veces al mes?
+
+[Haz el test "¿Qué trader eres?"](/test) y te damos una recomendación con un plan de 30 días.
+
+<Callout type="warning" title="Cuidado con el sesgo de las redes">
+Verás más capturas de scalping que de DCA porque el scalping genera contenido emocionante. La rentabilidad real y sostenida suele ser mucho más aburrida.
+</Callout>
+
+<Quiz
+  slug="estilos"
+  question="Trabajas 9 horas, solo puedes mirar el mercado por la noche y quieres evitar el ruido intradía. ¿Qué estilo encaja mejor?"
+  options={["Scalping", "Day trading", "Swing trading", "Market making"]}
+  correct={2}
+  explanation="El swing trading se analiza en diario o 4h, requiere poco tiempo y evita el ruido de las temporalidades bajas. Es el más compatible con un trabajo."
+/>
+
+<Callout type="tip" title="Siguiente paso">
+No cambies de estilo cada semana. Elige uno, dale 30 días de práctica en papel y mide si encaja contigo antes de arriesgar dinero.
+</Callout>

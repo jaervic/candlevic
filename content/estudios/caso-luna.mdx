@@ -1,0 +1,52 @@
+---
+title: "El colapso de LUNA y UST: cuando el rendimiento 'seguro' era el riesgo"
+kind: "caso"
+date: "2022-05-09"
+minutes: 5
+level: "intermedio"
+summary: "Un algoritmo, un token estable y un rendimiento del 20 % anual. En una semana, 40.000 millones de dólares evaporados."
+tags: ["caso", "cripto", "riesgo", "stablecoins"]
+related: ["acciones-y-cripto", "expectativas-realistas"]
+---
+
+En 2022, Terra era uno de los proyectos más grandes del ecosistema cripto. Su stablecoin, UST, prometía mantener el precio en 1 dólar mediante un algoritmo que la intercambiaba por LUNA, su token nativo. La plataforma Anchor ofrecía alrededor del **20 % anual** por depositar UST.
+
+Miles de personas lo vieron como una cuenta de ahorro sin riesgo.
+
+## La mecánica que falló
+
+El sistema dependía de que LUNA absorbiera la presión. Si UST caía por debajo de 1 dólar, se podía quemar LUNA para acuñar UST y recuperar la paridad. Funcionaba mientras hubiera confianza y demanda.
+
+En mayo de 2022, una salida masiva de capital rompió el equilibrio. UST perdió la paridad, se imprimieron cantidades enormes de LUNA para intentar sostenerla, y el precio de LUNA se desplomó. En pocos días, ambos activos pasaron de valer decenas de miles de millones a casi nada.
+
+<DatasetChart dataset="btc-bear-2022" from={150} to={230} height={240} showVolume caption="BTC en el mismo periodo. El contagio arrastró a todo el mercado, no solo a Terra." />
+
+No incluimos el gráfico de LUNA porque el par dejó de cotizar. Ese detalle es parte de la lección: **un activo puede desaparecer**, y entonces no hay stop que valga.
+
+## Las señales que se podían ver
+
+1. **Un rendimiento alto no es gratis.** El 20 % anual tenía que salir de algún sitio. Si no puedes explicar de dónde, es riesgo disfrazado.
+2. **Dependencia de un solo mecanismo.** La paridad dependía de la demanda de LUNA. Cuando la confianza cayó, el mecanismo se convirtió en una espiral.
+3. **Concentración.** Muchos usuarios tenían casi todo su capital en el mismo protocolo.
+4. **Custodia.** Buena parte de los fondos estaba en una plataforma, no en wallets propias.
+
+<Callout type="warning" title="La lección más cara">
+"Stablecoin" no significa "sin riesgo". Significa que el precio intenta mantenerse estable. La estabilidad depende de las reservas y del diseño, y ambos pueden fallar.
+</Callout>
+
+<Quiz
+  slug="caso-luna"
+  question="¿Cuál es la lección principal del colapso de LUNA/UST para un principiante?"
+  options={[
+    "Que las cripto siempre caen",
+    "Que un rendimiento alto y estable suele esconder un riesgo que no ves",
+    "Que hay que comprar en el suelo",
+    "Que los algoritmos nunca funcionan",
+  ]}
+  correct={1}
+  explanation="El 20 % 'seguro' era la compensación por asumir un riesgo de diseño y de confianza. Si no puedes explicar de dónde sale el rendimiento, no lo entiendes."
+/>
+
+<Callout type="tip" title="Regla para tu cartera">
+Si no puedes explicar en una frase de dónde sale el rendimiento de un producto, no pongas dinero. Y reparte: ningún protocolo debería poder borrar tu cuenta.
+</Callout>

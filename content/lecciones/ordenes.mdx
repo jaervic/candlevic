@@ -1,0 +1,84 @@
+---
+title: "Órdenes: market, limit y stop"
+module: "m1"
+order: 2
+minutes: 5
+level: "principiante"
+summary: "La orden es tu única interfaz con el mercado. Elegir mal el tipo de orden puede costarte más que elegir mal el activo."
+objectives:
+  - "Distinguir orden a mercado, limitada, stop y stop-limit"
+  - "Entender cuándo usar cada una"
+  - "Reconocer el riesgo de slippage en órdenes a mercado"
+dataset: "btc-4h"
+related: ["costes", "stop-loss"]
+tags: ["fundamentos", "órdenes"]
+---
+
+Cuando pulsas "comprar", no estás comprando: estás enviando una **orden**. El mercado decide si se ejecuta, a qué precio y cuándo. Conocer los tipos de orden es tan básico como saber frenar antes de conducir.
+
+## Orden a mercado
+
+Se ejecuta **ya**, al mejor precio disponible.
+
+- **Ventaja:** entra seguro.
+- **Desventaja:** no controlas el precio. En un mercado rápido o con poca liquidez, el precio de ejecución puede ser peor que el que veías (slippage).
+
+Ejemplo: ves BTC a 75.000 y lanzas una compra a mercado. Si el libro está fino, puedes acabar entrando a 75.180. En una vela de pánico, la diferencia puede ser mucho mayor.
+
+## Orden limitada
+
+Solo se ejecuta a **tu precio o mejor**.
+
+- **Ventaja:** controlas el precio máximo de compra (o mínimo de venta).
+- **Desventaja:** puede no ejecutarse nunca. El precio puede pasar de largo sin ti.
+
+Ejemplo: BTC a 75.000, pones una compra limitada a 73.500. Si el precio baja hasta ahí, compras; si rebota antes, te quedas fuera. No es un fallo: es el coste de exigir precio.
+
+## Orden stop
+
+Se activa cuando el precio cruza un nivel. Se usa sobre todo para **proteger una posición**.
+
+Si compraste a 75.000 y quieres limitar la pérdida, colocas un stop de venta en 73.500. Mientras el precio esté por encima, la orden duerme. Si cae a 73.500, se dispara y vende (normalmente a mercado).
+
+<Callout type="warning" title="El stop no es una garantía">
+Un stop a mercado se convierte en orden a mercado cuando se activa. En un gap o una caída violenta, puede ejecutarse bastante por debajo del nivel. El stop limita el daño habitual, no los gaps extremos.
+</Callout>
+
+## Orden stop-limit
+
+Combina las dos anteriores: al activarse el stop, se envía una orden **limitada** en lugar de una a mercado.
+
+- **Ventaja:** controlas el peor precio de ejecución.
+- **Desventaja:** si el precio se mueve demasiado rápido, la orden limitada puede no llenarse y te quedas con la posición abierta.
+
+## Cuál usar
+
+<StepList
+  steps={[
+    { title: "Para entrar con calma", body: "Orden limitada. Defines el precio y aceptas el riesgo de no entrar." },
+    { title: "Para entrar ya", body: "Orden a mercado, con un activo líquido y un tamaño razonable." },
+    { title: "Para proteger", body: "Stop a mercado si priorizas salir; stop-limit si priorizas el precio y aceptas el riesgo de no salir." },
+    { title: "Para no improvisar", body: "Define la orden antes de abrir la posición. Si el stop se decide después, no es un plan." },
+  ]}
+/>
+
+<KeyIdea>
+La orden correcta es la que expresa tu intención con el riesgo que estás dispuesto a aceptar. Si no sabes qué orden usar, probablemente no tengas clara la operación.
+</KeyIdea>
+
+<Quiz
+  slug="ordenes"
+  question="Quieres comprar BTC solo si baja a 70.000, y ahora está a 75.000. ¿Qué orden usas?"
+  options={[
+    "Una orden a mercado",
+    "Una orden limitada de compra a 70.000",
+    "Un stop de venta a 70.000",
+    "Una orden stop-limit de compra a 75.000",
+  ]}
+  correct={1}
+  explanation="La limitada solo se ejecuta a tu precio o mejor. Si el precio no llega a 70.000, no compras, y eso forma parte del plan."
+/>
+
+<Callout type="tip" title="Prueba esto">
+En el laboratorio, imagina una entrada y coloca el stop antes de mirar el resultado. Después avanza las velas con el replay. ¿Habrías respetado el stop?
+</Callout>

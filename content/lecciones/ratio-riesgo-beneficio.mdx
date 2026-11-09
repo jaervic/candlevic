@@ -1,0 +1,87 @@
+---
+title: "Ratio riesgo/beneficio: por qué puedes ganar perdiendo 6 de 10"
+module: "m6"
+order: 2
+minutes: 5
+level: "principiante"
+summary: "El acierto no lo es todo. Con un buen ratio riesgo/beneficio, una estrategia con menos del 50 % de acierto puede ser rentable."
+objectives:
+  - "Calcular el ratio riesgo/beneficio"
+  - "Entender la relación entre acierto, R:B y esperanza matemática"
+  - "Dejar de perseguir el 90 % de acierto"
+dataset: "btc-1d"
+related: ["stop-loss", "expectativas-realistas"]
+tags: ["riesgo", "esperanza", "r"]
+---
+
+El ratio riesgo/beneficio (R:B) compara lo que arriesgas con lo que esperas ganar. Si arriesgas 100 para ganar 200, tu R:B es 1:2.
+
+## La tabla que lo cambia todo
+
+Para no perder dinero, el porcentaje de acierto necesario depende del R:B:
+
+| R:B | Acierto mínimo |
+|---|---|
+| 1:1 | 50 % |
+| 1:1,5 | 40 % |
+| 1:2 | 33,3 % |
+| 1:3 | 25 % |
+| 1:4 | 20 % |
+
+Con un R:B de 1:3, puedes fallar 7 de cada 10 operaciones y seguir ganando. Eso no significa que sea fácil: significa que el acierto no es la métrica principal.
+
+<KeyIdea>
+Una estrategia con 40 % de acierto y R:B 1:2 gana más que una con 60 % de acierto y R:B 1:0,5. El resultado depende de la combinación, no de una sola cifra.
+</KeyIdea>
+
+## La esperanza matemática
+
+```
+Esperanza = (Acierto × Ganancia media) − (Fallo × Pérdida media)
+```
+
+Ejemplo con 40 % de acierto, ganancia media de 2R y pérdida de 1R:
+
+- 0,40 × 2 = 0,80
+- 0,60 × 1 = 0,60
+- Esperanza = **+0,20R por operación**
+
+A largo plazo, cada operación vale 0,20 veces lo que arriesgas. Con 100 operaciones y 1 % de riesgo, el resultado esperado es +20R.
+
+<RiskCalculator />
+
+## Por qué el 90 % de acierto puede arruinarte
+
+Imagina una estrategia que acierta el 90 % pero gana 0,1R por operación y pierde 5R cuando falla:
+
+- 0,90 × 0,1 = 0,09
+- 0,10 × 5 = 0,50
+- Esperanza = **−0,41R**
+
+Ganas casi siempre, pero cuando pierdes, pierdes mucho. Es la trampa de recoger monedas delante de un bulldozer.
+
+<Callout type="warning" title="No persigas el acierto">
+El mercado no te paga por tener razón. Te paga por gestionar la asimetría entre lo que ganas y lo que pierdes.
+</Callout>
+
+## Cómo practicarlo
+
+<StepList
+  steps={[
+    { title: "Define el stop antes del objetivo", body: "Si el objetivo no da al menos 1:1,5, la operación probablemente no merece la pena." },
+    { title: "Registra en R", body: "Anota cada operación como +2R, −1R, +0,5R. Así comparas estrategias sin que el tamaño importe." },
+    { title: "Calcula tu esperanza", body: "Con 30–50 operaciones ya tienes una muestra mínima para ver si el sistema tiene sentido." },
+  ]}
+/>
+
+<Quiz
+  slug="ratio-riesgo-beneficio"
+  question="Con un R:B de 1:2, ¿qué porcentaje de acierto necesitas como mínimo para no perder dinero (sin contar costes)?"
+  options={["50 %", "40 %", "33,3 %", "25 %"]}
+  correct={2}
+  explanation="Pierdes 1R el 66,7 % de las veces y ganas 2R el 33,3 %: 0,333 × 2 − 0,667 × 1 = 0. Ese es el punto de equilibrio antes de comisiones."
+/>
+
+<Callout type="tip" title="Ejercicio">
+Abre tu diario (o una hoja de cálculo) y anota tus últimas 10 operaciones en R. Si no puedes, ese es el primer problema que hay que resolver.
+</Callout>

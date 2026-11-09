@@ -1,0 +1,75 @@
+---
+title: "¿Invertir, especular o apostar?"
+module: "m0"
+order: 1
+minutes: 4
+level: "principiante"
+summary: "Las tres actividades se parecen por fuera y son muy distintas por dentro. Saber cuál estás haciendo cambia todas tus decisiones."
+objectives:
+  - "Distinguir inversión, especulación y apuesta"
+  - "Entender qué hace que una operación tenga sentido a largo plazo"
+  - "Reconocer las señales de una apuesta disfrazada de inversión"
+dataset: "spy-1d"
+related: ["expectativas-realistas", "acciones-y-cripto"]
+tags: ["mentalidad", "riesgo"]
+---
+
+Cuando alguien dice "voy a invertir en cripto", puede estar describiendo tres cosas muy distintas. La diferencia no está en el activo, sino en **el proceso y la expectativa**.
+
+<KeyIdea>
+Invertir es poner dinero a trabajar con un proceso repetible, un riesgo acotado y una expectativa positiva a largo plazo. Apostar es confiar en que esta vez salga bien.
+</KeyIdea>
+
+## Tres actividades, tres lógicas
+
+**Inversión.** Compras una parte de algo que genera valor con el tiempo: beneficios de una empresa, adopción de una red, rentas. Tu horizonte es de años y tu tesis se puede explicar sin mirar el gráfico de las últimas horas.
+
+**Especulación.** Asumes un riesgo calculado para aprovechar un movimiento de precio. No es sucio ni irracional: es lo que hace un trader profesional. La clave es que el riesgo esté **definido antes de entrar** y que el conjunto de operaciones tenga esperanza positiva.
+
+**Apuesta.** Compras porque "va a subir", sin stop, sin tamaño definido y sin saber qué harías si baja. El resultado depende de la suerte, no del proceso.
+
+## El mismo activo, las tres versiones
+
+Piensa en Bitcoin. Alguien que aporta una cantidad fija cada mes durante años, con una tesis de largo plazo y sin apalancamiento, está invirtiendo. Alguien que opera un rango con stop y objetivo definidos está especulando. Alguien que pone todos sus ahorros porque un vídeo decía que "se viene el pump" está apostando.
+
+<DatasetChart dataset="spy-1d" height={220} overlays={[{ type: "sma", period: 50 }]} caption="SPY (S&P 500), dos años. Sube a largo plazo, pero con caídas intermedias dolorosas." />
+
+El gráfico de arriba muestra algo importante: incluso el índice más diversificado del mundo cae un 10 %, un 20 % o más varias veces por década. La tendencia de largo plazo no elimina el dolor del corto plazo.
+
+## Las cuatro preguntas que separan una cosa de otra
+
+Antes de cualquier operación, responde:
+
+<StepList
+  steps={[
+    { title: "¿Cuál es mi tesis?", body: "Una frase concreta que explique por qué el precio debería moverse a tu favor. Si no puedes escribirla, no tienes tesis." },
+    { title: "¿Cuánto puedo perder?", body: "La pérdida máxima debe estar definida antes de entrar, no después de que el precio caiga." },
+    { title: "¿Cuál es mi horizonte?", body: "Minutos, días o años. El horizonte define la temporalidad, el ruido que ignoras y el coste que pagas." },
+    { title: "¿Qué haría si me equivoco?", body: "Si la respuesta es 'esperar a que vuelva', no tienes un plan: tienes una esperanza." },
+  ]}
+/>
+
+<Callout type="warning" title="La trampa del resultado">
+Ganar dinero en una mala decisión es peligroso: refuerza el hábito. Perder en una buena decisión también es normal. A corto plazo, el mercado reparte resultados al azar; a largo plazo, premia el proceso.
+</Callout>
+
+## Qué vas a aprender aquí
+
+Candlevic no te va a decir qué comprar. Te va a enseñar a leer un gráfico, a medir el riesgo y a construir un proceso que puedas repetir aunque el mercado haga lo contrario de lo que esperabas.
+
+<Quiz
+  slug="que-es-invertir"
+  question="Compras una cripto porque un amigo te dijo que va a subir, sin stop ni tamaño definido. ¿Qué estás haciendo?"
+  options={[
+    "Invirtiendo, porque es a largo plazo",
+    "Especulando con un plan claro",
+    "Apostando: no hay proceso ni riesgo definido",
+    "Haciendo market making",
+  ]}
+  correct={2}
+  explanation="El activo no define la actividad. Sin tesis, sin stop y sin tamaño, el resultado depende de la suerte: eso es una apuesta."
+/>
+
+<Callout type="tip" title="Siguiente paso">
+Antes de seguir, escribe en una nota las cuatro respuestas del ejercicio anterior para una operación que te gustaría hacer. Si te falta alguna, ya sabes qué repasar.
+</Callout>

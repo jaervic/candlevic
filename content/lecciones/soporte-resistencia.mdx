@@ -1,0 +1,83 @@
+---
+title: "Soporte y resistencia: zonas, no líneas mágicas"
+module: "m4"
+order: 2
+minutes: 5
+level: "principiante"
+summary: "El precio reacciona en zonas donde antes hubo compradores o vendedores. Dibujarlas bien cambia tus entradas y tus stops."
+objectives:
+  - "Identificar soportes y resistencias relevantes"
+  - "Entender el cambio de rol de un nivel"
+  - "Usar el volumen para validar una zona"
+dataset: "btc-1d"
+related: ["tendencia", "teoria-dow"]
+tags: ["soporte", "resistencia"]
+---
+
+Un soporte es una zona donde la demanda ha frenado las caídas. Una resistencia es una zona donde la oferta ha frenado las subidas. La palabra importante es **zona**: no es una línea exacta de un pixel.
+
+<DatasetChart
+  dataset="btc-1d"
+  from={560}
+  to={700}
+  height={260}
+  showVolume
+  priceLines={[61825, 87396]}
+  caption="BTC diario con dos zonas marcadas: un soporte en la parte baja y una resistencia en la parte alta."
+/>
+
+## Por qué funcionan
+
+No funcionan porque sean magia, sino porque concentran órdenes:
+
+- Los que compraron cerca del soporte quieren defender su posición.
+- Los que se quedaron fuera quieren entrar si el precio vuelve.
+- Los stops se acumulan justo por debajo o por encima de los niveles obvios.
+
+Eso crea órdenes reales en zonas concretas. El mercado no "recuerda" el nivel: recuerda a la gente que tiene órdenes ahí.
+
+<KeyIdea>
+Cuantas más veces ha reaccionado el precio en una zona, y más volumen hubo, más relevante suele ser. Pero ninguna zona es infalible.
+</KeyIdea>
+
+## El cambio de rol
+
+Cuando una resistencia se rompe con convicción, a menudo se convierte en soporte. Y al revés: un soporte roto puede actuar como resistencia.
+
+Esto ocurre porque los que compraron en la ruptura defienden su entrada, y los que se quedaron fuera esperan una vuelta al nivel para entrar.
+
+<Callout type="warning" title="Las zonas obvias también son trampas">
+Si todo el mundo ve el mismo soporte, los stops se acumulan justo debajo. Es habitual ver una mecha que rompe el nivel, activa los stops y vuelve a subir. Por eso conviene dejar margen y no colocar el stop exactamente en el nivel.
+</Callout>
+
+## Cómo dibujarlas sin llenar el gráfico
+
+<StepList
+  steps={[
+    { title: "Usa temporalidades altas", body: "Un nivel de diario pesa más que uno de 5 minutos. Empieza en diario." },
+    { title: "Marca zonas, no líneas", body: "Usa el cuerpo y las mechas de varias velas para definir un área." },
+    { title: "Prioriza 2–3 niveles", body: "Si marcas 15 líneas, ninguna significa nada. Menos es más." },
+    { title: "Confirma con volumen", body: "Una reacción con volumen alto tiene más respaldo que una sin participación." },
+  ]}
+/>
+
+## Soportes en tendencia vs. en rango
+
+En una tendencia alcista, los soportes suelen ser los mínimos crecientes. En un rango, los extremos del rango son las zonas de compra y venta. Confundir ambos contextos es un error clásico.
+
+<Quiz
+  slug="soporte-resistencia"
+  question="Una resistencia en 50 se rompe con volumen y el precio sube a 60. Después vuelve a 50 y rebota. ¿Qué ha ocurrido?"
+  options={[
+    "La resistencia sigue siendo resistencia",
+    "El nivel ha cambiado de rol y ahora actúa como soporte",
+    "El volumen no importa",
+    "Es una señal de venta garantizada",
+  ]}
+  correct={1}
+  explanation="Cuando una resistencia se rompe y el precio vuelve a ella sin perderla, el nivel suele cambiar de rol y actuar como soporte."
+/>
+
+<Callout type="tip" title="Ejercicio">
+En el laboratorio, activa la herramienta de línea horizontal y marca el nivel donde el precio rebotó más veces en los últimos seis meses. Después coloca tu stop un poco por debajo de la zona, no exactamente en ella.
+</Callout>

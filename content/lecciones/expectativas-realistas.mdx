@@ -1,0 +1,69 @@
+---
+title: "Expectativas realistas: el mercado no sube en línea recta"
+module: "m0"
+order: 2
+minutes: 4
+level: "principiante"
+summary: "Los drawdowns, la recuperación asimétrica y por qué la mayoría de los day traders pierde dinero."
+objectives:
+  - "Entender qué es un drawdown y por qué duele más de lo que parece"
+  - "Calcular cuánto hay que ganar para recuperar una pérdida"
+  - "Ajustar las expectativas antes de arriesgar dinero"
+dataset: "btc-bear-2022"
+related: ["que-es-invertir", "stop-loss"]
+tags: ["mentalidad", "riesgo", "drawdown"]
+---
+
+Una de las primeras cosas que hace un principiante es mirar un gráfico de largo plazo y pensar: "si esto sube, es fácil". El problema es que ese gráfico está dibujado en escala logarítmica, con años comprimidos y sin mostrar el sufrimiento de por medio.
+
+## El drawdown: la caída que no ves en el titular
+
+Un **drawdown** es la caída desde el máximo de tu cuenta hasta el mínimo posterior. No es lo mismo que una pérdida puntual: mide el dolor acumulado.
+
+<DatasetChart dataset="btc-bear-2022" height={240} showVolume caption="BTC en 2021-2022: de 67.500 a 15.500 dólares. Un drawdown superior al 75 %." />
+
+Mira el gráfico. Si compraste cerca del máximo, tu cuenta cayó más de un 75 %. No fue un mal día: fue más de un año de caída sostenida. Muchísima gente vendió en el peor momento, no por falta de análisis, sino por falta de expectativas realistas.
+
+## La matemática que nadie te cuenta
+
+Perder un 50 % no se recupera ganando un 50 %. Se recupera ganando un **100 %**.
+
+| Si caes… | Necesitas ganar… |
+|---|---|
+| −10 % | +11,1 % |
+| −25 % | +33,3 % |
+| −50 % | +100 % |
+| −75 % | +300 % |
+| −90 % | +900 % |
+
+<KeyIdea>
+Cuanto más grande es la pérdida, más desproporcionado es el esfuerzo necesario para recuperarla. Por eso la primera prioridad no es ganar: es no perder demasiado.
+</KeyIdea>
+
+## Qué dicen los datos, no los gurús
+
+Los estudios sobre day traders son incómodos. Un trabajo con todos los operadores de futuros intradía de Brasil encontró que alrededor del **97 % perdió dinero** y que la mayoría abandonó en menos de 300 sesiones. En Taiwán, los resultados fueron similares.
+
+Eso no significa que sea imposible. Significa que el estilo más publicitado en redes es también el que tiene peor base estadística para un principiante.
+
+<Callout type="info" title="No es pesimismo, es calibración">
+Si empiezas asumiendo que vas a ganar un 10 % mensual, cualquier resultado normal te parecerá un fracaso y tomarás decisiones peores. Si empiezas asumiendo que sobrevivir el primer año ya es un éxito, juegas con otra cabeza.
+</Callout>
+
+## Tres expectativas que sí son razonables
+
+1. **Vas a tener rachas perdedoras.** Incluso un sistema con 60 % de acierto puede perder 5 operaciones seguidas.
+2. **El aprendizaje cuesta dinero o tiempo.** Mejor que cueste tiempo en el laboratorio y en papel.
+3. **La rentabilidad no es lineal.** Un año +30 % y otro −15 % puede ser un resultado normal, no un fracaso.
+
+<Quiz
+  slug="expectativas-realistas"
+  question="Tu cuenta cae un 40 %. ¿Qué rentabilidad necesitas para volver al punto de partida?"
+  options={["+40 %", "+50 %", "+66,7 %", "+80 %"]}
+  correct={2}
+  explanation="Si tenías 100 y caes a 60, necesitas ganar 40 sobre 60, es decir, un 66,7 %. Las pérdidas y las ganancias no son simétricas."
+/>
+
+<Callout type="tip" title="Ejercicio">
+Abre el laboratorio y busca un drawdown del 30 % o más en cualquier activo. Anota cuántos meses tardó en recuperarse. Ese es el coste real de no gestionar el riesgo.
+</Callout>

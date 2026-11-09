@@ -1,0 +1,83 @@
+---
+title: "Medias móviles: suavizar el ruido sin engañarte"
+module: "m5"
+order: 1
+minutes: 5
+level: "principiante"
+summary: "La media móvil no predice: resume. Bien usada, ayuda a ver la tendencia; mal usada, genera señales tardías y falsas."
+objectives:
+  - "Entender qué es una media móvil simple y una exponencial"
+  - "Interpretar cruces y pendientes sin sobreoperar"
+  - "Elegir el periodo según el objetivo, no por moda"
+dataset: "btc-1d"
+related: ["tendencia", "rsi"]
+tags: ["indicadores", "medias"]
+---
+
+Una media móvil toma los últimos N cierres, los promedia y dibuja el resultado. Su función es **quitar ruido**, no adivinar el futuro.
+
+## SMA y EMA
+
+**SMA (simple):** todos los cierres pesan igual. Es más suave y más lenta.
+
+**EMA (exponencial):** da más peso a los datos recientes. Reacciona antes, pero también genera más señales falsas.
+
+<DatasetChart
+  dataset="btc-1d"
+  from={500}
+  to={700}
+  height={260}
+  overlays={[
+    { type: "sma", period: 20, color: "#f0b429" },
+    { type: "sma", period: 50, color: "#5aa9ff" },
+    { type: "ema", period: 200, color: "#a78bfa" },
+  ]}
+  caption="BTC diario: SMA 20 (ámbar), SMA 50 (azul) y EMA 200 (violeta)."
+/>
+
+En el gráfico, la media de 200 se mueve muy despacio y marca la tendencia de fondo. Las de 20 y 50 reaccionan antes, pero también cambian de dirección más veces.
+
+## Tres usos razonables
+
+**1. Dirección.** Si el precio está por encima de la media de 200 y la media sube, el contexto es alcista. No es una señal de compra: es un filtro.
+
+**2. Soporte dinámico.** En tendencias fuertes, las medias de 20 o 50 a veces actúan como zonas de reacción. No siempre, y no en todos los activos.
+
+**3. Cruces.** Cuando una media rápida cruza por encima de una lenta, se habla de "cruce dorado"; por debajo, "cruce de la muerte". Suenan épicos, pero llegan tarde por definición.
+
+<KeyIdea>
+Una media móvil es un resumen del pasado. Cuanto más corta, más ruido muestra; cuanto más larga, más tarde avisa. No existe el periodo perfecto.
+</KeyIdea>
+
+## El problema del cruce
+
+Imagina una subida fuerte. La media rápida cruza la lenta cuando el movimiento ya lleva un buen tramo. Entras tarde, y si el precio corrige, el stop salta. Los cruces funcionan mejor en tendencias sostenidas y peor en rangos.
+
+<Callout type="warning" title="Optimización infinita">
+Si pruebas 200 combinaciones de periodos hasta encontrar la que mejor funcionó en el pasado, no has encontrado una estrategia: has encontrado una coincidencia. Eso se llama sobreajuste.
+</Callout>
+
+## Cómo elegir el periodo
+
+No por estética. Por pregunta:
+
+- ¿Quiero filtrar la tendencia de fondo? Media larga (100–200).
+- ¿Quiero una referencia de corto plazo? Media de 20–50.
+- ¿Opero en 4 horas? Ajusta el periodo a esa temporalidad, no copies el de diario.
+
+<Quiz
+  slug="medias-moviles"
+  question="¿Qué indica un cruce de la media de 50 por encima de la de 200?"
+  options={[
+    "Que el precio va a subir con certeza",
+    "Que el impulso reciente es más fuerte que el de largo plazo, con retraso",
+    "Que hay que comprar inmediatamente",
+    "Que el volumen ha aumentado",
+  ]}
+  correct={1}
+  explanation="El cruce resume que el promedio reciente superó al de largo plazo. Es información con retraso, no una garantía ni una orden de compra."
+/>
+
+<Callout type="tip" title="Ejercicio">
+En el laboratorio, activa la SMA 20 y la SMA 50. Cuenta cuántos cruces hubo en los últimos seis meses y cuántos habrían dado una señal útil. Ese ejercicio cura el entusiasmo por los cruces.
+</Callout>

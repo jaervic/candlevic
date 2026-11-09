@@ -1,0 +1,79 @@
+---
+title: "Teoría de Dow: la base de todo el análisis técnico"
+module: "m4"
+order: 3
+minutes: 5
+level: "principiante"
+summary: "Charles Dow describió el comportamiento del mercado hace más de un siglo. Sus principios siguen siendo el esqueleto de la tendencia."
+objectives:
+  - "Conocer los principios esenciales de la Teoría de Dow"
+  - "Aplicar la confirmación y la invalidación de tendencia"
+  - "Entender por qué el volumen importa"
+dataset: "btc-bear-2022"
+related: ["tendencia", "soporte-resistencia"]
+tags: ["dow", "tendencia", "historia"]
+---
+
+Charles Dow fue periodista y cofundador de *The Wall Street Journal*. Nunca escribió un libro: sus ideas se recopilaron a partir de sus editoriales. Aun así, casi todo el análisis técnico moderno parte de ahí.
+
+## Los principios que importan
+
+**1. El precio lo descuenta todo.** Toda la información disponible ya está en el precio. No hace falta adivinar las noticias: mira la reacción.
+
+**2. Hay tres tipos de tendencia.** Principal (meses o años), secundaria (semanas o meses) y menor (días). Se mueven en direcciones opuestas y al mismo tiempo.
+
+**3. Una tendencia persiste hasta que se demuestra lo contrario.** No se cambia de opinión por una vela. Se cambia cuando la estructura se rompe.
+
+**4. Las tendencias se confirman con el volumen.** Un movimiento con poco volumen es sospechoso.
+
+**5. Una tendencia sigue vigente mientras no se rompa el último máximo o mínimo relevante.**
+
+<DatasetChart
+  dataset="btc-bear-2022"
+  from={150}
+  to={426}
+  height={260}
+  showVolume
+  markers={[
+    { index: 189, text: "LUNA", color: "#ff5c6c", position: "aboveBar", shape: "arrowDown" },
+    { index: 372, text: "FTX", color: "#ff5c6c", position: "aboveBar", shape: "arrowDown" },
+  ]}
+  caption="BTC en 2022: máximos y mínimos cada vez más bajos. La tendencia bajista se confirmó una y otra vez."
+/>
+
+## Confirmación e invalidación
+
+En una tendencia alcista, el último mínimo relevante es tu línea de invalidación. Mientras no se rompa, la tendencia sigue siendo alcista. Si se rompe con volumen, la lectura cambia.
+
+En el gráfico de 2022, cada rebote dejó un máximo más bajo y cada caída un mínimo más bajo. No hacía falta un indicador para verlo.
+
+<KeyIdea>
+La tendencia no se adivina: se describe. Tu trabajo no es predecir el giro, sino reconocer cuándo la estructura cambia y ajustar el riesgo.
+</KeyIdea>
+
+## Lo que Dow no dijo
+
+Dow no dijo que una tendencia dure para siempre, ni que puedas entrar en cualquier momento. Tampoco dijo que el análisis técnico funcione en todos los activos ni en todas las temporalidades.
+
+Su marco es una forma de **ordenar la información**, no una bola de cristal.
+
+<Callout type="info" title="Conexión con Murphy">
+John J. Murphy popularizó estos principios en *Technical Analysis of the Financial Markets*. Si quieres profundizar, es la referencia natural después de esta lección.
+</Callout>
+
+<Quiz
+  slug="teoria-dow"
+  question="Según la Teoría de Dow, ¿cuándo deja de ser válida una tendencia alcista?"
+  options={[
+    "Cuando una vela es roja",
+    "Cuando el RSI baja de 70",
+    "Cuando se rompe el último mínimo relevante con convicción",
+    "Cuando el precio lleva tres días lateral",
+  ]}
+  correct={2}
+  explanation="La estructura manda. Mientras los mínimos relevantes se mantengan, la tendencia alcista sigue vigente. El RSI o una vela aislada no la invalidan."
+/>
+
+<Callout type="tip" title="Ejercicio">
+Busca un periodo de tendencia bajista en el laboratorio y marca cada máximo y mínimo. Cuenta cuántos rebotes fueron solo una pausa antes de seguir cayendo.
+</Callout>

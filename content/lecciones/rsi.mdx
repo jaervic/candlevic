@@ -1,0 +1,78 @@
+---
+title: "RSI: sobrecompra, sobreventa y sus trampas"
+module: "m5"
+order: 2
+minutes: 5
+level: "principiante"
+summary: "El RSI mide la fuerza relativa de las subidas frente a las bajadas. No dice cuándo comprar ni cuándo vender."
+objectives:
+  - "Entender qué mide el RSI y cómo se calcula a grandes rasgos"
+  - "Interpretar los niveles 70 y 30 sin automatismos"
+  - "Reconocer divergencias y sus limitaciones"
+dataset: "btc-1d"
+related: ["medias-moviles", "tendencia"]
+tags: ["indicadores", "rsi", "osciladores"]
+---
+
+El RSI (Relative Strength Index) se mueve entre 0 y 100 y compara la magnitud de las subidas recientes con la de las bajadas. Se suele calcular con 14 periodos.
+
+<DatasetChart
+  dataset="btc-1d"
+  from={580}
+  to={700}
+  height={300}
+  showRsi
+  caption="BTC diario con RSI de 14 periodos en la parte inferior."
+/>
+
+## Qué significa 70 y 30
+
+- **Por encima de 70:** sobrecompra. El activo ha subido mucho en relación con sus propias caídas.
+- **Por debajo de 30:** sobreventa. Ha caído mucho en relación con sus propias subidas.
+
+<Callout type="danger" title="La trampa más común">
+"Sobrecompra" no significa "va a bajar". En una tendencia fuerte, el RSI puede quedarse por encima de 70 durante semanas mientras el precio sigue subiendo. Vender solo por eso es una forma rápida de perder el movimiento.
+</Callout>
+
+## Tres lecturas útiles
+
+**1. Contexto de impulso.** Un RSI alto confirma que el movimiento tiene fuerza. En tendencia, es información, no una señal contraria.
+
+**2. Divergencia.** El precio hace un máximo nuevo, pero el RSI no. Sugiere que el impulso se está agotando. Es una pista, no una certeza.
+
+**3. Rangos.** En un mercado lateral, los extremos del RSI suelen coincidir con los extremos del rango. Ahí sí tiene más sentido como referencia.
+
+<KeyIdea>
+Los indicadores no tienen contexto propio: lo heredan del precio. El mismo RSI en 80 significa cosas distintas en tendencia y en rango.
+</KeyIdea>
+
+## Por qué el RSI puede engañarte
+
+El RSI se calcula sobre el precio, así que no puede adelantarse a él de forma sistemática. En tendencias prolongadas, las señales de sobrecompra y sobreventa fallan repetidamente. Y en temporalidades bajas, el ruido lo vuelve errático.
+
+<Quiz
+  slug="rsi"
+  question="El RSI lleva dos semanas por encima de 70 y el precio sigue subiendo. ¿Qué conclusión es correcta?"
+  options={[
+    "Hay que vender ya: está sobrecomprado",
+    "El RSI está roto",
+    "El impulso es fuerte; la sobrecompra no invalida la tendencia",
+    "El precio va a caer mañana",
+  ]}
+  correct={2}
+  explanation="En tendencias fuertes, el RSI puede mantenerse alto mucho tiempo. La sobrecompra describe fuerza, no una fecha de giro."
+/>
+
+## Cómo usarlo sin esclavizarte
+
+<StepList
+  steps={[
+    { title: "Primero la estructura", body: "Define tendencia y niveles antes de mirar el RSI." },
+    { title: "Después el impulso", body: "Usa el RSI para confirmar o dudar, no para decidir solo." },
+    { title: "Nunca sin stop", body: "Ningún indicador sustituye la gestión de riesgo." },
+  ]}
+/>
+
+<Callout type="tip" title="Ejercicio">
+Busca en el laboratorio un periodo en el que el RSI estuviera por encima de 70 durante más de diez velas seguidas. ¿Cuánto subió el precio después? ¿Habrías vendido demasiado pronto?
+</Callout>

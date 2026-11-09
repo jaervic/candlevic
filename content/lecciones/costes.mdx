@@ -1,0 +1,77 @@
+---
+title: "El coste invisible: spread, comisiones y slippage"
+module: "m1"
+order: 3
+minutes: 4
+level: "principiante"
+summary: "Cada operación tiene un peaje. En estrategias activas, ese peaje puede ser la diferencia entre ganar y perder."
+objectives:
+  - "Identificar los tres costes de operar"
+  - "Calcular el impacto de las comisiones en una estrategia activa"
+  - "Comparar el coste de operar mucho frente a operar poco"
+dataset: "btc-4h"
+related: ["ordenes", "estilos"]
+tags: ["fundamentos", "costes"]
+---
+
+Hay un enemigo del trader que no aparece en los gráficos ni en las noticias: **el coste de operar**. No se ve, pero se paga en cada operación.
+
+## Los tres peajes
+
+**1. Spread.** Es la diferencia entre el precio de compra (ask) y el de venta (bid). Si el spread es del 0,05 %, compras un 0,05 % más caro y vendes un 0,05 % más barato. Ida y vuelta: ya has perdido el 0,1 % antes de empezar.
+
+**2. Comisión.** Lo que cobra el bróker o exchange. Puede ser un porcentaje o una tarifa fija.
+
+**3. Slippage.** La diferencia entre el precio que esperabas y el que consigues. Aparece cuando la orden es grande o el mercado se mueve rápido.
+
+<KeyIdea>
+En una operación, estos costes parecen pequeños. Multiplicados por 20 operaciones al día durante un año, son una sangría.
+</KeyIdea>
+
+## La cuenta que nadie hace
+
+Imagina una estrategia con 0,10 % de comisión por lado y 0,05 % de spread. Cada operación completa (entrar y salir) cuesta aproximadamente:
+
+`0,10 % + 0,10 % + 0,05 % + 0,05 % = 0,30 %`
+
+Si haces 10 operaciones al día durante 250 días:
+
+`0,30 % × 10 × 250 = 750 %` del capital movido en costes.
+
+No significa que pierdas el 750 % de tu cuenta: significa que tu estrategia tiene que generar **mucho** antes de que tú veas un euro. Con un capital de 1.000 € y 10 operaciones diarias, estarías pagando unos 30 € al día en costes.
+
+| Estilo | Operaciones/año | Coste aproximado* |
+|---|---|---|
+| Scalping | 2.500+ | Muy alto |
+| Day trading | 500–1.000 | Alto |
+| Swing | 50–150 | Moderado |
+| Posición / DCA | 12–24 | Bajo |
+
+*Con 0,30 % por operación completa.
+
+## Cómo reducirlos
+
+<StepList
+  steps={[
+    { title: "Opera menos", body: "Es la medida más eficaz. Cada operación que no haces es un coste que no pagas." },
+    { title: "Usa órdenes limitadas", body: "Evitas pagar el spread completo y reduces el slippage, a cambio de no entrar siempre." },
+    { title: "Elige bien el mercado", body: "Los activos con más liquidez tienen spreads más estrechos." },
+    { title: "Calcula el coste antes", body: "Si tu objetivo es un 0,5 % y el coste es un 0,3 %, tu ventaja real es mínima." },
+  ]}
+/>
+
+<Callout type="danger" title="El problema del scalping para principiantes">
+El scalping necesita una ventaja estadística muy grande solo para cubrir costes. Por eso es el estilo menos recomendable para empezar, incluso aunque sea el más llamativo en redes.
+</Callout>
+
+<Quiz
+  slug="costes"
+  question="Tu estrategia gana un 0,4 % por operación y el coste total (comisión + spread) es del 0,3 %. ¿Qué queda?"
+  options={["+0,7 %", "+0,1 %", "−0,1 %", "Depende del activo"]}
+  correct={1}
+  explanation="0,4 % − 0,3 % = 0,1 %. Un margen mínimo que cualquier deslizamiento o comisión extra puede convertir en pérdida."
+/>
+
+<Callout type="tip" title="Ejercicio">
+Calcula cuánto pagarías en comisiones al año con tu estilo objetivo. Si no lo sabes, todavía no tienes estilo: solo tienes ganas.
+</Callout>
