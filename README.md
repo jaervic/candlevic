@@ -27,7 +27,7 @@ Web app educativa, gratuita y mobile-first para aprender trading de acciones y c
 
 ## Stack
 
-- Next.js 15 (App Router) + React 19 + TypeScript
+- Next.js 16 (App Router) + React 19 + TypeScript
 - Tailwind CSS v4
 - lightweight-charts (TradingView)
 - Zustand para el progreso local
