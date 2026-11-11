@@ -13,6 +13,7 @@ const sample: ProgressData = {
     velas: { status: "completed", quizScore: 100, at: 1700000000000 },
   },
   streak: { current: 3, lastDay: "2026-11-08" },
+  confidence: { velas: "high" },
   profile: "swing",
   savedCode: "TEST-TEST-TEST",
   startedAt: 1700000000000,

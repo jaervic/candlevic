@@ -1,7 +1,9 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Link from "next/link";
 import {
+  ArrowRight,
   Award,
   Check,
   Cloud,
@@ -36,14 +38,27 @@ import {
   isSelfContainedCode,
 } from "@/lib/selfbackup";
 import { useHydrated } from "@/lib/use-hydrated";
+import { getReviewQueue } from "@/lib/review";
 import { formatDate } from "@/lib/utils";
 
 type Status = { type: "ok" | "err"; message: string } | null;
 
-export function ProgressPanel({ lessonSlugs }: { lessonSlugs: string[] }) {
+type ProgressModule = {
+  module: { id: string; title: string; accent: string };
+  lessons: { slug: string; title: string }[];
+};
+
+export function ProgressPanel({
+  lessonSlugs,
+  modules,
+}: {
+  lessonSlugs: string[];
+  modules: ProgressModule[];
+}) {
   const hydrated = useHydrated();
   const lessons = useProgress((s) => s.lessons);
   const streak = useProgress((s) => s.streak.current);
+  const confidence = useProgress((s) => s.confidence) ?? {};
   const profile = useProgress((s) => s.profile);
   const savedCode = useProgress((s) => s.savedCode);
   const setSavedCode = useProgress((s) => s.setSavedCode);
@@ -69,6 +84,36 @@ export function ProgressPanel({ lessonSlugs }: { lessonSlugs: string[] }) {
     ? Math.round(quizScores.reduce((a, b) => a + b, 0) / quizScores.length)
     : 0;
 
+  const catalog = modules.flatMap(({ module, lessons: moduleLessons }) =>
+    moduleLessons.map((lesson) => ({
+      slug: lesson.slug,
+      title: lesson.title,
+      module: module.title,
+    })),
+  );
+  const review = hydrated
+    ? getReviewQueue(lessons, confidence, catalog).slice(0, 5)
+    : [];
+  const mastery = modules
+    .map(({ module, lessons: moduleLessons }) => {
+      const total = moduleLessons.length;
+      const value = moduleLessons.reduce((sum, lesson) => {
+        const progress = lessons[lesson.slug];
+        if (!progress || progress.status !== "completed") return sum;
+        return sum + 0.6 + 0.4 * ((progress.quizScore ?? 0) / 100);
+      }, 0);
+      const done = moduleLessons.filter(
+        (lesson) => lessons[lesson.slug]?.status === "completed",
+      ).length;
+      return {
+        module,
+        pct: Math.round((value / Math.max(total, 1)) * 100),
+        done,
+        total,
+      };
+    })
+    .filter((entry) => entry.total > 0);
+
   const badges = [
     { label: "Primera lección", done: completed >= 1, icon: Zap },
     { label: "5 lecciones", done: completed >= 5, icon: Flame },
@@ -87,6 +132,7 @@ export function ProgressPanel({ lessonSlugs }: { lessonSlugs: string[] }) {
     const result = await saveBackup(code, {
       lessons: state.lessons,
       streak: state.streak,
+      confidence: state.confidence,
       profile: state.profile,
       startedAt: state.startedAt,
       savedCode: code,
@@ -104,6 +150,7 @@ export function ProgressPanel({ lessonSlugs }: { lessonSlugs: string[] }) {
         {
           lessons: state.lessons,
           streak: state.streak,
+          confidence: state.confidence,
           profile: state.profile,
           startedAt: state.startedAt,
           savedCode: null,
@@ -131,6 +178,7 @@ export function ProgressPanel({ lessonSlugs }: { lessonSlugs: string[] }) {
         {
           lessons: state.lessons,
           streak: state.streak,
+          confidence: state.confidence,
           profile: state.profile,
           startedAt: state.startedAt,
           savedCode: null,
@@ -150,6 +198,7 @@ export function ProgressPanel({ lessonSlugs }: { lessonSlugs: string[] }) {
     const result = await saveBackup(savedCode, {
       lessons: state.lessons,
       streak: state.streak,
+      confidence: state.confidence,
       profile: state.profile,
       startedAt: state.startedAt,
       savedCode,
@@ -287,6 +336,61 @@ export function ProgressPanel({ lessonSlugs }: { lessonSlugs: string[] }) {
             {100 - level.progress} XP para el siguiente nivel
           </p>
         </div>
+      </section>
+
+      <section>
+        <h2 className="mb-2 text-sm font-semibold">Dominio por módulo</h2>
+        <div className="space-y-2">
+          {mastery.map(({ module, pct, done, total }) => (
+            <div
+              key={module.id}
+              className="rounded-xl border border-line bg-surface p-3"
+            >
+              <div className="flex items-center justify-between gap-2">
+                <p className="truncate text-[12px] font-medium">
+                  {module.title}
+                </p>
+                <span className="num shrink-0 text-[10px] text-faint">
+                  {done}/{total} · {pct}%
+                </span>
+              </div>
+              <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-surface-3">
+                <div
+                  className="module-bar h-full rounded-full transition-[width] duration-500"
+                  style={{ width: `${pct}%`, backgroundColor: module.accent }}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <h2 className="mb-2 text-sm font-semibold">Repaso pendiente</h2>
+        {review.length === 0 ? (
+          <div className="rounded-xl border border-line bg-surface p-3 text-[11.5px] leading-relaxed text-muted">
+            Nada pendiente por ahora. Sigue avanzando y vuelve en unos días.
+          </div>
+        ) : (
+          <div className="overflow-hidden rounded-2xl border border-line bg-surface">
+            {review.map((item, index) => (
+              <Link
+                key={item.slug}
+                href={`/aprender/${item.slug}`}
+                className={`flex items-center gap-2 px-4 py-2.5 text-[12.5px] transition-colors hover:bg-surface-2/60 ${
+                  index > 0 ? "border-t border-line/70" : ""
+                }`}
+              >
+                <RotateCcw className="h-3.5 w-3.5 shrink-0 text-info" />
+                <span className="min-w-0 flex-1 truncate">{item.title}</span>
+                <span className="num shrink-0 text-[10px] text-faint">
+                  {item.score != null ? `${item.score}%` : "sin quiz"}
+                </span>
+                <ArrowRight className="h-3.5 w-3.5 shrink-0 text-faint" />
+              </Link>
+            ))}
+          </div>
+        )}
       </section>
 
       <section>

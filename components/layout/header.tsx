@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BookOpen, Flame, FlaskConical, Radio, Settings2, Zap } from "lucide-react";
+import { BookOpen, Flame, FlaskConical, Radio, Search, Settings2, Zap } from "lucide-react";
 import { Logo } from "./logo";
 import { cn } from "@/lib/utils";
 import { useHydrated } from "@/lib/use-hydrated";
@@ -23,6 +23,7 @@ export function Header() {
   const streak = useProgress((s) => s.streak.current);
   const xp = hydrated ? totalXp(lessons) : 0;
   const openSettings = useUI((s) => s.openSettings);
+  const openSearch = useUI((s) => s.openSearch);
 
   return (
     <header className="app-header sticky top-0 z-40 border-b border-line/70 bg-bg/95 backdrop-blur-xl">
@@ -51,6 +52,18 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <button
+            onClick={openSearch}
+            aria-label="Buscar"
+            title="Buscar (⌘K)"
+            className="inline-flex h-8 items-center gap-2 rounded-full border border-line bg-surface px-2.5 text-[12px] text-muted transition-colors hover:border-line-strong hover:text-fg md:px-3"
+          >
+            <Search className="h-3.5 w-3.5" />
+            <span className="hidden md:inline">Buscar</span>
+            <kbd className="hidden rounded border border-line px-1 text-[9px] text-faint md:inline">
+              ⌘K
+            </kbd>
+          </button>
           <span
             className="inline-flex h-8 items-center gap-1.5 rounded-full border border-line bg-surface px-2.5 text-[12px] text-muted"
             title="Racha de días seguidos"

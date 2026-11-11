@@ -37,7 +37,7 @@ export function LearnHub({
           <section key={module.id} id={module.id} className="scroll-mt-20">
             <div className="mb-3 flex items-start gap-3">
               <span
-                className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border"
+                className="module-accent-icon mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border"
                 style={{
                   borderColor: `${module.accent}33`,
                   backgroundColor: `${module.accent}14`,

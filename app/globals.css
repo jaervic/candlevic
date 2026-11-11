@@ -425,6 +425,17 @@
 }
 
 /* ------------------------------------------------------------------ */
+/*  Acentos de módulos en temas claros                                */
+/* ------------------------------------------------------------------ */
+
+[data-theme="papel"] .module-accent-icon,
+[data-theme="sepia"] .module-accent-icon,
+[data-theme="papel"] .module-bar,
+[data-theme="sepia"] .module-bar {
+  filter: brightness(0.72) saturate(1.05);
+}
+
+/* ------------------------------------------------------------------ */
 /*  Modo concentración                                                */
 /* ------------------------------------------------------------------ */
 

@@ -35,7 +35,7 @@ export default function BibliotecaPage() {
           >
             <div className="flex items-start justify-between gap-2">
               <span
-                className="flex h-9 w-9 items-center justify-center rounded-lg border"
+                className="module-accent-icon flex h-9 w-9 items-center justify-center rounded-lg border"
                 style={{
                   borderColor: `${book.accent}33`,
                   backgroundColor: `${book.accent}14`,

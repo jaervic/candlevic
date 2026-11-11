@@ -76,6 +76,12 @@ La orden correcta es la que expresa tu intención con el riesgo que estás dispu
     "Una orden stop-limit de compra a 75.000",
   ]}
   correct={1}
+  wrong={[
+    "A mercado comprarías ya, cerca de 75.000, no a 70.000.",
+    "",
+    "Un stop de venta a 70.000 vendería si el precio cae, no compraría.",
+    "Un stop-limit a 75.000 no espera a que baje a 70.000.",
+  ]}
   explanation="La limitada solo se ejecuta a tu precio o mejor. Si el precio no llega a 70.000, no compras, y eso forma parte del plan."
 />
 

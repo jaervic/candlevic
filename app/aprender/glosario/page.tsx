@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Search } from "lucide-react";
 import {
   GLOSSARY,
@@ -12,6 +12,11 @@ import { LearnTabs } from "@/components/learn/learn-tabs";
 export default function GlosarioPage() {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<GlossaryCategory | "todas">("todas");
+
+  useEffect(() => {
+    const value = new URLSearchParams(window.location.search).get("q");
+    if (value) setQuery(value);
+  }, []);
 
   const results = useMemo(() => {
     const q = query

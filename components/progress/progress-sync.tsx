@@ -19,10 +19,11 @@ export function ProgressSync() {
 
       if (timer.current) clearTimeout(timer.current);
       timer.current = setTimeout(() => {
-        const { lessons, streak, profile, startedAt } = useProgress.getState();
+        const { lessons, streak, confidence, profile, startedAt } = useProgress.getState();
         void saveBackup(code, {
           lessons,
           streak,
+          confidence,
           profile,
           startedAt,
           savedCode: code,

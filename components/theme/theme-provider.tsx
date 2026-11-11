@@ -10,6 +10,7 @@ import {
 import { useUI } from "@/lib/ui";
 import { ThemeContext } from "./theme-context";
 import { SettingsSheet } from "./settings-sheet";
+import { SearchDialog } from "@/components/search/search-dialog";
 
 function useMediaQuery(query: string, fallback = false) {
   const [matches, setMatches] = useState(() => {
@@ -86,6 +87,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     <ThemeContext.Provider value={resolved}>
       {children}
       <SettingsSheet />
+      <SearchDialog />
     </ThemeContext.Provider>
   );
 }

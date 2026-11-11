@@ -3,6 +3,7 @@ import path from "node:path";
 import matter from "gray-matter";
 import { z } from "zod";
 import { MODULES, type ModuleId, moduleIndex } from "@/content/modulos";
+import { slugify } from "./utils";
 
 const CONTENT_DIR = path.join(process.cwd(), "content");
 
@@ -37,7 +38,50 @@ export type LessonMeta = z.infer<typeof lessonSchema> & {
 
 export type DocMeta = z.infer<typeof docSchema> & { slug: string };
 
-export type Lesson = { meta: LessonMeta; content: string };
+export type Heading = {
+  id: string;
+  text: string;
+  level: 2 | 3;
+};
+
+export type Lesson = {
+  meta: LessonMeta;
+  content: string;
+  headings: Heading[];
+};
+
+export function extractHeadings(content: string): Heading[] {
+  const headings: Heading[] = [];
+  let inCode = false;
+
+  for (const line of content.split("\n")) {
+    const trimmed = line.trim();
+    if (trimmed.startsWith("```")) {
+      inCode = !inCode;
+      continue;
+    }
+    if (inCode) continue;
+
+    const match = /^(#{2,3})\s+(.+?)\s*$/.exec(trimmed);
+    if (!match) continue;
+
+    const text = match[2]
+      .replace(/\*\*/g, "")
+      .replace(/\*/g, "")
+      .replace(/`/g, "")
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+      .trim();
+
+    if (!text) continue;
+    headings.push({
+      id: slugify(text),
+      text,
+      level: match[1].length as 2 | 3,
+    });
+  }
+
+  return headings;
+}
 export type Doc = { meta: DocMeta; content: string };
 
 function readDir(dir: string) {
@@ -72,6 +116,7 @@ export function getLessons(): Lesson[] {
     return {
       meta: { ...parsed.data, slug, module: parsed.data.module as ModuleId },
       content,
+      headings: extractHeadings(content),
     };
   });
 

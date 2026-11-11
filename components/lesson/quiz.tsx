@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Check, RotateCcw, X } from "lucide-react";
-import { useProgress } from "@/lib/progress";
+import { useProgress, type Confidence } from "@/lib/progress";
 import { cn } from "@/lib/utils";
 
 type QuizProps = {
@@ -11,6 +11,7 @@ type QuizProps = {
   options: string[];
   correct: number;
   explanation: string;
+  wrong?: string[];
 };
 
 const LETTERS = ["A", "B", "C", "D", "E"];
@@ -21,17 +22,35 @@ export function Quiz({
   options,
   correct,
   explanation,
+  wrong,
 }: QuizProps) {
   const [selected, setSelected] = useState<number | null>(null);
+  const [confidence, setConfidence] = useState<Confidence | null>(null);
   const recordQuiz = useProgress((s) => s.recordQuiz);
+  const recordConfidence = useProgress((s) => s.recordConfidence);
 
   function choose(index: number) {
     if (selected != null) return;
     setSelected(index);
-    if (slug) recordQuiz(slug, index === correct ? 100 : 40);
+
+    const isRight = index === correct;
+    if (slug) {
+      recordQuiz(slug, isRight ? 100 : 40);
+      if (!isRight) {
+        recordConfidence(slug, "low");
+        setConfidence("low");
+      }
+    }
+  }
+
+  function retry() {
+    setSelected(null);
+    setConfidence(null);
   }
 
   const isCorrect = selected === correct;
+  const wrongExplanation =
+    selected != null && !isCorrect ? wrong?.[selected] : undefined;
 
   return (
     <div className="my-6 rounded-2xl border border-line bg-surface p-4">
@@ -90,16 +109,68 @@ export function Quiz({
               : "border-down/25 bg-down/10 text-fg/90",
           )}
         >
-          <p className={cn("mb-1 text-[11px] font-semibold", isCorrect ? "text-up" : "text-down")}>
+          <p
+            className={cn(
+              "mb-1 text-[11px] font-semibold",
+              isCorrect ? "text-up" : "text-down",
+            )}
+          >
             {isCorrect ? "Correcto" : "No exactamente"}
           </p>
-          {explanation}
+          {wrongExplanation && (
+            <p className="mb-1.5 text-fg/80">{wrongExplanation}</p>
+          )}
+          <p className={cn(wrongExplanation && "text-muted")}>{explanation}</p>
         </div>
+      )}
+
+      {selected != null && isCorrect && slug && (
+        <div className="mt-2 flex flex-wrap items-center gap-2">
+          {confidence == null ? (
+            <>
+              <span className="text-[11px] text-faint">
+                ¿Lo tenías claro?
+              </span>
+              <button
+                type="button"
+                onClick={() => {
+                  setConfidence("high");
+                  recordConfidence(slug, "high");
+                }}
+                className="rounded-md border border-up/30 bg-up/10 px-2 py-1 text-[10.5px] text-up transition-colors hover:bg-up/15"
+              >
+                Sí
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setConfidence("low");
+                  recordConfidence(slug, "low");
+                }}
+                className="rounded-md border border-line bg-surface-2 px-2 py-1 text-[10.5px] text-muted transition-colors hover:text-fg"
+              >
+                Dudaba
+              </button>
+            </>
+          ) : (
+            <span className="text-[10px] text-faint">
+              {confidence === "high"
+                ? "Anotado como dominado."
+                : "Anotado para repasar pronto."}
+            </span>
+          )}
+        </div>
+      )}
+
+      {selected != null && !isCorrect && slug && (
+        <p className="mt-2 text-[10px] text-faint">
+          Anotado para repasar pronto.
+        </p>
       )}
 
       {selected != null && (
         <button
-          onClick={() => setSelected(null)}
+          onClick={retry}
           className="mt-2 inline-flex items-center gap-1.5 text-[11px] text-faint transition-colors hover:text-muted"
         >
           <RotateCcw className="h-3 w-3" />

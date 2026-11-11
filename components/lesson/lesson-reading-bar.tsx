@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Maximize2, Minimize2, Type } from "lucide-react";
+import { List, Maximize2, Minimize2, Type } from "lucide-react";
 import { useUI } from "@/lib/ui";
 import { cn } from "@/lib/utils";
 
@@ -10,6 +10,7 @@ export function LessonReadingBar() {
   const openSettings = useUI((s) => s.openSettings);
   const focusMode = useUI((s) => s.focusMode);
   const toggleFocus = useUI((s) => s.toggleFocus);
+  const openToc = useUI((s) => s.openToc);
 
   useEffect(() => {
     let frame = 0;
@@ -58,6 +59,15 @@ export function LessonReadingBar() {
           Lectura
         </p>
         <div className="flex items-center gap-1.5">
+          <button
+            type="button"
+            onClick={openToc}
+            className="inline-flex h-8 items-center gap-1.5 rounded-lg border border-line bg-surface px-2.5 text-[11px] text-muted transition-colors hover:border-line-strong hover:text-fg lg:hidden"
+            aria-label="Contenido de la lección"
+          >
+            <List className="h-3.5 w-3.5" />
+            Contenido
+          </button>
           <button
             type="button"
             onClick={openSettings}

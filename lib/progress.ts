@@ -4,6 +4,8 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { todayKey } from "./utils";
 
+export type Confidence = "high" | "low";
+
 export type LessonProgress = {
   status: "started" | "completed";
   quizScore?: number;
@@ -13,6 +15,7 @@ export type LessonProgress = {
 export type ProgressData = {
   lessons: Record<string, LessonProgress>;
   streak: { current: number; lastDay: string };
+  confidence: Record<string, Confidence>;
   profile: string | null;
   savedCode: string | null;
   startedAt: number;
@@ -22,6 +25,7 @@ type ProgressActions = {
   start: (slug: string) => void;
   complete: (slug: string, quizScore?: number) => void;
   recordQuiz: (slug: string, score: number) => void;
+  recordConfidence: (slug: string, confidence: Confidence) => void;
   setProfile: (profile: string) => void;
   setSavedCode: (code: string | null) => void;
   merge: (remote: Partial<ProgressData>) => void;
@@ -34,6 +38,7 @@ export type ProgressStore = ProgressData & ProgressActions;
 const initialState: ProgressData = {
   lessons: {},
   streak: { current: 0, lastDay: "" },
+  confidence: {},
   profile: null,
   savedCode: null,
   startedAt: Date.now(),
@@ -110,17 +115,29 @@ export const useProgress = create<ProgressStore>()(
         set((state) => {
           const current = state.lessons[slug];
           const best = Math.max(current?.quizScore ?? 0, score);
+          const completed = current?.status === "completed";
           return {
             lessons: {
               ...state.lessons,
               [slug]: {
                 status: current?.status ?? "started",
                 quizScore: best > 0 ? best : undefined,
-                at: current?.at ?? Date.now(),
+                // Un acierto en una lección ya completada cuenta como repaso:
+                // reinicia el intervalo de repetición espaciada.
+                at:
+                  completed && score >= 100
+                    ? Date.now()
+                    : (current?.at ?? Date.now()),
               },
             },
           };
         });
+      },
+
+      recordConfidence: (slug, confidence) => {
+        set((state) => ({
+          confidence: { ...state.confidence, [slug]: confidence },
+        }));
       },
 
       setProfile: (profile) => set({ profile }),
@@ -138,9 +155,18 @@ export const useProgress = create<ProgressStore>()(
             remoteStreak.current > state.streak.current
               ? remoteStreak
               : state.streak;
+
+          const confidence = { ...state.confidence };
+          for (const [slug, value] of Object.entries(remote.confidence ?? {})) {
+            if (value === "low" || confidence[slug] !== "low") {
+              confidence[slug] = value;
+            }
+          }
+
           return {
             lessons,
             streak,
+            confidence,
             profile: state.profile ?? remote.profile ?? null,
             startedAt: Math.min(
               state.startedAt || Date.now(),

@@ -11,6 +11,7 @@ const data: ProgressData = {
     d: { status: "started", at: 1 },
   },
   streak: { current: 5, lastDay: "2026-11-08" },
+  confidence: {},
   profile: "swing",
   savedCode: null,
   startedAt: 1,

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { isValidElement } from "react";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
@@ -14,8 +15,23 @@ import { ChartQuiz } from "@/components/charts/chart-quiz";
 import { LessonActions } from "@/components/lesson/lesson-actions";
 import { LessonReadingBar } from "@/components/lesson/lesson-reading-bar";
 import { Disclaimer } from "@/components/disclaimer";
+import { LessonToc } from "@/components/lesson/lesson-toc";
+import { slugify } from "@/lib/utils";
 
 type Params = { slug: string };
+
+function textFromChildren(children: React.ReactNode): string {
+  if (typeof children === "string" || typeof children === "number") {
+    return String(children);
+  }
+  if (Array.isArray(children)) {
+    return children.map(textFromChildren).join("");
+  }
+  if (isValidElement<{ children?: React.ReactNode }>(children)) {
+    return textFromChildren(children.props.children);
+  }
+  return "";
+}
 
 export function generateStaticParams() {
   return getLessons().map((lesson) => ({ slug: lesson.meta.slug }));
@@ -40,7 +56,7 @@ export default async function LessonPage({
   const lesson = getLesson(slug);
   if (!lesson) notFound();
 
-  const { meta, content } = lesson;
+  const { meta, content, headings } = lesson;
   const module = MODULE_MAP[meta.module];
   const { prev, next } = getLessonNeighbours(slug);
 
@@ -50,6 +66,24 @@ export default async function LessonPage({
     StepList,
     RiskCalculator,
     DatasetChart,
+    h2: ({ children, ...rest }: React.ComponentProps<"h2">) => (
+      <h2
+        {...rest}
+        id={slugify(textFromChildren(children))}
+        className="scroll-mt-24"
+      >
+        {children}
+      </h2>
+    ),
+    h3: ({ children, ...rest }: React.ComponentProps<"h3">) => (
+      <h3
+        {...rest}
+        id={slugify(textFromChildren(children))}
+        className="scroll-mt-24"
+      >
+        {children}
+      </h3>
+    ),
     Quiz: (props: React.ComponentProps<typeof Quiz>) => (
       <Quiz {...props} slug={slug} />
     ),
@@ -69,7 +103,9 @@ export default async function LessonPage({
   };
 
   return (
-    <article className="reading-shell">
+    <div className="lg:mx-auto lg:grid lg:max-w-[980px] lg:grid-cols-[190px_minmax(0,1fr)] lg:items-start lg:gap-10">
+      <LessonToc headings={headings} />
+      <article className="reading-shell lg:mx-0">
       <LessonReadingBar />
 
       <nav className="mb-4 flex items-center gap-1 text-[11px] text-faint">
@@ -136,6 +172,7 @@ export default async function LessonPage({
       <div className="mt-8 border-t border-line pt-4">
         <Disclaimer />
       </div>
-    </article>
+      </article>
+    </div>
   );
 }

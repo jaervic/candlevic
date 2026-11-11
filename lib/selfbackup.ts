@@ -160,6 +160,7 @@ export function decodeBackup(
   return {
     lessons,
     streak: { current: streak, lastDay: todayKey() },
+    confidence: {},
     profile: CODE_PROFILES[profileCode] ?? null,
     startedAt: Date.now(),
     savedCode: null,

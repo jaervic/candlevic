@@ -26,6 +26,7 @@ import {
   useProgress,
 } from "@/lib/progress";
 import type { CourseModule } from "@/content/modulos";
+import { ReviewCard } from "./review-card";
 
 export type DashboardLesson = {
   slug: string;
@@ -68,6 +69,13 @@ export function Dashboard({
   const overall = Math.round((completed / Math.max(totalLessons, 1)) * 100);
 
   const flat = modules.flatMap((m) => m.lessons);
+  const catalog = modules.flatMap(({ module, lessons: moduleLessons }) =>
+    moduleLessons.map((lesson) => ({
+      slug: lesson.slug,
+      title: lesson.title,
+      module: module.title,
+    })),
+  );
   const nextLesson =
     flat.find((lesson) => lessons[lesson.slug]?.status !== "completed") ??
     flat[0];
@@ -154,6 +162,7 @@ export function Dashboard({
           </div>
         </Link>
       )}
+      <ReviewCard catalog={catalog} />
       </div>
 
       <section className="rounded-2xl border border-line bg-surface p-4">
@@ -230,7 +239,7 @@ export function Dashboard({
               >
                 <div className="flex items-center gap-2.5">
                   <span
-                    className="flex h-8 w-8 items-center justify-center rounded-lg border"
+                    className="module-accent-icon flex h-8 w-8 items-center justify-center rounded-lg border"
                     style={{
                       borderColor: `${module.accent}33`,
                       backgroundColor: `${module.accent}14`,
