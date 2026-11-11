@@ -31,6 +31,7 @@ export function Lab() {
   const [data, setData] = useState<Dataset | null>(null);
   const [liveCandles, setLiveCandles] = useState<Candle[] | null>(null);
   const [liveInfo, setLiveInfo] = useState<string | null>(null);
+  const [liveSymbol, setLiveSymbol] = useState("BTCUSDT");
   const [liveError, setLiveError] = useState<string | null>(null);
   const [liveLoading, setLiveLoading] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -103,9 +104,16 @@ export function Lab() {
         `/api/klines?symbol=BTCUSDT&interval=${interval}&limit=400`,
       );
       if (!res.ok) throw new Error("bad response");
-      const json = (await res.json()) as { candles: Parameters<typeof toCandles>[0] };
+      const json = (await res.json()) as {
+        candles: Parameters<typeof toCandles>[0];
+        source?: string;
+        sourceSymbol?: string;
+      };
       setLiveCandles(toCandles(json.candles));
-      setLiveInfo(`BTCUSDT · ${interval} · Binance`);
+      setLiveSymbol(json.sourceSymbol ?? "BTCUSDT");
+      setLiveInfo(
+        `${json.sourceSymbol ?? "BTCUSDT"} · ${interval} · ${json.source ?? "En vivo"}`,
+      );
       setLiveInterval(interval);
       setReplay(false);
       setPlaying(false);
@@ -113,7 +121,7 @@ export function Lab() {
       setLines([]);
     } catch {
       setLiveError(
-        "No se pudo conectar con Binance. Se mantienen los datos incluidos.",
+        "No se pudo conectar con los datos en vivo. Se mantienen los datos incluidos.",
       );
     } finally {
       setLiveLoading(false);
@@ -202,7 +210,7 @@ export function Lab() {
                   disabled={liveLoading}
                   className="rounded-lg border border-line bg-surface-2/60 px-2.5 py-1.5 text-[11px] text-muted transition-colors hover:text-fg disabled:opacity-50"
                 >
-                  {liveLoading ? "…" : `Binance ${interval}`}
+                  {liveLoading ? "…" : `${interval} en vivo`}
                 </button>
               ))}
               {liveCandles && (
@@ -357,7 +365,7 @@ export function Lab() {
         ) : (
           <PriceChart
             candles={candles}
-            symbol={liveInfo ? "BTCUSDT" : data?.symbol}
+            symbol={liveInfo ? liveSymbol : data?.symbol}
             interval={liveInfo ? liveInterval : data?.interval}
             height={360}
             overlays={overlays}
