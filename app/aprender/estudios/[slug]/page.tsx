@@ -55,7 +55,7 @@ export default async function EstudioPage({
   };
 
   return (
-    <article className="mx-auto max-w-2xl">
+    <article className="reading-shell">
       <Link
         href="/aprender/estudios"
         className="mb-4 inline-flex items-center gap-1.5 text-[11px] text-faint hover:text-muted"

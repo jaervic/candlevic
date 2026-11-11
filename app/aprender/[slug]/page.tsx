@@ -12,6 +12,7 @@ import { RiskCalculator } from "@/components/lesson/risk-calculator";
 import { DatasetChart } from "@/components/charts/dataset-chart";
 import { ChartQuiz } from "@/components/charts/chart-quiz";
 import { LessonActions } from "@/components/lesson/lesson-actions";
+import { LessonReadingBar } from "@/components/lesson/lesson-reading-bar";
 import { Disclaimer } from "@/components/disclaimer";
 
 type Params = { slug: string };
@@ -68,7 +69,9 @@ export default async function LessonPage({
   };
 
   return (
-    <article className="mx-auto max-w-2xl">
+    <article className="reading-shell">
+      <LessonReadingBar />
+
       <nav className="mb-4 flex items-center gap-1 text-[11px] text-faint">
         <Link href="/aprender" className="hover:text-muted">
           Aprender

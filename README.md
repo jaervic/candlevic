@@ -14,6 +14,7 @@ Web app educativa, gratuita y mobile-first para aprender trading de acciones y c
 ## Qué incluye
 
 - **14 lecciones** repartidas en 7 módulos: mentalidad, fundamentos, estilos de trading, velas, tendencia, indicadores y gestión de riesgo.
+- **Cuatro temas** (Noche, Grafito, Papel y Sepia) con detección del sistema, tipografía Inter y ajustes de lectura: tamaño, interlineado, ancho, modo concentración y fondo ambiente.
 - **Gráficos reales interactivos** con velas, medias móviles, RSI, volumen, marcadores y líneas de precio.
 - **Quizzes y ejercicios** con explicación de cada respuesta.
 - **Laboratorio**: indicadores, replay de velas, líneas horizontales y datos en vivo de Binance.
@@ -29,6 +30,7 @@ Web app educativa, gratuita y mobile-first para aprender trading de acciones y c
 
 - Next.js 16 (App Router) + React 19 + TypeScript
 - Tailwind CSS v4
+- Inter variable autoalojada (48 KB, subset latino)
 - lightweight-charts (TradingView)
 - Zustand para el progreso local
 - MDX para el contenido

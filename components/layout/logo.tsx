@@ -10,10 +10,10 @@ export function CandleMark({ className }: { className?: string }) {
       )}
     >
       <svg viewBox="0 0 20 20" className="h-5 w-5" aria-hidden="true">
-        <path d="M6 3v4.2M6 12.8V17" stroke="#f0b429" strokeWidth="1.4" strokeLinecap="round" opacity="0.75" />
-        <rect x="4" y="7.2" width="4" height="5.6" rx="1" fill="#f0b429" />
-        <path d="M14 5v2.6M14 14.4V17" stroke="#2fd47c" strokeWidth="1.4" strokeLinecap="round" opacity="0.8" />
-        <rect x="12" y="7.6" width="4" height="6.8" rx="1" fill="#2fd47c" />
+        <path d="M6 3v4.2M6 12.8V17" style={{ stroke: "var(--color-accent)" }} strokeWidth="1.4" strokeLinecap="round" opacity="0.75" />
+        <rect x="4" y="7.2" width="4" height="5.6" rx="1" style={{ fill: "var(--color-accent)" }} />
+        <path d="M14 5v2.6M14 14.4V17" style={{ stroke: "var(--color-up)" }} strokeWidth="1.4" strokeLinecap="round" opacity="0.8" />
+        <rect x="12" y="7.6" width="4" height="6.8" rx="1" style={{ fill: "var(--color-up)" }} />
       </svg>
     </span>
   );

@@ -150,7 +150,7 @@ export function ProfileTest() {
           </Button>
           <Link
             href="/aprender"
-            className="inline-flex h-11 items-center gap-2 rounded-xl bg-accent px-4 text-sm font-medium text-[#1b1405]"
+            className="inline-flex h-11 items-center gap-2 rounded-xl bg-accent px-4 text-sm font-medium text-on-accent"
           >
             Ir a la ruta <ArrowRight className="h-4 w-4" />
           </Link>

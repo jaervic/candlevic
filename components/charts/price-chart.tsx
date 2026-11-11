@@ -20,6 +20,8 @@ import {
 import type { Candle } from "@/lib/indicators";
 import { ema, rsi, sma, toSeries } from "@/lib/indicators";
 import { cn, formatPrice } from "@/lib/utils";
+import { CHART_PALETTES, chartColor } from "@/lib/chart-theme";
+import { useResolvedTheme } from "@/components/theme/theme-context";
 
 export type Overlay = {
   type: "sma" | "ema";
@@ -34,8 +36,6 @@ export type ChartMarker = {
   position?: "aboveBar" | "belowBar" | "inBar";
   shape?: "arrowUp" | "arrowDown" | "circle" | "square";
 };
-
-const PALETTE = ["#f0b429", "#5aa9ff", "#a78bfa", "#f472b6", "#34d399"];
 
 type PriceChartProps = {
   candles: Candle[];
@@ -85,6 +85,9 @@ export function PriceChart({
   const onPickRef = useRef(onPick);
   onPickRef.current = onPick;
 
+  const resolvedTheme = useResolvedTheme();
+  const palette = CHART_PALETTES[resolvedTheme];
+
   const overlaysKey = JSON.stringify(overlays);
 
   // Crea (o recrea) el gráfico cuando cambia su estructura.
@@ -99,15 +102,15 @@ export function PriceChart({
       autoSize: true,
       layout: {
         background: { type: ColorType.Solid, color: "transparent" },
-        textColor: "#7f8b9c",
+        textColor: palette.text,
         fontSize: 10,
         fontFamily:
           "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
         attributionLogo: false,
       },
       grid: {
-        vertLines: { color: "rgba(32,40,50,0.45)" },
-        horzLines: { color: "rgba(32,40,50,0.45)" },
+        vertLines: { color: palette.grid },
+        horzLines: { color: palette.grid },
       },
       rightPriceScale: {
         borderVisible: false,
@@ -124,8 +127,8 @@ export function PriceChart({
       },
       crosshair: {
         mode: CrosshairMode.Normal,
-        vertLine: { color: "#2d3743", width: 1, labelBackgroundColor: "#1a222b" },
-        horzLine: { color: "#2d3743", width: 1, labelBackgroundColor: "#1a222b" },
+        vertLine: { color: palette.crosshair, width: 1, labelBackgroundColor: palette.crosshair },
+        horzLine: { color: palette.crosshair, width: 1, labelBackgroundColor: palette.crosshair },
       },
       handleScroll: {
         mouseWheel: true,
@@ -141,11 +144,11 @@ export function PriceChart({
     });
 
     const candleSeries = chart.addSeries(CandlestickSeries, {
-      upColor: "#2fd47c",
-      downColor: "#ff5c6c",
+      upColor: palette.up,
+      downColor: palette.down,
       borderVisible: false,
-      wickUpColor: "#2fd47c",
-      wickDownColor: "#ff5c6c",
+      wickUpColor: palette.up,
+      wickDownColor: palette.down,
       priceFormat: { type: "price", precision, minMove: 10 ** -precision },
     });
 
@@ -169,7 +172,7 @@ export function PriceChart({
 
     if (showRsi) {
       const rsiSeries = chart.addSeries(LineSeries, {
-        color: "#f0b429",
+        color: palette.rsi,
         lineWidth: 1,
         priceScaleId: "rsi",
         priceLineVisible: false,
@@ -182,14 +185,14 @@ export function PriceChart({
       });
       rsiSeries.createPriceLine({
         price: 70,
-        color: "rgba(255,92,108,0.35)",
+        color: palette.rsiHigh,
         lineWidth: 1,
         lineStyle: 2,
         axisLabelVisible: false,
       });
       rsiSeries.createPriceLine({
         price: 30,
-        color: "rgba(47,212,124,0.35)",
+        color: palette.rsiLow,
         lineWidth: 1,
         lineStyle: 2,
         axisLabelVisible: false,
@@ -197,9 +200,20 @@ export function PriceChart({
       rsiRef.current = rsiSeries;
     }
 
+    const overlayPalette = [
+      palette.accent,
+      palette.info,
+      palette.up,
+      palette.down,
+    ];
+
     overlayRefs.current = overlays.map((overlay, i) =>
       chart.addSeries(LineSeries, {
-        color: overlay.color ?? PALETTE[i % PALETTE.length],
+        color: chartColor(
+          overlay.color,
+          resolvedTheme,
+          overlayPalette[i % overlayPalette.length],
+        ),
         lineWidth: 1,
         priceLineVisible: false,
         lastValueVisible: false,
@@ -249,7 +263,7 @@ export function PriceChart({
       priceLinesRef.current = [];
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [overlaysKey, showVolume, showRsi, interval, symbol, height]);
+  }, [overlaysKey, showVolume, showRsi, interval, symbol, height, resolvedTheme]);
 
   // Actualiza los datos (incluido el replay).
   useEffect(() => {
@@ -281,8 +295,8 @@ export function PriceChart({
           value: c.volume,
           color:
             c.close >= c.open
-              ? "rgba(47,212,124,0.28)"
-              : "rgba(255,92,108,0.28)",
+              ? palette.volumeUp
+              : palette.volumeDown,
         })),
       );
     }
@@ -314,7 +328,7 @@ export function PriceChart({
         .join("   ");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [candles, visibleCount, overlaysKey, showVolume, showRsi]);
+  }, [candles, visibleCount, overlaysKey, showVolume, showRsi, resolvedTheme]);
 
   // Marcadores.
   useEffect(() => {
@@ -326,13 +340,13 @@ export function PriceChart({
         .map((m) => ({
           time: candles[m.index].time as UTCTimestamp,
           position: m.position ?? "aboveBar",
-          color: m.color ?? "#f0b429",
+          color: chartColor(m.color, resolvedTheme, palette.accent),
           shape: m.shape ?? "arrowDown",
           text: m.text,
         })),
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [JSON.stringify(markers), candles, overlaysKey]);
+  }, [JSON.stringify(markers), candles, overlaysKey, resolvedTheme]);
 
   // Líneas horizontales.
   useEffect(() => {
@@ -342,7 +356,7 @@ export function PriceChart({
     priceLinesRef.current = priceLines.map((price) =>
       series.createPriceLine({
         price,
-        color: "#5aa9ff",
+        color: palette.info,
         lineWidth: 1,
         lineStyle: 2,
         axisLabelVisible: true,
@@ -350,7 +364,7 @@ export function PriceChart({
       }),
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [JSON.stringify(priceLines), overlaysKey]);
+  }, [JSON.stringify(priceLines), overlaysKey, resolvedTheme]);
 
   return (
     <div className={cn("relative w-full", className)}>

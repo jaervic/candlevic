@@ -142,7 +142,7 @@ export function Dashboard({
           href={`/aprender/${nextLesson.slug}`}
           className="group flex items-center gap-3 rounded-2xl border border-accent/25 bg-accent/10 p-4 transition-colors hover:bg-accent/15"
         >
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent text-[#1b1405]">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent text-on-accent">
             <ArrowRight className="h-5 w-5" />
           </div>
           <div className="min-w-0 flex-1">

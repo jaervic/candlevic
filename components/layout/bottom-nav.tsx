@@ -17,7 +17,7 @@ export function BottomNav() {
 
   return (
     <nav
-      className="safe-bottom fixed inset-x-0 bottom-0 z-40 border-t border-line/80 bg-bg/95 backdrop-blur-xl md:hidden"
+      className="bottom-nav safe-bottom fixed inset-x-0 bottom-0 z-40 border-t border-line/80 bg-bg md:hidden"
       aria-label="Navegación principal"
     >
       <div className="mx-auto grid max-w-md grid-cols-4">

@@ -1,4 +1,4 @@
-const CACHE = "candlevic-v1";
+const CACHE = "candlevic-v2";
 const PRECACHE = ["/", "/aprender", "/lab", "/radar", "/progreso", "/icons/icon-192.png"];
 
 self.addEventListener("install", (event) => {

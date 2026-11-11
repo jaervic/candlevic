@@ -2,11 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BookOpen, Flame, FlaskConical, Radio, Zap } from "lucide-react";
+import { BookOpen, Flame, FlaskConical, Radio, Settings2, Zap } from "lucide-react";
 import { Logo } from "./logo";
 import { cn } from "@/lib/utils";
 import { useHydrated } from "@/lib/use-hydrated";
 import { totalXp, useProgress } from "@/lib/progress";
+import { useUI } from "@/lib/ui";
 
 const NAV = [
   { href: "/aprender", label: "Aprender", icon: BookOpen },
@@ -21,9 +22,10 @@ export function Header() {
   const lessons = useProgress((s) => s.lessons);
   const streak = useProgress((s) => s.streak.current);
   const xp = hydrated ? totalXp(lessons) : 0;
+  const openSettings = useUI((s) => s.openSettings);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-line/70 bg-bg/95 backdrop-blur-xl">
+    <header className="app-header sticky top-0 z-40 border-b border-line/70 bg-bg/95 backdrop-blur-xl">
       <div className="mx-auto flex h-14 w-full max-w-5xl items-center justify-between gap-3 px-4">
         <Logo />
 
@@ -64,6 +66,14 @@ export function Header() {
             <span className="num text-fg">{xp}</span>
             <span className="hidden sm:inline">XP</span>
           </span>
+          <button
+            onClick={openSettings}
+            aria-label="Ajustes de lectura"
+            title="Ajustes de lectura"
+            className="flex h-8 w-8 items-center justify-center rounded-full border border-line bg-surface text-muted transition-colors hover:border-line-strong hover:text-fg"
+          >
+            <Settings2 className="h-3.5 w-3.5" />
+          </button>
         </div>
       </div>
     </header>

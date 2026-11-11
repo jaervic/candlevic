@@ -1,32 +1,207 @@
 @import "tailwindcss";
 
-@theme {
-  --color-bg: #07090c;
-  --color-surface: #0e1217;
-  --color-surface-2: #141a21;
-  --color-surface-3: #1a222b;
-  --color-line: #202832;
-  --color-line-strong: #2d3743;
-  --color-fg: #e9eef5;
-  --color-muted: #8b97a8;
-  --color-faint: #5d6877;
-  --color-accent: #f0b429;
-  --color-accent-soft: #3a2c0d;
-  --color-up: #2fd47c;
-  --color-down: #ff5c6c;
-  --color-info: #5aa9ff;
+/* ------------------------------------------------------------------ */
+/*  Tokens de tema (runtime)                                          */
+/* ------------------------------------------------------------------ */
 
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif;
+:root {
+  --cv-bg: #0b0f14;
+  --cv-surface: #11161d;
+  --cv-surface-2: #161d26;
+  --cv-surface-3: #1d2631;
+  --cv-line: #222b36;
+  --cv-line-strong: #2e3946;
+  --cv-fg: #dce4ef;
+  --cv-muted: #9aa7b8;
+  --cv-faint: #707c8d;
+  --cv-accent: #f0b429;
+  --cv-accent-soft: #3a2c0d;
+  --cv-on-accent: #1b1405;
+  --cv-accent-hover: #f6c34a;
+  --cv-accent-glow: rgba(240, 180, 41, 0.55);
+  --cv-up: #2fd47c;
+  --cv-down: #ff5c6c;
+  --cv-info: #5aa9ff;
+
+  --cv-reading-size-default: 17px;
+  --cv-reading-leading: 1.75;
+  --cv-reading-width: 66ch;
+
+  --cv-ambient-1: rgba(240, 180, 41, 0.15);
+  --cv-ambient-2: rgba(90, 169, 255, 0.11);
+  --cv-ambient-3: rgba(47, 212, 124, 0.09);
+
+  color-scheme: dark;
+}
+
+[data-theme="noche"] {
+  --cv-bg: #0b0f14;
+  --cv-surface: #11161d;
+  --cv-surface-2: #161d26;
+  --cv-surface-3: #1d2631;
+  --cv-line: #222b36;
+  --cv-line-strong: #2e3946;
+  --cv-fg: #dce4ef;
+  --cv-muted: #9aa7b8;
+  --cv-faint: #707c8d;
+  --cv-accent: #f0b429;
+  --cv-accent-soft: #3a2c0d;
+  --cv-on-accent: #1b1405;
+  --cv-accent-hover: #f6c34a;
+  --cv-accent-glow: rgba(240, 180, 41, 0.55);
+  --cv-up: #2fd47c;
+  --cv-down: #ff5c6c;
+  --cv-info: #5aa9ff;
+  --cv-ambient-1: rgba(240, 180, 41, 0.15);
+  --cv-ambient-2: rgba(90, 169, 255, 0.11);
+  --cv-ambient-3: rgba(47, 212, 124, 0.09);
+  color-scheme: dark;
+}
+
+[data-theme="grafito"] {
+  --cv-bg: #15181c;
+  --cv-surface: #1c2026;
+  --cv-surface-2: #232830;
+  --cv-surface-3: #2a3038;
+  --cv-line: #2c333b;
+  --cv-line-strong: #3a424c;
+  --cv-fg: #d6dbe2;
+  --cv-muted: #9aa1aa;
+  --cv-faint: #79818b;
+  --cv-accent: #e6a92e;
+  --cv-accent-soft: #3a2c0d;
+  --cv-on-accent: #1b1405;
+  --cv-accent-hover: #f0b84a;
+  --cv-accent-glow: rgba(230, 169, 46, 0.45);
+  --cv-up: #35c97a;
+  --cv-down: #f26b6b;
+  --cv-info: #6aa9f0;
+  --cv-ambient-1: rgba(230, 169, 46, 0.1);
+  --cv-ambient-2: rgba(106, 169, 240, 0.08);
+  --cv-ambient-3: rgba(53, 201, 122, 0.06);
+  color-scheme: dark;
+}
+
+[data-theme="papel"] {
+  --cv-bg: #f7f5f0;
+  --cv-surface: #ffffff;
+  --cv-surface-2: #f1eee7;
+  --cv-surface-3: #e8e3d9;
+  --cv-line: #e4ded3;
+  --cv-line-strong: #d3cbbd;
+  --cv-fg: #1f2933;
+  --cv-muted: #5b6776;
+  --cv-faint: #67707e;
+  --cv-accent: #98651a;
+  --cv-accent-soft: #f6e7c8;
+  --cv-on-accent: #ffffff;
+  --cv-accent-hover: #7f5314;
+  --cv-accent-glow: rgba(0, 0, 0, 0.18);
+  --cv-up: #0c8148;
+  --cv-down: #d52f24;
+  --cv-info: #2563eb;
+  --cv-ambient-1: rgba(183, 121, 31, 0.11);
+  --cv-ambient-2: rgba(37, 99, 235, 0.07);
+  --cv-ambient-3: rgba(15, 157, 88, 0.06);
+  color-scheme: light;
+}
+
+[data-theme="sepia"] {
+  --cv-bg: #f3ead8;
+  --cv-surface: #fbf5e9;
+  --cv-surface-2: #f5ecd9;
+  --cv-surface-3: #ede1ca;
+  --cv-line: #e0d3bc;
+  --cv-line-strong: #cdbd9f;
+  --cv-fg: #3b2f24;
+  --cv-muted: #6a5a49;
+  --cv-faint: #776856;
+  --cv-accent: #8d621c;
+  --cv-accent-soft: #ead9b4;
+  --cv-on-accent: #ffffff;
+  --cv-accent-hover: #744f14;
+  --cv-accent-glow: rgba(0, 0, 0, 0.18);
+  --cv-up: #2d774b;
+  --cv-down: #b33a2b;
+  --cv-info: #2f5f9e;
+  --cv-ambient-1: rgba(154, 107, 31, 0.11);
+  --cv-ambient-2: rgba(47, 95, 158, 0.06);
+  --cv-ambient-3: rgba(47, 125, 79, 0.05);
+  color-scheme: light;
+}
+
+/* Fallback sin JavaScript: sigue al sistema. */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    --cv-bg: #f7f5f0;
+    --cv-surface: #ffffff;
+    --cv-surface-2: #f1eee7;
+    --cv-surface-3: #e8e3d9;
+    --cv-line: #e4ded3;
+    --cv-line-strong: #d3cbbd;
+    --cv-fg: #1f2933;
+    --cv-muted: #5b6776;
+    --cv-faint: #67707e;
+    --cv-accent: #98651a;
+    --cv-accent-soft: #f6e7c8;
+    --cv-on-accent: #ffffff;
+    --cv-accent-hover: #7f5314;
+    --cv-accent-glow: rgba(0, 0, 0, 0.18);
+    --cv-up: #0c8148;
+    --cv-down: #d52f24;
+    --cv-info: #2563eb;
+    --cv-ambient-1: rgba(183, 121, 31, 0.11);
+    --cv-ambient-2: rgba(37, 99, 235, 0.07);
+    --cv-ambient-3: rgba(15, 157, 88, 0.06);
+    color-scheme: light;
+  }
+}
+
+@media (min-width: 768px) {
+  :root {
+    --cv-reading-size-default: 18px;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Tailwind theme                                                    */
+/* ------------------------------------------------------------------ */
+
+@theme inline {
+  --color-bg: var(--cv-bg);
+  --color-surface: var(--cv-surface);
+  --color-surface-2: var(--cv-surface-2);
+  --color-surface-3: var(--cv-surface-3);
+  --color-line: var(--cv-line);
+  --color-line-strong: var(--cv-line-strong);
+  --color-fg: var(--cv-fg);
+  --color-muted: var(--cv-muted);
+  --color-faint: var(--cv-faint);
+  --color-accent: var(--cv-accent);
+  --color-accent-soft: var(--cv-accent-soft);
+  --color-on-accent: var(--cv-on-accent);
+  --color-accent-hover: var(--cv-accent-hover);
+  --color-up: var(--cv-up);
+  --color-down: var(--cv-down);
+  --color-info: var(--cv-info);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas,
     monospace;
+}
 
+@theme {
   --radius-card: 1.25rem;
 }
 
+/* ------------------------------------------------------------------ */
+/*  Base                                                              */
+/* ------------------------------------------------------------------ */
+
 @layer base {
   * {
-    border-color: var(--color-line);
+    border-color: var(--cv-line);
   }
 
   html {
@@ -35,22 +210,27 @@
   }
 
   body {
-    background-color: var(--color-bg);
-    color: var(--color-fg);
+    background-color: var(--cv-bg);
+    color: var(--cv-fg);
     font-family: var(--font-sans);
-    font-feature-settings: "cv11", "ss01";
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     min-height: 100dvh;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--cv-line-strong) transparent;
   }
 
   ::selection {
-    background: color-mix(in srgb, var(--color-accent) 35%, transparent);
-    color: #fff;
+    background: color-mix(in srgb, var(--cv-accent) 35%, transparent);
+    color: var(--cv-fg);
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-accent);
+    outline: 2px solid var(--cv-accent);
     outline-offset: 2px;
     border-radius: 6px;
   }
@@ -79,6 +259,10 @@
   }
 }
 
+/* ------------------------------------------------------------------ */
+/*  Utilidades                                                        */
+/* ------------------------------------------------------------------ */
+
 @utility safe-bottom {
   padding-bottom: max(env(safe-area-inset-bottom), 0px);
 }
@@ -96,8 +280,8 @@
 }
 
 @utility card {
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-line);
+  background-color: var(--cv-surface);
+  border: 1px solid var(--cv-line);
   border-radius: var(--radius-card);
 }
 
@@ -105,103 +289,268 @@
   background:
     radial-gradient(
       120% 100% at 0% 0%,
-      color-mix(in srgb, var(--color-accent) 14%, transparent) 0%,
+      color-mix(in srgb, var(--cv-accent) 14%, transparent) 0%,
       transparent 55%
     ),
-    var(--color-surface);
+    var(--cv-surface);
 }
+
+@utility reading-shell {
+  width: 100%;
+  max-width: var(--cv-reading-width);
+  margin-inline: auto;
+  font-size: var(--cv-reading-size, var(--cv-reading-size-default));
+}
+
+/* ------------------------------------------------------------------ */
+/*  Lectura                                                           */
+/* ------------------------------------------------------------------ */
 
 @layer components {
   .prose-cv {
-    color: color-mix(in srgb, var(--color-fg) 92%, transparent);
-    font-size: 1.0125rem;
-    line-height: 1.75;
+    color: color-mix(in srgb, var(--cv-fg) 94%, transparent);
+    font-size: var(--cv-reading-size, var(--cv-reading-size-default));
+    line-height: var(--cv-reading-leading);
   }
+
   .prose-cv > * + * {
     margin-top: 1.05em;
   }
+
   .prose-cv h2 {
-    margin-top: 2.2em;
-    margin-bottom: 0.6em;
-    font-size: 1.35rem;
+    margin-top: 2.1em;
+    margin-bottom: 0.55em;
+    font-size: 1.3em;
     font-weight: 650;
-    color: var(--color-fg);
+    line-height: 1.25;
+    color: var(--cv-fg);
   }
+
   .prose-cv h3 {
     margin-top: 1.7em;
-    margin-bottom: 0.45em;
-    font-size: 1.1rem;
+    margin-bottom: 0.4em;
+    font-size: 1.08em;
     font-weight: 650;
-    color: var(--color-fg);
+    line-height: 1.35;
+    color: var(--cv-fg);
   }
+
   .prose-cv strong {
-    color: var(--color-fg);
+    color: var(--cv-fg);
     font-weight: 650;
   }
+
   .prose-cv a {
-    color: var(--color-accent);
+    color: var(--cv-accent);
     text-decoration: underline;
     text-underline-offset: 3px;
-    text-decoration-color: color-mix(in srgb, var(--color-accent) 40%, transparent);
+    text-decoration-color: color-mix(
+      in srgb,
+      var(--cv-accent) 45%,
+      transparent
+    );
   }
+
+  .prose-cv a:hover {
+    text-decoration-color: var(--cv-accent);
+  }
+
   .prose-cv ul,
   .prose-cv ol {
-    padding-left: 1.25rem;
+    padding-left: 1.3em;
   }
+
   .prose-cv ul {
     list-style: disc;
   }
+
   .prose-cv ol {
     list-style: decimal;
   }
+
   .prose-cv li {
-    margin-top: 0.4em;
+    margin-top: 0.45em;
     padding-left: 0.15rem;
   }
+
   .prose-cv li::marker {
-    color: var(--color-accent);
+    color: var(--cv-accent);
   }
+
   .prose-cv blockquote {
-    border-left: 2px solid var(--color-accent);
+    border-left: 2px solid var(--cv-accent);
     padding-left: 1rem;
-    color: var(--color-muted);
+    color: var(--cv-muted);
     font-style: italic;
   }
+
   .prose-cv code {
     font-family: var(--font-mono);
     font-size: 0.85em;
-    background: var(--color-surface-2);
-    border: 1px solid var(--color-line);
+    background: var(--cv-surface-2);
+    border: 1px solid var(--cv-line);
     padding: 0.1em 0.35em;
     border-radius: 6px;
   }
+
   .prose-cv hr {
     border: 0;
-    border-top: 1px solid var(--color-line);
+    border-top: 1px solid var(--cv-line);
     margin: 2em 0;
   }
+
   .prose-cv table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 0.9em;
+    font-size: 0.88em;
     display: block;
     overflow-x: auto;
   }
+
   .prose-cv th,
   .prose-cv td {
-    border-bottom: 1px solid var(--color-line);
+    border-bottom: 1px solid var(--cv-line);
     padding: 0.55rem 0.65rem;
     text-align: left;
     white-space: nowrap;
   }
+
   .prose-cv th {
-    color: var(--color-muted);
+    color: var(--cv-muted);
     font-weight: 600;
-    font-size: 0.8em;
+    font-size: 0.78em;
     text-transform: uppercase;
     letter-spacing: 0.06em;
   }
 }
+
+/* ------------------------------------------------------------------ */
+/*  Modo concentración                                                */
+/* ------------------------------------------------------------------ */
+
+html[data-focus="true"] .app-header,
+html[data-focus="true"] .bottom-nav {
+  display: none;
+}
+
+html[data-focus="true"] .app-main {
+  padding-top: 1.25rem;
+  padding-bottom: 3rem;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Fondo ambiente                                                    */
+/* ------------------------------------------------------------------ */
+
+.ambient-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  contain: strict;
+  opacity: 1;
+  transition: opacity 0.4s ease;
+  -webkit-mask-image: radial-gradient(
+    ellipse 90% 75% at 50% 42%,
+    transparent 0%,
+    transparent 34%,
+    #000 80%
+  );
+  mask-image: radial-gradient(
+    ellipse 90% 75% at 50% 42%,
+    transparent 0%,
+    transparent 34%,
+    #000 80%
+  );
+}
+
+html[data-ambient="off"] .ambient-bg {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.ambient-blob {
+  position: absolute;
+  width: 58vmax;
+  height: 58vmax;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.9;
+  will-change: transform;
+}
+
+.ambient-blob-1 {
+  top: -20vmax;
+  left: -14vmax;
+  background: var(--cv-ambient-1);
+  animation: ambient-drift-1 95s ease-in-out infinite alternate;
+}
+
+.ambient-blob-2 {
+  right: -18vmax;
+  bottom: -22vmax;
+  background: var(--cv-ambient-2);
+  animation: ambient-drift-2 125s ease-in-out infinite alternate;
+}
+
+.ambient-blob-3 {
+  top: 18%;
+  left: 42%;
+  width: 46vmax;
+  height: 46vmax;
+  background: var(--cv-ambient-3);
+  animation: ambient-drift-3 150s ease-in-out infinite alternate;
+}
+
+.ambient-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.032;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+}
+
+@keyframes ambient-drift-1 {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(11vw, 7vh, 0) scale(1.12);
+  }
+}
+
+@keyframes ambient-drift-2 {
+  from {
+    transform: translate3d(0, 0, 0) scale(1.05);
+  }
+  to {
+    transform: translate3d(-9vw, -6vh, 0) scale(0.95);
+  }
+}
+
+@keyframes ambient-drift-3 {
+  from {
+    transform: translate3d(-4vw, 0, 0) scale(0.95);
+  }
+  to {
+    transform: translate3d(6vw, -8vh, 0) scale(1.08);
+  }
+}
+
+html[data-reduced-motion="true"] .ambient-blob {
+  animation: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient-blob {
+    animation: none !important;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Animaciones                                                       */
+/* ------------------------------------------------------------------ */
 
 @keyframes cv-fade-up {
   from {
