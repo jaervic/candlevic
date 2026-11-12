@@ -26,7 +26,7 @@ export default function AprenderPage() {
         </p>
         <h1 className="mt-1 text-2xl font-semibold tracking-tight">Aprender</h1>
         <p className="mt-1 max-w-xl text-[13px] leading-relaxed text-muted">
-          Nueve módulos, de cero a un proceso con riesgo controlado. Cada lección
+          Diez módulos, de cero a un proceso con riesgo controlado. Cada lección
           incluye gráficos reales y un ejercicio.
         </p>
       </header>

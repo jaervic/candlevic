@@ -1,0 +1,60 @@
+---
+title: "Perpetuos, funding y liquidación"
+module: "m9"
+order: 3
+minutes: 5
+level: "intermedio"
+summary: "Los futuros perpetuos permiten apalancamiento sin vencimiento. El funding y la liquidación son el precio real de esa comodidad."
+objectives:
+  - "Entender qué es un perpetuo y cómo se mantiene pegado al spot"
+  - "Calcular el coste del funding"
+  - "Entender la liquidación y por qué el apalancamiento alto es letal"
+dataset: "btc-4h"
+related: ["apalancamiento", "stablecoins", "stop-loss"]
+tags: ["cripto", "perpetuos", "funding", "apalancamiento"]
+---
+
+Un **perpetuo** es un futuro sin fecha de vencimiento. Para que su precio no se separe demasiado del spot, existe el **<Term term="Funding">funding</Term>**: un pago periódico entre largos y cortos.
+
+<FundingCalculator />
+
+## Funding: el coste de estar dentro
+
+- Si estás **largo** y el funding es **positivo**, pagas a los cortos.
+- Si estás **corto** y el funding es **positivo**, cobras.
+- Si el funding es negativo, se invierte.
+
+No es dinero gratis: compensa la diferencia entre el perpetuo y el spot. En posiciones grandes y mantenidas, puede ser un coste relevante aunque el precio no se mueva.
+
+<LiquidationCalculator />
+
+## La liquidación
+
+Con apalancamiento, tu margen es una garantía. Si el precio se mueve en contra y el margen se agota, el exchange cierra la posición: **liquidación**. No es un stop que elegiste; es el mercado ejecutando tu margen.
+
+<Callout type="danger" title="10x no es 10 veces más rentable">
+10x significa que un movimiento del 10 % en contra puede liquidarte. En un mercado 24/7, eso puede pasar mientras duermes.
+</Callout>
+
+<Quiz
+  slug="perpetuos-funding"
+  question="Estás largo en un perpetuo y el funding es positivo. ¿Qué ocurre?"
+  options={[
+    "Cobras funding",
+    "Pagas funding",
+    "No pasa nada",
+    "Te liquidan automáticamente",
+  ]}
+  correct={1}
+  wrong={[
+    "Si estás largo y la tasa es positiva, pagas a los cortos.",
+    "",
+    "El funding se paga cada periodo; no es neutral.",
+    "El funding no liquida por sí solo; la liquidación depende del margen y el precio.",
+  ]}
+  explanation="Con funding positivo, los largos pagan a los cortos. Es un coste que se acumula mientras mantienes la posición."
+/>
+
+<KeyIdea>
+El apalancamiento no cambia la dirección de tu idea: cambia cuánto puedes aguantar antes de tener razón.
+</KeyIdea>

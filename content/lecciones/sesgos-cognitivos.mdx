@@ -1,0 +1,67 @@
+---
+title: "Los sesgos que te cuestan dinero"
+module: "m8"
+order: 2
+minutes: 6
+level: "intermedio"
+summary: "Tu cerebro está diseñado para sobrevivir, no para operar. Estos sesgos aparecen en casi todos los diarios que pierden dinero."
+objectives:
+  - "Reconocer los sesgos más caros del trading"
+  - "Detectar el sesgo de disposición en tu propio diario"
+  - "Crear reglas que reduzcan el impacto del sesgo"
+dataset: "btc-1d"
+related: ["procesar-perdidas", "diario-de-trading", "fomo-tilt"]
+tags: ["psicología", "sesgos", "decisión"]
+---
+
+No eres irracional: eres humano. El problema es que los atajos mentales que nos salvan en la vida diaria nos arruinan en el mercado.
+
+| Sesgo | Cómo se ve | Antídoto |
+|---|---|---|
+| **Aversión a la pérdida** | Duele más perder 100 que ganar 100 | Definir el riesgo antes de entrar |
+| **Sesgo de disposición** | Cierras ganadores rápido y aguantas perdedores | Reglas de salida escritas |
+| **Anclaje** | "Compré a 100, no vendo a 80" | El precio de entrada es irrelevante para el mercado |
+| **Confirmación** | Buscas noticias que apoyan tu idea | Escribe la tesis contraria |
+| **Recencia** | "Las últimas 3 velas son la tendencia" | Mira más contexto |
+| **Exceso de confianza** | "Ya le he pillado el truco" | Registro y tamaño constante |
+| **Sesgo de resultado** | "Gané, luego estaba bien" | Evalúa el proceso, no el P&L |
+
+## El más caro: disposición
+
+Cortas la ganadora porque quieres asegurar el acierto, y mantienes la perdedora porque venderla sería aceptar que te equivocaste. El resultado es una cartera de pérdidas y un historial de pequeñas ganancias.
+
+<Scenario
+  situation="Compraste a 100. Está a 80 y tu tesis original ya no se sostiene. ¿Qué haces?"
+  options={[
+    { label: "Esperar a que vuelva a 100 para vender", feedback: "Eso es anclaje: el mercado no sabe a qué precio compraste. Tu decisión debería depender de la tesis actual, no de tu entrada.", quality: "bad" },
+    { label: "Revisar si la tesis sigue viva y, si no, cerrar", feedback: "Correcto. La pregunta no es '¿cuánto perdí?', sino '¿volvería a comprar aquí con la información de hoy?'.", quality: "good" },
+    { label: "Comprar más para bajar el precio medio", feedback: "Promediar a la baja sin una tesis nueva es aumentar el riesgo, no reducirlo.", quality: "bad" },
+  ]}
+/>
+
+<KeyIdea>
+El precio al que compraste es historia. La única pregunta útil es: ¿volvería a abrir esta posición hoy, con este precio y esta información?
+</KeyIdea>
+
+<Quiz
+  slug="sesgos-cognitivos"
+  question="Cortas tus ganadores rápido y aguantas los perdedores. ¿Qué sesgo es?"
+  options={[
+    "Sesgo de confirmación",
+    "Sesgo de disposición",
+    "Anclaje",
+    "Exceso de confianza",
+  ]}
+  correct={1}
+  wrong={[
+    "El sesgo de confirmación es buscar información que apoye tu idea.",
+    "",
+    "El anclaje es quedarte fijado en un precio de referencia.",
+    "El exceso de confianza es sobreestimar tu habilidad.",
+  ]}
+  explanation="El sesgo de disposición te empuja a materializar ganancias rápido y a evitar materializar pérdidas. Es una de las causas más comunes de una esperanza matemática negativa."
+/>
+
+<Callout type="warning" title="Regla de la tesis">
+Si no puedes escribir en dos líneas por qué sigues dentro, no tienes una tesis: tienes una esperanza.
+</Callout>

@@ -16,6 +16,12 @@ import { LessonActions } from "@/components/lesson/lesson-actions";
 import { LessonReadingBar } from "@/components/lesson/lesson-reading-bar";
 import { Disclaimer } from "@/components/disclaimer";
 import { LessonToc } from "@/components/lesson/lesson-toc";
+import { Scenario } from "@/components/lesson/scenario";
+import { PlanBuilder } from "@/components/lesson/plan-builder";
+import { LiquidationCalculator } from "@/components/lesson/liquidation-calculator";
+import { FundingCalculator } from "@/components/lesson/funding-calculator";
+import { PatternChart } from "@/components/lesson/pattern-chart";
+import { Term } from "@/components/lesson/term";
 import { slugify } from "@/lib/utils";
 
 type Params = { slug: string };
@@ -66,6 +72,12 @@ export default async function LessonPage({
     StepList,
     RiskCalculator,
     DatasetChart,
+    Scenario,
+    PlanBuilder,
+    LiquidationCalculator,
+    FundingCalculator,
+    PatternChart,
+    Term,
     h2: ({ children, ...rest }: React.ComponentProps<"h2">) => (
       <h2
         {...rest}

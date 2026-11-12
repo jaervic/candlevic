@@ -18,7 +18,7 @@ import {
   type UTCTimestamp,
 } from "lightweight-charts";
 import type { Candle } from "@/lib/indicators";
-import { ema, rsi, sma, toSeries } from "@/lib/indicators";
+import { bollinger, ema, macd, rsi, sma, toSeries } from "@/lib/indicators";
 import { cn, formatPrice } from "@/lib/utils";
 import { CHART_PALETTES, chartColor } from "@/lib/chart-theme";
 import { useResolvedTheme } from "@/components/theme/theme-context";
@@ -45,6 +45,8 @@ type PriceChartProps = {
   overlays?: Overlay[];
   showVolume?: boolean;
   showRsi?: boolean;
+  showBollinger?: boolean;
+  showMacd?: boolean;
   markers?: ChartMarker[];
   priceLines?: number[];
   visibleCount?: number;
@@ -66,6 +68,8 @@ export function PriceChart({
   overlays = [],
   showVolume = false,
   showRsi = false,
+  showBollinger = false,
+  showMacd = false,
   markers = [],
   priceLines = [],
   visibleCount,
@@ -80,6 +84,16 @@ export function PriceChart({
   const volumeRef = useRef<ISeriesApi<"Histogram"> | null>(null);
   const overlayRefs = useRef<ISeriesApi<"Line">[]>([]);
   const rsiRef = useRef<ISeriesApi<"Line"> | null>(null);
+  const bollingerRefs = useRef<{
+    upper: ISeriesApi<"Line">;
+    middle: ISeriesApi<"Line">;
+    lower: ISeriesApi<"Line">;
+  } | null>(null);
+  const macdRefs = useRef<{
+    hist: ISeriesApi<"Histogram">;
+    line: ISeriesApi<"Line">;
+    signal: ISeriesApi<"Line">;
+  } | null>(null);
   const markersApiRef = useRef<ISeriesMarkersPluginApi<Time> | null>(null);
   const priceLinesRef = useRef<IPriceLine[]>([]);
   const onPickRef = useRef(onPick);
@@ -116,7 +130,12 @@ export function PriceChart({
         borderVisible: false,
         scaleMargins: {
           top: 0.08,
-          bottom: showRsi ? 0.32 : showVolume ? 0.22 : 0.06,
+          bottom:
+            showRsi || showMacd
+              ? 0.36
+              : showVolume
+                ? 0.22
+                : 0.06,
         },
       },
       timeScale: {
@@ -164,7 +183,10 @@ export function PriceChart({
         priceLineVisible: false,
       });
       chart.priceScale("volume").applyOptions({
-        scaleMargins: { top: showRsi ? 0.84 : 0.8, bottom: 0 },
+        scaleMargins: {
+          top: showRsi || showMacd ? 0.86 : 0.8,
+          bottom: 0,
+        },
         borderVisible: false,
       });
       volumeRef.current = volume;
@@ -198,6 +220,64 @@ export function PriceChart({
         axisLabelVisible: false,
       });
       rsiRef.current = rsiSeries;
+    }
+
+    if (showBollinger) {
+      const upper = chart.addSeries(LineSeries, {
+        color: palette.info,
+        lineWidth: 1,
+        priceLineVisible: false,
+        lastValueVisible: false,
+        crosshairMarkerVisible: false,
+      });
+      const middle = chart.addSeries(LineSeries, {
+        color: palette.accent,
+        lineWidth: 1,
+        lineStyle: 2,
+        priceLineVisible: false,
+        lastValueVisible: false,
+        crosshairMarkerVisible: false,
+      });
+      const lower = chart.addSeries(LineSeries, {
+        color: palette.info,
+        lineWidth: 1,
+        priceLineVisible: false,
+        lastValueVisible: false,
+        crosshairMarkerVisible: false,
+      });
+      bollingerRefs.current = { upper, middle, lower };
+    }
+
+    if (showMacd && !showRsi) {
+      const hist = chart.addSeries(HistogramSeries, {
+        priceScaleId: "macd",
+        priceLineVisible: false,
+        lastValueVisible: false,
+        priceFormat: { type: "price", precision: 2, minMove: 0.01 },
+      });
+      const line = chart.addSeries(LineSeries, {
+        priceScaleId: "macd",
+        color: palette.accent,
+        lineWidth: 1,
+        priceLineVisible: false,
+        lastValueVisible: false,
+        crosshairMarkerVisible: false,
+      });
+      const signal = chart.addSeries(LineSeries, {
+        priceScaleId: "macd",
+        color: palette.info,
+        lineWidth: 1,
+        priceLineVisible: false,
+        lastValueVisible: false,
+        crosshairMarkerVisible: false,
+      });
+      chart.priceScale("macd").applyOptions({
+        scaleMargins: showVolume
+          ? { top: 0.62, bottom: 0.22 }
+          : { top: 0.76, bottom: 0.02 },
+        borderVisible: false,
+      });
+      macdRefs.current = { hist, line, signal };
     }
 
     const overlayPalette = [
@@ -259,11 +339,23 @@ export function PriceChart({
       volumeRef.current = null;
       overlayRefs.current = [];
       rsiRef.current = null;
+      bollingerRefs.current = null;
+      macdRefs.current = null;
       markersApiRef.current = null;
       priceLinesRef.current = [];
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [overlaysKey, showVolume, showRsi, interval, symbol, height, resolvedTheme]);
+  }, [
+    overlaysKey,
+    showVolume,
+    showRsi,
+    showBollinger,
+    showMacd,
+    interval,
+    symbol,
+    height,
+    resolvedTheme,
+  ]);
 
   // Actualiza los datos (incluido el replay).
   useEffect(() => {
@@ -305,6 +397,46 @@ export function PriceChart({
       rsiRef.current.setData(toSeries(times, rsi(closes, 14)) as { time: UTCTimestamp; value: number }[]);
     }
 
+    if (bollingerRefs.current) {
+      const bands = bollinger(closes, 20, 2);
+      bollingerRefs.current.upper.setData(
+        toSeries(times, bands.upper) as { time: UTCTimestamp; value: number }[],
+      );
+      bollingerRefs.current.middle.setData(
+        toSeries(times, bands.middle) as {
+          time: UTCTimestamp;
+          value: number;
+        }[],
+      );
+      bollingerRefs.current.lower.setData(
+        toSeries(times, bands.lower) as { time: UTCTimestamp; value: number }[],
+      );
+    }
+
+    if (macdRefs.current) {
+      const values = macd(closes);
+      macdRefs.current.hist.setData(
+        toSeries(times, values.histogram).map((point) => ({
+          time: point.time as UTCTimestamp,
+          value: point.value,
+          color:
+            point.value >= 0 ? palette.volumeUp : palette.volumeDown,
+        })),
+      );
+      macdRefs.current.line.setData(
+        toSeries(times, values.macd) as {
+          time: UTCTimestamp;
+          value: number;
+        }[],
+      );
+      macdRefs.current.signal.setData(
+        toSeries(times, values.signal) as {
+          time: UTCTimestamp;
+          value: number;
+        }[],
+      );
+    }
+
     overlays.forEach((overlay, i) => {
       const target = overlayRefs.current[i];
       if (!target) return;
@@ -328,7 +460,16 @@ export function PriceChart({
         .join("   ");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [candles, visibleCount, overlaysKey, showVolume, showRsi, resolvedTheme]);
+  }, [
+    candles,
+    visibleCount,
+    overlaysKey,
+    showVolume,
+    showRsi,
+    showBollinger,
+    showMacd,
+    resolvedTheme,
+  ]);
 
   // Marcadores.
   useEffect(() => {

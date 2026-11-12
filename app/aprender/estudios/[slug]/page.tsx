@@ -8,6 +8,8 @@ import { Badge } from "@/components/ui/badge";
 import { Callout, KeyIdea, StepList } from "@/components/lesson/callout";
 import { Quiz } from "@/components/lesson/quiz";
 import { DatasetChart } from "@/components/charts/dataset-chart";
+import { Scenario } from "@/components/lesson/scenario";
+import { Term } from "@/components/lesson/term";
 import { Disclaimer } from "@/components/disclaimer";
 
 type Params = { slug: string };
@@ -39,6 +41,8 @@ export default async function EstudioPage({
     KeyIdea,
     StepList,
     DatasetChart,
+    Scenario,
+    Term,
     Quiz: (props: React.ComponentProps<typeof Quiz>) => (
       <Quiz {...props} slug={slug} />
     ),

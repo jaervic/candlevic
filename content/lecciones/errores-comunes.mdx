@@ -1,0 +1,65 @@
+---
+title: "Los 7 errores que repiten todos"
+module: "m7"
+order: 4
+minutes: 5
+level: "principiante"
+summary: "No son errores de análisis: son errores de proceso. Reconocerlos es más rentable que aprender otro indicador."
+objectives:
+  - "Identificar los errores que más cuentan en la cuenta"
+  - "Entender por qué el apalancamiento y el stop son críticos"
+  - "Crear reglas personales para evitarlos"
+dataset: "btc-bear-2022"
+related: ["stop-loss", "apalancamiento", "fomo-tilt"]
+tags: ["errores", "proceso", "riesgo"]
+---
+
+Después de leer cientos de diarios, los errores se repiten. Casi ninguno tiene que ver con no saber dibujar una línea.
+
+## Los siete
+
+1. **Arriesgar demasiado por operación.** Un 10 % por trade convierte una racha normal en una cuenta destruida.
+2. **Operar sin stop.** No es valentía: es dejar que una pérdida decida por ti.
+3. **Mover el stop para no perder.** Convierte una pérdida controlada en una pérdida abierta.
+4. **Venganza después de una pérdida.** El mercado no sabe que te debe algo.
+5. **FOMO.** Entrar tarde, sin plan, porque "se está moviendo".
+6. **Sobreoperar.** Más operaciones no significa más oportunidades; a veces significa más costes y más ruido.
+7. **No llevar diario.** Sin registro, repites el mismo error con otra excusa.
+
+<DatasetChart dataset="btc-bear-2022" from={150} to={426} height={220} showVolume caption="En una tendencia bajista, cada rebote parecía una oportunidad. Muchas eran solo una pausa antes de seguir cayendo." />
+
+<Scenario
+  situation="Llevas tres pérdidas seguidas y aparece una señal que no está en tu plan. ¿Qué haces?"
+  options={[
+    { label: "Entrar más grande para recuperar lo perdido", feedback: "Eso es revenge trading con apalancamiento emocional. La probabilidad no cambia porque hayas perdido.", quality: "bad" },
+    { label: "Cerrar la plataforma y revisar el plan", feedback: "Correcto. Después de varias pérdidas, el mejor trade suele ser no operar.", quality: "good" },
+    { label: "Entrar pequeño 'solo por recuperar la confianza'", feedback: "Si no está en el plan, sigue siendo una operación emocional, aunque sea pequeña.", quality: "neutral" },
+  ]}
+/>
+
+<KeyIdea>
+Los errores caros no son los que te hacen perder una operación: son los que te hacen perder la capacidad de seguir operando.
+</KeyIdea>
+
+<Quiz
+  slug="errores-comunes"
+  question="¿Cuál de estos errores destruye una cuenta más rápido?"
+  options={[
+    "No usar stop para no cerrar en pérdida",
+    "Arriesgar demasiado por operación",
+    "Hacer pocas operaciones",
+    "Escribir el plan",
+  ]}
+  correct={1}
+  wrong={[
+    "Sin stop, una pérdida puede convertirse en una catástrofe, pero el tamaño excesivo acelera la ruina en pocas operaciones.",
+    "",
+    "Hacer pocas operaciones puede ser una virtud si son selectivas.",
+    "Escribir el plan es una buena práctica, no un error.",
+  ]}
+  explanation="El tamaño excesivo convierte una racha normal en una pérdida irreversible. Es el error con mayor impacto matemático."
+/>
+
+<Callout type="warning" title="La regla de la silla">
+Si después de una pérdida sientes urgencia por entrar, levántate de la silla. La urgencia es una señal de tilt, no de oportunidad.
+</Callout>

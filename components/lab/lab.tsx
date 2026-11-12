@@ -22,6 +22,8 @@ const INDICATORS = [
   { id: "ema200", label: "EMA 200" },
   { id: "volume", label: "Volumen" },
   { id: "rsi", label: "RSI" },
+  { id: "macd", label: "MACD" },
+  { id: "bollinger", label: "Bollinger" },
 ] as const;
 
 type IndicatorId = (typeof INDICATORS)[number]["id"];
@@ -42,6 +44,8 @@ export function Lab() {
     ema200: false,
     volume: true,
     rsi: false,
+    macd: false,
+    bollinger: false,
   });
 
   const [replay, setReplay] = useState(false);
@@ -129,7 +133,11 @@ export function Lab() {
   }
 
   function toggle(id: IndicatorId) {
-    setEnabled((prev) => ({ ...prev, [id]: !prev[id] }));
+    setEnabled((prev) => {
+      if (id === "rsi") return { ...prev, rsi: !prev.rsi, macd: false };
+      if (id === "macd") return { ...prev, macd: !prev.macd, rsi: false };
+      return { ...prev, [id]: !prev[id] };
+    });
   }
 
   const overlays = useMemo(() => {
@@ -371,6 +379,8 @@ export function Lab() {
             overlays={overlays}
             showVolume={enabled.volume}
             showRsi={enabled.rsi}
+            showBollinger={enabled.bollinger}
+            showMacd={enabled.macd}
             visibleCount={replay && visible != null ? visible : undefined}
             priceLines={lines}
             onPick={handlePick}

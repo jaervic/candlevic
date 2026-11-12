@@ -1,0 +1,65 @@
+---
+title: "FOMO, venganza y tilt"
+module: "m8"
+order: 3
+minutes: 5
+level: "principiante"
+summary: "Las tres emociones que más caro te salen: entrar por miedo a quedarte fuera, recuperar por orgullo y operar cuando ya no estás en condiciones."
+objectives:
+  - "Distinguir FOMO, revenge trading y tilt"
+  - "Reconocer las señales físicas antes de operar"
+  - "Definir reglas de parada concretas"
+dataset: "btc-4h"
+related: ["errores-comunes", "psicologia-probabilidades", "rutina-diario-emocional"]
+tags: ["psicología", "fomo", "tilt"]
+---
+
+**FOMO** es entrar porque el precio se mueve y sientes que te lo estás perdiendo. **Revenge trading** es entrar para recuperar una pérdida. **Tilt** es el estado general en el que ya no estás decidiendo: estás reaccionando.
+
+Los tres comparten una característica: **la urgencia**. Y la urgencia es incompatible con un plan.
+
+<DatasetChart dataset="btc-4h" from={380} to={500} height={220} showVolume caption="En 4 horas, los movimientos rápidos invitan a perseguir el precio. El plan decide si hay operación o no." />
+
+## Señales de que estás en tilt
+
+- Respiración corta, tensión en el pecho o en la mandíbula.
+- Abres la app cada pocos minutos.
+- Cambias de opinión con cada vela.
+- Sientes que "tienes que" recuperar o aprovechar.
+- Aumentas el tamaño sin haber recalculado el riesgo.
+
+<Callout type="danger" title="El circuito de parada">
+Si detectas dos o más señales, para. No es una decisión de trading: es una decisión de salud. Cierra la plataforma, camina 10 minutos y vuelve solo si puedes escribir tu plan en una frase.
+</Callout>
+
+<Scenario
+  situation="Llevas tres pérdidas seguidas y aparece una señal que no está en tu plan. ¿Qué haces?"
+  options={[
+    { label: "Entrar más grande para recuperar lo perdido", feedback: "Eso es revenge trading. La probabilidad no cambia porque hayas perdido; el tamaño sí, y en tu contra.", quality: "bad" },
+    { label: "Parar, revisar el plan y volver mañana", feedback: "Correcto. Después de varias pérdidas, el mejor trade suele ser no operar.", quality: "good" },
+    { label: "Cambiar de estrategia y probar otra cosa", feedback: "Cambiar de estrategia después de tres pérdidas es otro impulso, no un análisis.", quality: "bad" },
+  ]}
+/>
+
+<Quiz
+  slug="fomo-tilt"
+  question="¿Qué haces tras tres pérdidas seguidas y una señal fuera de tu plan?"
+  options={[
+    "Entrar más grande para recuperar",
+    "Parar, revisar y volver con el plan",
+    "Cambiar de estrategia",
+    "Operar en otra temporalidad",
+  ]}
+  correct={1}
+  wrong={[
+    "Es revenge trading: la urgencia por recuperar nubla la decisión.",
+    "",
+    "Cambiar de estrategia tras tres pérdidas es otro impulso, no un análisis.",
+    "Cambiar de temporalidad no cambia el estado emocional.",
+  ]}
+  explanation="La pausa es una decisión activa. Reduce el tamaño, revisa el diario y vuelve cuando puedas ejecutar el plan sin urgencia."
+/>
+
+<KeyIdea>
+No puedes controlar el mercado, pero sí puedes controlar si operas. A veces la mejor operación es cerrar la app.
+</KeyIdea>

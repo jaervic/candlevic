@@ -1,0 +1,68 @@
+---
+title: "Backtesting sin engañarte"
+module: "m7"
+order: 2
+minutes: 5
+level: "intermedio"
+summary: "Un backtest no sirve para demostrar que tienes razón, sino para descubrir si tu idea sobrevive a los costes y al azar."
+objectives:
+  - "Entender qué es el sobreajuste y el sesgo de anticipación"
+  - "Incluir costes, muestra suficiente y validación fuera de muestra"
+  - "Leer un backtest sin confundir suerte con ventaja"
+dataset: "btc-1d"
+related: ["plan-de-trading", "medias-moviles", "ratio-riesgo-beneficio"]
+tags: ["estrategia", "backtesting", "evidencia"]
+---
+
+Un backtest es una simulación sobre datos pasados. Bien hecho, responde a una pregunta: **¿esta regla tenía una ventaja real después de costes?**. Mal hecho, solo confirma lo que ya querías creer.
+
+## Los cuatro engaños clásicos
+
+**Sobreajuste.** Pruebas 200 combinaciones de parámetros hasta que una brilla en el pasado. Eso no es una estrategia: es una coincidencia concreta de un periodo concreto.
+
+**Sesgo de anticipación.** Usas el cierre de la vela para decidir la entrada de esa misma vela. En la realidad, no conocías ese dato cuando tomaste la decisión.
+
+**Supervivencia.** Solo pruebas con activos que hoy existen y ganaron. Los que quebraron desaparecen de la muestra.
+
+**Costes olvidados.** Comisiones, spread y slippage. En estrategias activas pueden convertir un backtest positivo en una pérdida real.
+
+<DatasetChart dataset="btc-1d" from={500} to={700} height={240} overlays={[{ type: "sma", period: 20, color: "#f0b429" }, { type: "sma", period: 50, color: "#5aa9ff" }]} caption="Un cruce de medias parece simple. El backtest debe decir cuántas señales falsas genera y cuánto cuestan." />
+
+## Cómo hacerlo con un mínimo de rigor
+
+<StepList
+  steps={[
+    { title: "Escribe la hipótesis", body: "Una frase: 'en tendencia alcista, un pullback a la media de 50 con volumen ofrece un R:B de 1:2'." },
+    { title: "Define las reglas exactas", body: "Entrada, stop, objetivo, tamaño y filtros. Sin ambigüedades." },
+    { title: "Incluye costes", body: "Comisión por lado, spread y un deslizamiento realista." },
+    { title: "Separa la muestra", body: "Entrena con un periodo y valida con otro que no hayas mirado." },
+    { title: "Mide lo importante", body: "Esperanza en R, drawdown, número de operaciones y sensibilidad a los parámetros." },
+  ]}
+/>
+
+<KeyIdea>
+Si una estrategia solo funciona con un parámetro exacto y en un periodo concreto, probablemente no funciona: se ha adaptado al pasado.
+</KeyIdea>
+
+<Quiz
+  slug="backtesting"
+  question="¿Qué es el sobreajuste en un backtest?"
+  options={[
+    "Probar muchas variantes hasta que una gane en el pasado",
+    "Definir reglas, probarlas con costes y validarlas fuera de la muestra",
+    "Usar solo los datos que confirman la idea",
+    "Ignorar las comisiones porque son pequeñas",
+  ]}
+  correct={0}
+  wrong={[
+    "",
+    "Eso es precisamente lo contrario: un proceso disciplinado.",
+    "Eso es sesgo de confirmación; el backtest debe incluir lo que contradice la idea.",
+    "En estrategias activas las comisiones pueden ser la diferencia entre ganar y perder.",
+  ]}
+  explanation="El sobreajuste es adaptar la estrategia al pasado hasta que parece perfecta. La validación fuera de muestra es lo que separa una idea de una coincidencia."
+/>
+
+<Callout type="warning" title="El backtest no es una promesa">
+Una estrategia puede tener una ventaja real y aun así perder durante meses. El backtest estima probabilidades, no garantiza el siguiente resultado.
+</Callout>

@@ -1,0 +1,63 @@
+---
+title: "On-chain sin humo"
+module: "m9"
+order: 4
+minutes: 4
+level: "intermedio"
+summary: "La blockchain es un registro público. Leerla no predice el precio, pero ayuda a entender dónde se mueve el dinero."
+objectives:
+  - "Conocer las métricas on-chain más útiles"
+  - "Distinguir señal de ruido y de interpretación interesada"
+  - "Evitar conclusiones mágicas a partir de un solo dato"
+dataset: "btc-1d"
+related: ["dominancia-btc", "stablecoins", "wallets-custodia"]
+tags: ["cripto", "on-chain", "datos"]
+---
+
+<Term term="On-chain">On-chain</Term> significa "en la cadena": transacciones, direcciones y flujos registrados públicamente. Es información real, pero no es una bola de cristal.
+
+## Métricas que sí dicen algo
+
+| Métrica | Qué mide | Cuidado |
+|---|---|---|
+| Direcciones activas | Uso de la red | Una persona puede tener muchas |
+| Flujos de exchanges | Entradas y salidas de BTC | No siempre son compra/venta |
+| Comisiones | Demanda de espacio en bloque | No mide precio |
+| Oferta en manos de largo plazo | Monedas que no se mueven | Heurística, no certeza |
+| TVL | Valor bloqueado en DeFi | Puede duplicarse por precio, no por uso |
+
+<Callout type="info" title="La diferencia entre dato e interpretación">
+Que entren BTC a un exchange no significa automáticamente que alguien vaya a vender. Puede ser un cambio de custodia, un ETF o una operación interna. El dato es real; la historia que le pones encima, no.
+</Callout>
+
+<DatasetChart dataset="btc-1d" from={580} to={700} height={200} showVolume caption="El volumen on-chain y el precio no siempre cuentan la misma historia. La interpretación necesita contexto." />
+
+## Cómo usarlo sin engañarte
+
+1. **Combina al menos dos métricas.** Una sola puede tener varias explicaciones.
+2. **Mira la tendencia, no el día.** Un dato aislado es ruido.
+3. **Pregunta quién publica el dato y qué gana con tu interpretación.**
+4. **No operes solo por on-chain.** El precio y la liquidez mandan a corto plazo.
+
+<Quiz
+  slug="on-chain"
+  question="¿Qué mide la dominancia de Bitcoin?"
+  options={[
+    "El porcentaje del mercado cripto que representa Bitcoin",
+    "El número de transacciones de Bitcoin",
+    "La inflación de Bitcoin",
+    "El volumen de stablecoins",
+  ]}
+  correct={0}
+  wrong={[
+    "",
+    "Las transacciones son otra métrica on-chain.",
+    "La inflación es la emisión, no la dominancia.",
+    "El volumen de stablecoins no mide dominancia.",
+  ]}
+  explanation="La dominancia es el peso de BTC sobre el valor total del mercado cripto. Sube cuando el dinero busca refugio y baja cuando rota hacia altcoins."
+/>
+
+<KeyIdea>
+On-chain te dice lo que ocurrió en la cadena. No te dice lo que hará el precio. Úsalo como contexto, no como señal.
+</KeyIdea>

@@ -1,0 +1,68 @@
+---
+title: "Wallets y custodia: tus claves, tus monedas"
+module: "m9"
+order: 1
+minutes: 5
+level: "principiante"
+summary: "En cripto, la pregunta más importante no es qué compras, sino quién controla las claves. 'Not your keys, not your coins'."
+objectives:
+  - "Distinguir custodia en exchange y autocustodia"
+  - "Entender qué es una seed phrase y cómo protegerla"
+  - "Reconocer el riesgo de contraparte"
+dataset: "btc-1d"
+related: ["stablecoins", "estafas-seguridad", "caso-luna"]
+tags: ["cripto", "custodia", "wallets"]
+---
+
+Cuando compras bitcoin en un exchange, no tienes bitcoin en la wallet: tienes una promesa del exchange. Los bitcoin están en sus wallets. Tú tienes una cuenta.
+
+<Callout type="danger" title="La frase que lo resume">
+*Not your keys, not your coins.* Si no controlas la clave privada, no controlas el activo.
+</Callout>
+
+## Dos formas de custodia
+
+| | Exchange (CEX) | Autocustodia |
+|---|---|---|
+| Quién controla las claves | El exchange | Tú |
+| Facilidad | Alta | Media |
+| Riesgo principal | Quiebra, hackeo, bloqueo | Perder la seed o caer en una estafa |
+| Recuperación | Depende del exchange | Depende de tu seed |
+
+Ninguna es "gratis". El exchange te da comodidad y asume la custodia; tú asumes el riesgo de contraparte. La <Term term="Custodia">autocustodia</Term> te da control y te exige responsabilidad.
+
+## La seed phrase
+
+Es una lista de 12 o 24 palabras que permite recuperar tu wallet. **Nunca se comparte, nunca se fotografía y nunca se escribe en un chat.** Quien la tiene, controla los fondos.
+
+<Scenario
+  situation="Recibes un mensaje del 'soporte' de tu exchange: te pide la seed phrase para verificar tu wallet."
+  options={[
+    { label: "Se la doy: es el soporte oficial", feedback: "Ningún soporte legítimo pide la seed. Es una estafa clásica.", quality: "bad" },
+    { label: "No la comparto y reporto el mensaje", feedback: "Correcto. La seed es la llave de tus fondos; nadie legítimo la necesita.", quality: "good" },
+    { label: "Le doy solo 6 de las 12 palabras", feedback: "Con parte de la seed no se recupera la wallet, pero estás revelando información y normalizando el riesgo.", quality: "bad" },
+  ]}
+/>
+
+<Quiz
+  slug="wallets-custodia"
+  question="En un exchange centralizado, ¿quién controla las claves de tus fondos?"
+  options={[
+    "Tú, porque tienes la app instalada",
+    "El exchange, porque custodia las claves",
+    "El regulador",
+    "Nadie",
+  ]}
+  correct={1}
+  wrong={[
+    "Tener la app no significa controlar las claves; el exchange las custodia.",
+    "",
+    "El regulador supervisa, no custodia tus fondos.",
+    "Alguien las controla: el exchange.",
+  ]}
+  explanation="En un exchange, la custodia es del exchange. Si quieres control real, necesitas una wallet con tus propias claves."
+/>
+
+<KeyIdea>
+Si no puedes explicar dónde están tus claves y quién las controla, no sabes dónde está tu dinero.
+</KeyIdea>

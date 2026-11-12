@@ -1,0 +1,61 @@
+---
+title: "Apalancamiento y liquidación"
+module: "m6"
+order: 3
+minutes: 5
+level: "intermedio"
+summary: "El apalancamiento multiplica el tamaño de la posición, pero también la velocidad a la que puedes perder el capital. No multiplica tu ventaja."
+objectives:
+  - "Entender qué es el margen y la liquidación"
+  - "Calcular la distancia a la liquidación"
+  - "Reconocer por qué el apalancamiento alto es incompatible con aprender"
+dataset: "btc-4h"
+related: ["stop-loss", "perpetuos-funding", "drawdown-riesgo-ruina"]
+tags: ["riesgo", "apalancamiento", "liquidación"]
+---
+
+Con 10x, el <Term term="Apalancamiento">apalancamiento</Term> te permite controlar una posición 10 veces mayor que tu capital. Eso no significa que tengas 10 veces más probabilidad de ganar: significa que un movimiento del 10 % en contra puede borrar tu margen.
+
+<LiquidationCalculator />
+
+## El ejemplo que lo explica
+
+Capital: 1.000 $. Apalancamiento: 10x. Posición: 10.000 $. Entrada: 75.000 $.
+
+- Si el precio sube un 5 %, ganas 500 $ sobre 1.000 $ de capital: +50 %.
+- Si el precio cae un 5 %, pierdes 500 $: −50 %.
+- Si cae cerca de un 10 %, la posición se liquida: pierdes el margen.
+
+<Callout type="danger" title="La trampa del aprendizaje">
+Con apalancamiento alto, el ruido normal del mercado te saca antes de que tu idea se desarrolle. No aprendes a operar: aprendes a sobrevivir a tu propio tamaño.
+</Callout>
+
+## Reglas mínimas
+
+1. **Sin apalancamiento durante el primer año.** El objetivo es aprender, no multiplicar.
+2. Si algún día lo usas, que sea con una fracción pequeña del capital y un stop definido.
+3. Comprende la liquidación antes de abrir la posición, no después.
+4. Recuerda el funding: en perpetuos, mantener la posición también cuesta.
+
+<Quiz
+  slug="apalancamiento"
+  question="Con 10x, un movimiento del 10 % en contra de tu posición…"
+  options={[
+    "Te hace perder el 10 % del capital",
+    "Puede liquidar tu margen",
+    "No afecta porque tienes stop",
+    "Te hace ganar por la volatilidad",
+  ]}
+  correct={1}
+  wrong={[
+    "Con 10x, el 10 % de la posición equivale al 100 % de tu margen.",
+    "",
+    "Un stop ayuda, pero en un gap o una caída rápida puede no ejecutarse a tiempo.",
+    "La volatilidad no genera ganancias por sí sola; amplifica el resultado.",
+  ]}
+  explanation="Con 10x, el margen es el 10 % de la posición. Un movimiento del 10 % en contra consume todo el margen y provoca la liquidación."
+/>
+
+<KeyIdea>
+El apalancamiento no cambia la dirección de tu idea: cambia cuánto puedes aguantar antes de tener razón.
+</KeyIdea>

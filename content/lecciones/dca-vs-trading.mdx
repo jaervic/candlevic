@@ -1,0 +1,63 @@
+---
+title: "DCA vs. trading activo"
+module: "m2"
+order: 3
+minutes: 4
+level: "principiante"
+summary: "El DCA compra una cantidad fija de forma periódica. No es magia, pero elimina la peor decisión: intentar adivinar el momento exacto."
+objectives:
+  - "Entender qué es el DCA y qué no"
+  - "Comparar DCA con trading activo en costes y tiempo"
+  - "Decidir cuándo tiene sentido cada enfoque"
+dataset: "spy-1d"
+related: ["estilos-en-detalle", "costes", "expectativas-realistas"]
+tags: ["dca", "estrategia", "largo plazo"]
+---
+
+El **<Term term="DCA">DCA</Term>** (Dollar Cost Averaging) consiste en invertir una cantidad fija cada cierto tiempo, sin intentar adivinar el mejor momento. Compra más participaciones cuando el precio baja y menos cuando sube.
+
+<DatasetChart dataset="spy-1d" height={220} overlays={[{ type: "sma", period: 50 }]} caption="SPY: incluso un índice diversificado tiene caídas. El DCA reparte el momento de entrada." />
+
+## Qué hace y qué no
+
+**Hace:**
+- Reduce el impacto de entrar en un mal día.
+- Elimina la decisión emocional de "ahora o nunca".
+- Automatiza el proceso.
+
+**No hace:**
+- Eliminar el riesgo de mercado.
+- Garantizar rentabilidad.
+- Convertir un mal activo en una buena inversión.
+
+## La comparación honesta
+
+| | DCA | Trading activo |
+|---|---|---|
+| Tiempo | Mínimo | Alto |
+| Costes | Bajos | Medios/altos |
+| Depende de | El activo y el horizonte | Tu ventaja y ejecución |
+| Riesgo principal | Elegir mal el activo | Sobreoperar y perder disciplina |
+
+<Quiz
+  slug="dca-vs-trading"
+  question="¿Qué hace el DCA?"
+  options={[
+    "Comprar todo de una vez en el mejor momento",
+    "Comprar una cantidad fija de forma periódica",
+    "Vender en los máximos",
+    "Usar apalancamiento para promediar",
+  ]}
+  correct={1}
+  wrong={[
+    "El DCA renuncia a adivinar el mejor momento; compra de forma periódica.",
+    "",
+    "El DCA no vende en máximos: compra con una regla temporal.",
+    "El DCA no necesita apalancamiento; de hecho, el apalancamiento lo contradice.",
+  ]}
+  explanation="El DCA reparte las compras en el tiempo con una cantidad fija. Reduce el riesgo de timing, no el riesgo del activo."
+/>
+
+<KeyIdea>
+El DCA es una buena estrategia para invertir, no para especular. Si no tienes una ventaja medible, competir con traders activos es una desventaja.
+</KeyIdea>

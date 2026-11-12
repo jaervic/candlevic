@@ -1,0 +1,74 @@
+---
+title: "El diario que sí sirve"
+module: "m7"
+order: 3
+minutes: 4
+level: "principiante"
+summary: "Un diario no es un registro de resultados: es un espejo de tus decisiones. Sirve para repetir lo bueno y detectar lo que te cuesta dinero."
+objectives:
+  - "Saber qué registrar antes, durante y después de una operación"
+  - "Separar resultado de calidad de ejecución"
+  - "Detectar patrones de comportamiento con datos propios"
+dataset: "spy-1d"
+related: ["plan-de-trading", "proceso-vs-resultado", "rutina-diario-emocional"]
+tags: ["estrategia", "diario", "proceso"]
+---
+
+El mercado no te dice si tu decisión fue buena; solo te dice qué pasó. El diario es lo que te permite reconstruir la decisión y aprender de ella.
+
+## Qué registrar
+
+| Campo | Por qué importa |
+|---|---|
+| Fecha y activo | Contexto y trazabilidad |
+| Setup | ¿Qué regla de tu plan se activó? |
+| Entrada, stop y objetivo | El plan real, no el recuerdo |
+| Tamaño y riesgo en R | Permite comparar operaciones entre sí |
+| Resultado en R | +2R, −1R, +0,3R |
+| Emoción antes y después | FOMO, duda, calma, euforia |
+| Captura del gráfico | La memoria engaña |
+| Qué harías distinto | La lección concreta |
+
+<Callout type="info" title="El campo que casi nadie rellena">
+La emoción. No para juzgarte, sino para encontrar patrones: ¿operas peor después de una pérdida? ¿Aumentas el tamaño cuando vas ganando? Sin ese dato, el diario es contabilidad, no aprendizaje.
+</Callout>
+
+## Resultado en R, no en euros
+
+Si arriesgas 1 % en una operación y ganas 2 %, el resultado es **+2R**. Si arriesgas 5 % y ganas 2 %, es **+0,4R**. El euro oculta el riesgo; la R lo hace comparable.
+
+<KeyIdea>
+Un diario útil responde a: ¿respeté el plan? ¿Qué emoción estaba presente? ¿Qué haría igual y qué cambiaría? El P&L es la última pregunta, no la primera.
+</KeyIdea>
+
+<Scenario
+  situation="Ganas una operación que entraste sin stop porque 'esta vez lo veía claro'. ¿Qué anotas en el diario?"
+  options={[
+    { label: "Solo el beneficio: la operación salió bien", feedback: "El resultado fue bueno, pero el proceso fue peligroso. Si repites esa decisión, alguna vez no saldrá bien.", quality: "bad" },
+    { label: "Que gané sin stop y que no debo repetirlo", feedback: "Correcto. El diario debe registrar la desviación del plan aunque el resultado haya sido positivo.", quality: "good" },
+    { label: "Que el stop no hace falta si tienes convicción", feedback: "La convicción no limita la pérdida. El stop es lo que te protege cuando te equivocas.", quality: "bad" },
+  ]}
+/>
+
+<Quiz
+  slug="diario-de-trading"
+  question="¿Qué debería evaluar primero tu diario?"
+  options={[
+    "Solo el resultado en euros",
+    "El proceso: si respetaste entrada, stop, tamaño y plan",
+    "El número de operaciones",
+    "El win rate",
+  ]}
+  correct={1}
+  wrong={[
+    "El resultado individual puede ser suerte; el diario sirve para evaluar decisiones.",
+    "",
+    "Operar más no es mejor; el diario mide calidad, no cantidad.",
+    "El win rate sin el R:B y el tamaño cuenta una historia incompleta.",
+  ]}
+  explanation="Primero el proceso, después el resultado. Un buen proceso con una pérdida sigue siendo un buen proceso; un mal proceso con una ganancia sigue siendo un riesgo."
+/>
+
+<Callout type="tip" title="Plantilla mínima">
+Si no quieres complicarte, usa cinco columnas: fecha, setup, riesgo en R, resultado en R y emoción. Con eso ya puedes detectar patrones.
+</Callout>

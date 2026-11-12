@@ -1,0 +1,60 @@
+---
+title: "Drawdown: la prueba de verdad"
+module: "m8"
+order: 5
+minutes: 5
+level: "intermedio"
+summary: "El drawdown no es solo una cifra: es una prueba emocional. La forma en que reaccionas a una caída decide si llegas al siguiente ciclo."
+objectives:
+  - "Entender la asimetría entre caída y recuperación"
+  - "Reconocer las etapas emocionales de un drawdown"
+  - "Definir reglas de tamaño y pausa para no empeorarlo"
+dataset: "btc-bear-2022"
+related: ["expectativas-realistas", "drawdown-riesgo-ruina", "procesar-perdidas"]
+tags: ["psicología", "drawdown", "riesgo"]
+---
+
+Un <Term term="Drawdown">drawdown</Term> es la caída desde el máximo de tu cuenta hasta el mínimo posterior. No mide una operación: mide el dolor acumulado. Y el dolor cambia la forma en que decides.
+
+<DatasetChart dataset="btc-bear-2022" from={150} to={426} height={220} showVolume caption="BTC en 2022: más de un año de caída. El problema no fue solo el precio, sino las decisiones que tomó la gente por dentro." />
+
+## La asimetría que lo cambia todo
+
+| Si caes… | Necesitas ganar… |
+|---|---|
+| −10 % | +11,1 % |
+| −25 % | +33,3 % |
+| −50 % | +100 % |
+| −75 % | +300 % |
+
+Cuanto más grande es la caída, más desproporcionado es el esfuerzo para recuperarla. Por eso el objetivo principal no es ganar mucho: es **no perder demasiado**.
+
+## Las etapas del drawdown
+
+1. **Negación.** "Es una corrección, volverá".
+2. **Culpa.** "Debí vender antes".
+3. **Improvisación.** Aumentar el tamaño para recuperar.
+4. **Agotamiento.** Operar sin ganas o dejar de mirar.
+5. **Aceptación.** Reducir tamaño, revisar el sistema y volver con reglas.
+
+<Callout type="warning" title="La trampa del doble o nada">
+Después de una caída, el impulso de duplicar el tamaño para recuperar es el atajo más rápido a una caída mayor. El tamaño se reduce, no se aumenta.
+</Callout>
+
+<Quiz
+  slug="psicologia-drawdown"
+  question="Tu cuenta cae un 50 %. ¿Qué rentabilidad necesitas para volver al punto de partida?"
+  options={["+50 %", "+75 %", "+100 %", "+150 %"]}
+  correct={2}
+  wrong={[
+    "Con una caída del 50 % necesitas un 100 % para volver.",
+    "+75 % no alcanza; te quedarías en 87,5 % del capital original.",
+    "",
+    "+150 % te pasaría; el exacto es 100 %.",
+  ]}
+  explanation="Si tenías 100 y caes a 50, necesitas ganar 50 sobre 50, es decir, un 100 %. Las pérdidas y las ganancias no son simétricas."
+/>
+
+<KeyIdea>
+En un drawdown, la prioridad no es recuperar rápido: es dejar de hacer daño. Reducir tamaño, parar y revisar es parte de la estrategia.
+</KeyIdea>

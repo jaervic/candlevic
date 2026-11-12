@@ -1,0 +1,72 @@
+---
+title: "Cómo procesar una pérdida"
+module: "m8"
+order: 4
+minutes: 5
+level: "principiante"
+summary: "Una pérdida no es un fracaso personal: es el coste de hacer negocios con incertidumbre. El problema no es perder; es no haber aceptado el riesgo antes."
+objectives:
+  - "Separar la pérdida económica de la identidad personal"
+  - "Aceptar el riesgo antes de entrar"
+  - "Evitar mover el stop y promediar a la baja por orgullo"
+dataset: "btc-1d"
+related: ["stop-loss", "sesgos-cognitivos", "psicologia-drawdown"]
+tags: ["psicología", "pérdidas", "riesgo"]
+---
+
+Si tu stop salta y sientes que has fallado, el problema no es el stop: es que el tamaño era demasiado grande o que no aceptabas la pérdida antes de entrar.
+
+<KeyIdea>
+La pérdida se acepta antes de entrar. Después de entrar, solo se ejecuta.
+</KeyIdea>
+
+## El pre-mortem
+
+Antes de abrir una operación, imagina que ya ha salido mal. Responde:
+
+1. ¿Cuánto he perdido? (en dinero y en % de la cuenta)
+2. ¿Qué habrá pasado para que eso ocurra?
+3. ¿Seguiré pudiendo operar mañana?
+4. ¿Qué haré exactamente cuando llegue el stop?
+
+Si la respuesta a la 1 te incomoda, el tamaño es demasiado grande. Si la 4 no es automática, el plan está incompleto.
+
+<Scenario
+  situation="El precio toca tu stop, cierras con −1R y diez minutos después rebota con fuerza. ¿Qué haces?"
+  options={[
+    { label: "Volver a entrar inmediatamente para no perderme el rebote", feedback: "El rebote no valida ni invalida tu decisión. Volver a entrar por rabia es revenge trading.", quality: "bad" },
+    { label: "Aceptar la pérdida y revisar si el stop estaba bien colocado", feedback: "Correcto. Si el stop respetaba el plan, la operación fue buena aunque el resultado fuera negativo.", quality: "good" },
+    { label: "Quitar el stop la próxima vez para que no me saquen", feedback: "Eso convierte una pérdida controlada en una pérdida ilimitada.", quality: "bad" },
+  ]}
+/>
+
+## La pérdida como coste
+
+Un negocio tiene costes fijos. Un trader tiene **pérdidas planificadas**. Si arriesgas 1 % por operación y haces 100 operaciones, es normal perder 40–60 veces. La rentabilidad no viene de no perder: viene de que las ganancias pesen más que esas pérdidas.
+
+<Callout type="info" title="La pregunta correcta">
+No es "¿cómo evito perder?". Es "¿estoy perdiendo dentro de lo que mi plan considera normal?".
+</Callout>
+
+<Quiz
+  slug="procesar-perdidas"
+  question="¿Cuándo se acepta el riesgo de una operación?"
+  options={[
+    "Cuando el precio llega al stop",
+    "Antes de entrar, cuando defines el riesgo",
+    "Cuando la pérdida ya es insoportable",
+    "Cuando el mercado cierra",
+  ]}
+  correct={1}
+  wrong={[
+    "En el stop ya solo ejecutas una decisión que debías haber aceptado antes.",
+    "",
+    "Si esperas a que sea insoportable, el tamaño era demasiado grande.",
+    "El cierre del mercado no tiene que ver con aceptar el riesgo.",
+  ]}
+  explanation="El riesgo se acepta antes de entrar. Si no puedes aceptar la pérdida máxima, reduce el tamaño o no hagas la operación."
+/>
+
+<Callout type="tip" title="Ritual de cierre">
+Después de una pérdida, escribe una frase: "Perdí X dentro del plan porque Y. La próxima haré Z". Luego cierra la plataforma durante al menos 30 minutos.
+</Callout>

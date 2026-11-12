@@ -1,0 +1,67 @@
+---
+title: "Estafas y seguridad"
+module: "m9"
+order: 5
+minutes: 5
+level: "principiante"
+summary: "En cripto, la estafa más común no es un hackeo sofisticado: es conseguir que tú mismo entregues las claves o envíes dinero."
+objectives:
+  - "Reconocer las estafas más frecuentes"
+  - "Proteger la seed phrase y la cuenta"
+  - "Aplicar una regla de oro antes de enviar fondos"
+dataset: "btc-1d"
+related: ["wallets-custodia", "stablecoins", "caso-luna"]
+tags: ["cripto", "seguridad", "estafas"]
+---
+
+La tecnología puede ser segura; el eslabón más débil suele ser la persona. Estas estafas no requieren romper la blockchain: requieren que tú abras la puerta.
+
+## Las más comunes
+
+1. **Phishing.** Una web o un mensaje imita a tu exchange y te pide iniciar sesión.
+2. **Falso soporte.** Te contacta por Telegram o Discord y te pide la seed.
+3. **Rug pull.** Un proyecto desaparece con la liquidez.
+4. **Rendimientos garantizados.** "20 % mensual sin riesgo" es una señal de alarma, no una oportunidad.
+5. **Pump and dump.** Un grupo coordina compras para que entres tarde.
+6. **Address poisoning.** Te envían una transacción con una dirección parecida para que copies la equivocada.
+
+<Scenario
+  situation="Un 'soporte' te escribe por Telegram: dice que tu cuenta está en riesgo y te pide la seed para 'verificarla'."
+  options={[
+    { label: "Se la doy: parece el soporte oficial", feedback: "Ningún soporte legítimo pide la seed. Es una estafa clásica.", quality: "bad" },
+    { label: "No la comparto y reporto el mensaje", feedback: "Correcto. La seed es la llave de tus fondos; nadie legítimo la necesita.", quality: "good" },
+    { label: "Le doy solo 6 palabras para comprobar", feedback: "Con parte de la seed no se recupera la wallet, pero estás revelando información y normalizando el riesgo.", quality: "bad" },
+  ]}
+/>
+
+## Reglas de seguridad
+
+- La seed **nunca** se comparte, ni con soporte, ni con un "admin", ni con tu pareja.
+- Activa **2FA** con app, no solo SMS.
+- Verifica la URL antes de iniciar sesión.
+- No firmes transacciones que no entiendes.
+- Desconfía de cualquier rendimiento garantizado.
+- Para mover fondos, copia la dirección desde una fuente segura y comprueba los primeros y últimos caracteres.
+
+<Quiz
+  slug="estafas-seguridad"
+  question="¿Qué señal es una estafa casi segura?"
+  options={[
+    "Te piden la seed phrase",
+    "Te piden el hash de una transacción",
+    "Te recomiendan activar 2FA",
+    "Te piden el correo de la cuenta",
+  ]}
+  correct={0}
+  wrong={[
+    "",
+    "El hash es público y no da acceso a los fondos.",
+    "2FA es una recomendación de seguridad.",
+    "El correo no es la seed, aunque conviene compartirlo con cuidado.",
+  ]}
+  explanation="Quien tiene tu seed tiene tus fondos. Ningún servicio legítimo necesita que se la entregues."
+/>
+
+<Callout type="warning" title="La regla de las 10 palabras">
+Si un mensaje te mete prisa, te promete rentabilidad o te pide un secreto, para. La prisa es la herramienta favorita del estafador.
+</Callout>

@@ -1,0 +1,61 @@
+---
+title: "Stablecoins: estabilidad con reservas"
+module: "m9"
+order: 2
+minutes: 4
+level: "principiante"
+summary: "Una stablecoin intenta valer siempre 1 dólar. Esa promesa es tan sólida como las reservas que la respaldan."
+objectives:
+  - "Entender los tipos de stablecoin y sus riesgos"
+  - "Distinguir estabilidad de ausencia de riesgo"
+  - "Reconocer señales de un diseño frágil"
+dataset: "btc-bear-2022"
+related: ["wallets-custodia", "caso-luna", "perpetuos-funding"]
+tags: ["cripto", "stablecoins", "riesgo"]
+---
+
+Una <Term term="Stablecoin">stablecoin</Term> es una criptomoneda diseñada para mantener un precio estable, normalmente ligada al dólar. Se usa para operar, mover dinero entre exchanges y refugiarse sin salir a moneda fiat.
+
+## Tres diseños, tres riesgos
+
+| Tipo | Cómo mantiene la paridad | Riesgo principal |
+|---|---|---|
+| Respaldada por reservas | Dólares o equivalentes por cada token | Calidad y transparencia de las reservas |
+| Sobrecollateralizada | Más valor en cripto bloqueado que tokens emitidos | Caída del colateral |
+| Algorítmica | Mecanismo de oferta y demanda, sin reservas completas | Espiral de confianza |
+
+<Callout type="warning" title="El caso UST">
+UST prometía un 20 % anual y dependía de un algoritmo. Cuando la confianza cayó, el mecanismo se convirtió en una espiral. "Stable" no significa "sin riesgo".
+</Callout>
+
+<DatasetChart dataset="btc-bear-2022" from={150} to={230} height={200} showVolume caption="El contagio de 2022: cuando una stablecoin pierde la paridad, el riesgo se propaga a todo el mercado." />
+
+## Qué mirar
+
+1. **Reservas y auditorías.** ¿Están publicadas? ¿Son verificables?
+2. **Concentración.** ¿Cuánto suministro está en pocas manos?
+3. **Liquidez.** ¿Puedes salir sin mover el precio?
+4. **Regulación.** ¿Dónde está el emisor y qué obligaciones tiene?
+
+<Quiz
+  slug="stablecoins"
+  question="¿Qué respalda principalmente la paridad de una stablecoin?"
+  options={[
+    "El precio de Bitcoin",
+    "Las reservas y el diseño del emisor",
+    "La cantidad de exchanges",
+    "El volumen de trading",
+  ]}
+  correct={1}
+  wrong={[
+    "El precio de BTC no respalda una stablecoin.",
+    "",
+    "Los exchanges no son las reservas del emisor.",
+    "El volumen no garantiza la paridad.",
+  ]}
+  explanation="La estabilidad depende de las reservas y del diseño. Si no puedes explicar de dónde sale la paridad, no entiendes el riesgo."
+/>
+
+<KeyIdea>
+Una stablecoin no es una cuenta de ahorro. Es un instrumento con riesgo de emisor, de reservas y de liquidez.
+</KeyIdea>

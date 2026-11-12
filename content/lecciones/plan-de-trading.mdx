@@ -1,0 +1,72 @@
+---
+title: "Tu plan de trading en una página"
+module: "m7"
+order: 1
+minutes: 5
+level: "principiante"
+summary: "Un plan no predice el futuro: decide de antemano qué haces en cada escenario. Si no cabe en una página, no es un plan."
+objectives:
+  - "Definir horizonte, activos, riesgo, entrada, stop y objetivo"
+  - "Entender por qué el tamaño se calcula desde el stop"
+  - "Escribir reglas que puedas ejecutar bajo presión"
+dataset: "spy-1d"
+related: ["stop-loss", "ratio-riesgo-beneficio", "diario-de-trading"]
+tags: ["estrategia", "plan", "proceso"]
+---
+
+La mayoría de las decisiones malas no se toman por falta de análisis, sino por falta de un plan escrito **antes** de que el precio se mueva. Cuando hay dinero en juego, el cerebro busca certeza; el plan existe para que no tengas que improvisar.
+
+<DatasetChart dataset="spy-1d" height={220} overlays={[{ type: "sma", period: 50 }]} caption="El plan no elimina la incertidumbre: define cómo la vas a atravesar." />
+
+## Los seis bloques
+
+1. **Horizonte.** ¿Intradía, días, semanas o meses? Define la temporalidad y el ruido que vas a ignorar.
+2. **Activos.** ¿Qué vas a operar y por qué? Menos activos, mejor seguimiento.
+3. **Riesgo por operación.** Un porcentaje del capital, no una cantidad al azar. El 1 % es un punto de partida sensato.
+4. **Entrada.** Una condición concreta, no una corazonada. Ejemplo: pullback a la media de 50 dentro de una tendencia alcista.
+5. **Stop.** Dónde tu idea queda invalidada. Se define antes de calcular el tamaño.
+6. **Objetivo y reglas.** Ratio riesgo/beneficio mínimo, máximo de operaciones, qué no hacer.
+
+<PlanBuilder />
+
+## El orden importa
+
+Primero defines **cuánto puedes perder**, después dónde va el stop y al final el tamaño. Si lo haces al revés, el riesgo se convierte en una consecuencia del tamaño y no en una decisión.
+
+<KeyIdea>
+Si no puedes explicar tu operación en una frase —entrada, stop, objetivo y riesgo— no tienes un plan: tienes una intención.
+</KeyIdea>
+
+## Antes de pulsar comprar
+
+<StepList
+  steps={[
+    { title: "Revisa el contexto", body: "Tendencia, niveles y noticias relevantes. Si no hay contexto, no hay operación." },
+    { title: "Calcula el riesgo", body: "Capital × % de riesgo. Después, tamaño = riesgo / distancia al stop." },
+    { title: "Escribe la operación", body: "Activo, dirección, entrada, stop, objetivo y por qué. Si no cabe en una línea, sobra algo." },
+    { title: "Acepta la pérdida", body: "Antes de entrar, imagina el stop saltando. Si no te parece aceptable, reduce el tamaño." },
+  ]}
+/>
+
+<Quiz
+  slug="plan-de-trading"
+  question="¿Cuál es el orden correcto antes de abrir una operación?"
+  options={[
+    "Elegir el activo, luego el tamaño y al final el stop",
+    "Definir el riesgo y el stop antes de calcular el tamaño",
+    "Comprar primero y decidir el stop si baja",
+    "Copiar el plan de otra persona",
+  ]}
+  correct={1}
+  wrong={[
+    "El tamaño se calcula a partir del stop; si eliges el tamaño antes, el riesgo queda al azar.",
+    "",
+    "Decidir el stop después es improvisar; el riesgo ya no está controlado.",
+    "Un plan ajeno puede servir de referencia, pero no conoce tu capital, tu tiempo ni tu tolerancia.",
+  ]}
+  explanation="Primero el riesgo máximo, después el stop técnico y por último el tamaño. Así la pérdida está acotada antes de entrar."
+/>
+
+<Callout type="tip" title="Ejercicio">
+Rellena el plan de arriba con tus datos reales y descárgalo. Vuelve a leerlo dentro de una semana: si te parece demasiado complicado, recórtalo.
+</Callout>

@@ -1,0 +1,58 @@
+---
+title: "Proceso vs. resultado"
+module: "m8"
+order: 6
+minutes: 4
+level: "principiante"
+summary: "Una buena decisión puede perder y una mala puede ganar. Si juzgas por el resultado, aprendes el hábito equivocado."
+objectives:
+  - "Separar calidad de decisión y resultado"
+  - "Evitar reforzar malos hábitos por una ganancia afortunada"
+  - "Evaluar tu trading con métricas de proceso"
+dataset: "btc-1d"
+related: ["psicologia-probabilidades", "diario-de-trading", "errores-comunes"]
+tags: ["psicología", "proceso", "resultado"]
+---
+
+El mercado reparte resultados con ruido. Si cada ganancia te parece una validación y cada pérdida un fracaso, estás entrenando a tu cerebro con la señal equivocada.
+
+## La matriz de la decisión
+
+| | Buen resultado | Mal resultado |
+|---|---|---|
+| **Buen proceso** | Repite | Repite: era varianza |
+| **Mal proceso** | Corrige: fue suerte | Corrige: era cuestión de tiempo |
+
+La columna que más daño hace es la de arriba a la derecha: **ganar con un mal proceso**. Refuerza el hábito que algún día te costará la cuenta.
+
+<Scenario
+  situation="Ganas una operación que entraste sin stop y con el doble de tamaño. ¿Qué conclusión sacas?"
+  options={[
+    { label: "El tamaño grande funciona; repetiré", feedback: "Una ganancia no valida un proceso peligroso. La próxima vez que falle, la pérdida será el doble.", quality: "bad" },
+    { label: "Gané por suerte; el proceso fue malo y no debo repetirlo", feedback: "Correcto. El resultado fue bueno, la decisión no. El diario debe registrar la desviación.", quality: "good" },
+    { label: "Depende de si el mercado sigue subiendo", feedback: "Tu proceso no puede depender de lo que haga el mercado después. Debe ser correcto antes de entrar.", quality: "neutral" },
+  ]}
+/>
+
+<Quiz
+  slug="proceso-vs-resultado"
+  question="¿Qué valida una decisión de trading?"
+  options={[
+    "El resultado: si gané, la decisión fue buena",
+    "El proceso: si respeté el plan y el riesgo",
+    "La opinión de otros",
+    "El número de indicadores usados",
+  ]}
+  correct={1}
+  wrong={[
+    "Un mal proceso puede ganar por suerte; eso refuerza el hábito peligroso.",
+    "",
+    "La opinión ajena no conoce tu plan ni tu riesgo.",
+    "Más indicadores no hacen mejor una decisión.",
+  ]}
+  explanation="La calidad se mide por el proceso: riesgo definido, plan respetado y decisiones repetibles. El resultado individual es demasiado ruidoso para validar nada."
+/>
+
+<KeyIdea>
+Pregúntate: "¿volvería a tomar esta decisión con la misma información?". Si la respuesta es sí, el resultado no cambia su calidad.
+</KeyIdea>

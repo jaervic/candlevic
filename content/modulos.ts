@@ -7,7 +7,8 @@ export type ModuleId =
   | "m5"
   | "m6"
   | "m7"
-  | "m8";
+  | "m8"
+  | "m9";
 
 export type CourseModule = {
   id: ModuleId;
@@ -23,6 +24,7 @@ export type CourseModule = {
     | "gauge"
     | "shield"
     | "target"
+    | "heart"
     | "bitcoin";
   accent: string;
 };
@@ -69,7 +71,7 @@ export const MODULES: CourseModule[] = [
     title: "Análisis técnico I: tendencia",
     short: "Tendencia",
     description:
-      "Teoría de Dow, estructura de máximos y mínimos, soportes, resistencias y rupturas.",
+      "Teoría de Dow, estructura de máximos y mínimos, soportes, resistencias, patrones y rupturas.",
     icon: "trend",
     accent: "#34d399",
   },
@@ -93,19 +95,28 @@ export const MODULES: CourseModule[] = [
   },
   {
     id: "m7",
-    title: "Estrategia y psicología",
+    title: "Estrategia y plan",
     short: "Estrategia",
     description:
-      "Tu plan, tu diario, tus sesgos. Cómo convertir ideas en un proceso repetible.",
+      "Tu plan de trading, backtesting honesto, diario y los errores que se repiten.",
     icon: "target",
     accent: "#f472b6",
   },
   {
     id: "m8",
+    title: "Psicología del trading",
+    short: "Psicología",
+    description:
+      "Sesgos, FOMO, pérdidas, drawdown y la disciplina que separa el proceso del resultado.",
+    icon: "heart",
+    accent: "#c084fc",
+  },
+  {
+    id: "m9",
     title: "Cripto en la práctica",
     short: "Cripto",
     description:
-      "Wallets, custodia, stablecoins, funding y las reglas propias de un mercado 24/7.",
+      "Wallets, custodia, stablecoins, perpetuos, on-chain y seguridad.",
     icon: "bitcoin",
     accent: "#f59e0b",
   },

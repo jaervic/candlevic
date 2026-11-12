@@ -1,0 +1,67 @@
+---
+title: "Pensar en probabilidades"
+module: "m8"
+order: 1
+minutes: 5
+level: "principiante"
+summary: "El trading no es acertar una vez: es repetir un proceso con esperanza positiva. Cada operación es un evento independiente."
+objectives:
+  - "Entender por qué una operación aislada no valida el sistema"
+  - "Pensar en muestras y esperanza matemática"
+  - "Evitar la falacia del jugador y la euforia de las rachas"
+dataset: "btc-1d"
+related: ["ratio-riesgo-beneficio", "proceso-vs-resultado", "expectativas-realistas"]
+tags: ["psicología", "probabilidad", "proceso"]
+---
+
+Un trader profesional no piensa "esta operación va a salir bien". Piensa: "si repito esta decisión 100 veces, ¿el conjunto gana?". Esa diferencia cambia todo.
+
+<DatasetChart dataset="btc-1d" from={580} to={700} height={220} showVolume caption="Cada vela es un resultado. La ventaja no está en una vela, sino en la distribución de muchas." />
+
+## La operación individual es ruido
+
+Si tu sistema acierta el 40 % y tiene un R:B de 1:2, puedes perder 6 de las próximas 10 operaciones y seguir siendo rentable. También puedes ganar 6 seguidas y estar ejecutando mal.
+
+- **Una pérdida no significa que el sistema esté roto.**
+- **Una ganancia no significa que la decisión fuera buena.**
+- **La muestra mínima para evaluar algo son decenas de operaciones, no tres.**
+
+<KeyIdea>
+Una operación no dice nada sobre tu habilidad. Cien operaciones con el mismo proceso dicen casi todo.
+</KeyIdea>
+
+## La falacia del jugador
+
+Después de cinco aciertos, el cerebro siente que "toca perder". Después de cinco fallos, siente que "toca ganar". El mercado no lleva esa cuenta: cada operación es independiente y la probabilidad no se compensa.
+
+<Scenario
+  situation="Llevas cinco operaciones ganadoras seguidas. ¿Qué haces con la sexta?"
+  options={[
+    { label: "Duplicar el tamaño: estoy en racha", feedback: "La racha no cambia la probabilidad. Aumentar el tamaño por euforia es una decisión emocional, no estadística.", quality: "bad" },
+    { label: "Mantener el mismo tamaño y el mismo proceso", feedback: "Correcto. La consistencia del tamaño es lo que hace que la esperanza matemática funcione.", quality: "good" },
+    { label: "Dejar de operar porque 'ahora toca perder'", feedback: "Eso también es falacia del jugador: el mercado no te debe una pérdida.", quality: "neutral" },
+  ]}
+/>
+
+<Quiz
+  slug="psicologia-probabilidades"
+  question="¿Qué significa que las operaciones sean independientes?"
+  options={[
+    "Que la próxima tiene más probabilidad de ganar si llevas cinco aciertos",
+    "Que el resultado anterior no cambia la probabilidad de la siguiente",
+    "Que debes duplicar el tamaño para aprovechar la racha",
+    "Que el sistema está roto si pierdes la siguiente",
+  ]}
+  correct={1}
+  wrong={[
+    "La racha no altera la probabilidad; confundir eso es la falacia del jugador.",
+    "",
+    "Aumentar el tamaño por una racha es una decisión emocional, no estadística.",
+    "Una pérdida aislada no rompe un sistema; se evalúa con una muestra.",
+  ]}
+  explanation="Cada operación es un evento nuevo. Lo que sí puedes controlar es el tamaño, el stop y la calidad del proceso."
+/>
+
+<Callout type="tip" title="Ejercicio">
+Antes de tu próxima operación, escribe: "Si repito esto 100 veces, ¿qué esperanza tengo?". Si no puedes responder, aún no tienes un sistema: tienes una intuición.
+</Callout>

@@ -1,0 +1,62 @@
+---
+title: "Patrones: H-C-H, triángulos y banderas"
+module: "m4"
+order: 4
+minutes: 5
+level: "intermedio"
+summary: "Los patrones son formas de ordenar la estructura, no garantías. Sin contexto y volumen, son dibujos."
+objectives:
+  - "Reconocer H-C-H, triángulos y banderas"
+  - "Entender qué confirma una ruptura"
+  - "Evitar operar patrones sin contexto"
+dataset: "btc-1d"
+related: ["tendencia", "soporte-resistencia", "volumen"]
+tags: ["patrones", "estructura", "rupturas"]
+---
+
+Un patrón es una forma repetida de comportamiento. No predice el futuro: describe una tensión entre compradores y vendedores. El contexto decide si esa tensión se resuelve o no.
+
+## Hombro-cabeza-hombro
+
+<PatternChart type="hch" caption="Tres picos con el central más alto. La línea del cuello es la referencia; la ruptura necesita volumen." />
+
+Sugiere agotamiento de una tendencia alcista. La confirmación no es el dibujo: es la ruptura del cuello con volumen y cierre fuera del nivel.
+
+## Triángulo
+
+<PatternChart type="triangle" caption="Máximos descendentes y mínimos ascendentes: el precio comprime la volatilidad hasta que rompe." />
+
+Indica compresión, no dirección. Puede romper hacia arriba o hacia abajo. Espera la ruptura y el cierre, no la anticipes.
+
+## Bandera
+
+<PatternChart type="flag" caption="Un impulso fuerte (mástil) y una pausa lateral (bandera). La ruptura de la bandera continúa el impulso." />
+
+Suele ser una pausa dentro de una tendencia. Si la bandera se rompe en contra, el patrón falla y el stop debe respetarse.
+
+<Callout type="warning" title="El fakeout">
+Una ruptura sin volumen y sin cierre fuera del nivel es sospechosa. Muchos patrones se ven perfectos justo antes de fallar: es el <Term term="Fakeout">fakeout</Term>.
+</Callout>
+
+<Quiz
+  slug="patrones"
+  question="¿Qué confirma mejor una ruptura?"
+  options={[
+    "Una vela verde",
+    "Volumen y cierre fuera del nivel",
+    "Un RSI alto",
+    "Una noticia en redes",
+  ]}
+  correct={1}
+  wrong={[
+    "Una vela aislada no confirma nada; el cierre y la participación sí.",
+    "",
+    "El RSI puede estar alto en una tendencia sana o en un agotamiento.",
+    "Las noticias no sustituyen la estructura ni el volumen.",
+  ]}
+  explanation="La ruptura se confirma con cierre fuera del nivel y volumen por encima de la media. Sin eso, puede ser un fakeout."
+/>
+
+<KeyIdea>
+Los patrones no son profecías: son mapas de probabilidad. El stop sigue siendo obligatorio.
+</KeyIdea>

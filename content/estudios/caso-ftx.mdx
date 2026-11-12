@@ -1,0 +1,72 @@
+---
+title: "FTX: cuando el exchange no era tu amigo"
+kind: "caso"
+date: "2022-11-11"
+minutes: 5
+level: "intermedio"
+summary: "Uno de los mayores exchanges del mundo quebró en días. La lección no es sobre cripto: es sobre custodia y riesgo de contraparte."
+tags: ["caso", "cripto", "custodia", "riesgo"]
+related: ["wallets-custodia", "estafas-seguridad", "expectativas-realistas"]
+---
+
+FTX era el segundo exchange de cripto por volumen. En noviembre de 2022 quebró en menos de una semana. Miles de usuarios descubrieron que el dinero que creían tener no estaba donde pensaban.
+
+## Qué pasó
+
+- Un informe cuestionó la solvencia de Alameda, el fondo de trading vinculado a FTX.
+- Se descubrió que los fondos de clientes se habían usado para cubrir pérdidas y operaciones del grupo.
+- Los retiros se congelaron.
+- La empresa se declaró en quiebra y el fundador fue condenado por fraude.
+
+<DatasetChart
+  dataset="btc-bear-2022"
+  from={300}
+  to={426}
+  height={240}
+  showVolume
+  markers={[{ index: 372, text: "FTX", color: "#ff5c6c", position: "aboveBar", shape: "arrowDown" }]}
+  caption="BTC en el colapso de FTX. El contagio arrastró a todo el mercado, no solo a los clientes del exchange."
+/>
+
+## La lección
+
+Cuando dejas fondos en un exchange, no son tuyos: son una promesa del exchange. Si el exchange quiebra, hackea o bloquea retiros, tu saldo puede seguir apareciendo en la pantalla mientras el dinero ya no está.
+
+<Callout type="warning" title="Not your keys, not your coins">
+La autocustodia no elimina el riesgo (puedes perder la seed), pero elimina el riesgo de contraparte. Son riesgos distintos, no el mismo.
+</Callout>
+
+## Señales que ya estaban ahí
+
+1. **Rendimientos altos en depósitos.** Si no puedes explicar de dónde sale el rendimiento, no lo entiendes.
+2. **Token propio usado como colateral.** El valor dependía de la confianza en la propia plataforma.
+3. **Opacidad.** Poca información verificable sobre reservas y contabilidad.
+4. **Concentración.** Muchos usuarios tenían casi todo su capital en un solo exchange.
+
+<Scenario
+  situation="Un exchange te ofrece un 8 % anual por depositar tus BTC y quedarte ahí. ¿Qué haces?"
+  options={[
+    { label: "Depositar todo: el rendimiento es atractivo", feedback: "El rendimiento es la compensación por asumir un riesgo que no ves. Si no puedes explicar de dónde sale, no lo entiendes.", quality: "bad" },
+    { label: "No depositar todo y entender primero el riesgo", feedback: "Correcto. Diversificar custodia y entender el mecanismo es lo mínimo antes de asumir riesgo de contraparte.", quality: "good" },
+    { label: "Depositar solo una parte pequeña y olvidarme", feedback: "Reducir el tamaño ayuda, pero sigue siendo riesgo de contraparte. Debes saber qué respalda ese rendimiento.", quality: "neutral" },
+  ]}
+/>
+
+<Quiz
+  slug="caso-ftx"
+  question="¿Cuál es la lección principal de FTX?"
+  options={[
+    "Que las cripto siempre caen",
+    "Que en un exchange tus fondos dependen de la solvencia y honestidad de la plataforma",
+    "Que hay que comprar en el suelo",
+    "Que los exchanges están prohibidos",
+  ]}
+  correct={1}
+  wrong={[
+    "El caso no demuestra que las cripto siempre caigan; demuestra un riesgo de custodia.",
+    "",
+    "Comprar en el suelo no evita que el exchange quiebre.",
+    "Los exchanges no están prohibidos; el riesgo es de contraparte y de regulación.",
+  ]}
+  explanation="FTX no fue un fallo de la tecnología: fue un fallo de custodia y de confianza. Si no controlas las claves, dependes de la solvencia y honestidad de la plataforma."
+/>

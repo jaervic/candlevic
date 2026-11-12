@@ -13,17 +13,17 @@ Web app educativa, gratuita y mobile-first para aprender trading de acciones y c
 
 ## Qué incluye
 
-- **14 lecciones** repartidas en 7 módulos: mentalidad, fundamentos, estilos de trading, velas, tendencia, indicadores y gestión de riesgo.
+- **38 lecciones** repartidas en 10 módulos: mentalidad, fundamentos, estilos, gráficos, tendencia, indicadores, riesgo, estrategia, **psicología del trading** y cripto práctico.
 - **Cuatro temas** (Noche, Grafito, Papel y Sepia) con detección del sistema, tipografía Inter y ajustes de lectura: tamaño, interlineado, ancho, modo concentración y fondo ambiente.
 - **Buscador global (⌘K)** en lecciones, glosario, libros, estudios, explicadores y páginas.
 - **Índice de lección** en escritorio y hoja inferior en móvil, con seguimiento de la sección activa.
 - **Repaso espaciado** a nivel de lección y **dominio por módulo**, con señal de confianza en los quizzes.
 - **Quizzes con explicación de cada opción incorrecta**, no solo de la correcta.
-- **Gráficos reales interactivos** con velas, medias móviles, RSI, volumen, marcadores y líneas de precio.
-- **Quizzes y ejercicios** con explicación de cada respuesta.
-- **Laboratorio**: indicadores, replay de velas, líneas horizontales y datos en vivo de Binance.
+- **Gráficos reales interactivos** con velas, medias móviles, RSI, MACD, Bollinger, volumen, marcadores y líneas de precio.
+- **Ejercicios interactivos**: escenarios ramificados, plan de trading editable, calculadoras de liquidación y funding, y patrones esquemáticos.
+- **Laboratorio**: indicadores, replay de velas, líneas horizontales y datos en vivo con respaldo Binance/Coinbase.
 - **Radar**: titulares en español de cripto, bolsa y macro, calendario de eventos y explicadores permanentes.
-- **Estudios**: casos históricos (LUNA, COVID) y evidencia científica (Barber & Odean, SPIVA, Dalbar…).
+- **Estudios**: 5 casos históricos (LUNA, COVID, FTX, GME, dotcom) y evidencia científica (Barber & Odean, SPIVA, Dalbar…).
 - **Biblioteca**: fichas originales de 10 libros clave del trading.
 - **Glosario** con buscador y categorías.
 - **Test “¿Qué trader eres?”** con plan de 30 días.

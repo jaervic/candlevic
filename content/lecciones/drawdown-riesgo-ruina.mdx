@@ -1,0 +1,69 @@
+---
+title: "Drawdown y riesgo de ruina"
+module: "m6"
+order: 4
+minutes: 5
+level: "intermedio"
+summary: "Sobrevivir no es una frase motivacional: es una decisión matemática sobre el tamaño de cada operación."
+objectives:
+  - "Calcular el drawdown y la recuperación necesaria"
+  - "Entender el riesgo de ruina"
+  - "Ajustar el tamaño para seguir en el juego"
+dataset: "btc-bear-2022"
+related: ["stop-loss", "psicologia-drawdown", "ratio-riesgo-beneficio"]
+tags: ["riesgo", "drawdown", "supervivencia"]
+---
+
+El **drawdown** es la caída desde el máximo de tu cuenta hasta el mínimo posterior. No es una pérdida puntual: es el dolor acumulado. Y cuanto más grande, más difícil es recuperarlo.
+
+<DatasetChart dataset="btc-bear-2022" from={150} to={426} height={220} showVolume caption="BTC en 2022: un drawdown superior al 75 %. Recuperarlo exigía multiplicar la cuenta por cuatro." />
+
+## La matemática de la recuperación
+
+| Caída | Recuperación necesaria |
+|---|---|
+| −10 % | +11,1 % |
+| −25 % | +33,3 % |
+| −50 % | +100 % |
+| −75 % | +300 % |
+| −90 % | +900 % |
+
+<RiskCalculator />
+
+## Riesgo de ruina
+
+El riesgo de ruina es la probabilidad de perder tanto capital que no puedas seguir operando. Aumenta con:
+
+- Más riesgo por operación.
+- Menos capital.
+- Rachas perdedoras más largas.
+- Apalancamiento.
+
+Con un 1 % por operación, una racha de 10 pérdidas te deja aproximadamente un −9,6 %. Con un 10 %, te deja en −65 %. La misma racha, dos futuros distintos.
+
+<Callout type="info" title="La regla que casi nadie sigue">
+Si tu estrategia tiene una esperanza positiva, el tamaño pequeño te permite llegar a la siguiente oportunidad. El tamaño grande te saca antes de que la ventaja se materialice.
+</Callout>
+
+<Quiz
+  slug="drawdown-riesgo-ruina"
+  question="¿Qué reduce más el riesgo de ruina?"
+  options={[
+    "Aumentar el tamaño para recuperar antes",
+    "Bajar el riesgo por operación",
+    "Operar más veces",
+    "Quitar el stop para no cerrar en pérdida",
+  ]}
+  correct={1}
+  wrong={[
+    "Aumentar el tamaño acelera la ruina si la racha sigue.",
+    "",
+    "Operar más veces sin ventaja aumenta costes y exposición.",
+    "Quitar el stop convierte una pérdida controlada en una pérdida ilimitada.",
+  ]}
+  explanation="El riesgo por operación es la variable que más controla la supervivencia. Reducirlo te permite aguantar rachas y llegar a la ventaja estadística."
+/>
+
+<KeyIdea>
+El objetivo del gestor de riesgo no es maximizar la ganancia de una operación: es que sigas existiendo cuando llegue la buena racha.
+</KeyIdea>

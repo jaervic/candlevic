@@ -1,0 +1,62 @@
+---
+title: "MACD y Bollinger: impulso y volatilidad"
+module: "m5"
+order: 3
+minutes: 5
+level: "intermedio"
+summary: "El MACD mide impulso y las Bandas de Bollinger miden volatilidad. Ninguno de los dos dice por sí solo cuándo comprar o vender."
+objectives:
+  - "Entender qué mide el MACD y cómo se lee"
+  - "Interpretar las Bandas de Bollinger sin automatismos"
+  - "Evitar señales aisladas sin contexto"
+dataset: "btc-1d"
+related: ["medias-moviles", "rsi", "tendencia"]
+tags: ["indicadores", "macd", "bollinger"]
+---
+
+## MACD: impulso, no dirección
+
+El MACD resta una media exponencial rápida (12) de una lenta (26). La línea de señal es una EMA de 9 sobre esa diferencia. El histograma muestra la distancia entre ambas.
+
+<DatasetChart dataset="btc-1d" from={500} to={700} height={280} showMacd caption="BTC diario con MACD. El histograma mide impulso; los cruces llegan con retraso." />
+
+- **Cruce del MACD por encima de la señal:** el impulso reciente mejora.
+- **Histograma creciente:** el impulso se acelera.
+- **<Term term="Divergencia">Divergencia</Term>:** el precio hace un máximo nuevo y el MACD no. Es una pista, no una certeza.
+
+<Callout type="warning" title="El MACD no predice giros">
+En tendencias fuertes, el MACD puede quedarse alto mucho tiempo. Vender solo porque el histograma baja es una forma de salir demasiado pronto.
+</Callout>
+
+## Bollinger: volatilidad, no dirección
+
+Las bandas son una media de 20 periodos con ±2 desviaciones estándar. Cuando la volatilidad baja, las bandas se estrechan; cuando sube, se expanden.
+
+<DatasetChart dataset="btc-1d" from={500} to={700} height={220} showBollinger caption="BTC diario con Bandas de Bollinger. Una compresión no dice hacia dónde romperá." />
+
+- **Precio en la banda superior:** no significa "vender"; puede ser fuerza.
+- **Compresión (squeeze):** el mercado acumula energía, pero la dirección no está decidida.
+- **Toque de banda en rango:** puede ser una referencia de reversión; en tendencia, suele fallar.
+
+<Quiz
+  slug="macd-bollinger"
+  question="¿Qué mide el MACD?"
+  options={[
+    "La volatilidad del precio",
+    "La diferencia entre dos medias exponenciales",
+    "El volumen negociado",
+    "El ratio riesgo/beneficio",
+  ]}
+  correct={1}
+  wrong={[
+    "La volatilidad la miden, por ejemplo, las Bandas de Bollinger o el ATR.",
+    "",
+    "El volumen se mide con barras o volumen relativo.",
+    "El R:B es una métrica de gestión de riesgo, no un indicador del gráfico.",
+  ]}
+  explanation="El MACD es la diferencia entre dos EMAs, con una línea de señal. Mide impulso, no dirección ni volumen."
+/>
+
+<KeyIdea>
+Los indicadores son lentes, no oráculos. El mismo MACD en tendencia y en rango cuenta historias distintas.
+</KeyIdea>

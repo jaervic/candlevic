@@ -1,0 +1,60 @@
+---
+title: "Estilos en detalle: scalping, day, swing y posición"
+module: "m2"
+order: 2
+minutes: 5
+level: "principiante"
+summary: "Cada estilo exige un tiempo, un capital y una cabeza distintos. Elegir el equivocado es una de las causas más comunes de abandono."
+objectives:
+  - "Comparar los cuatro estilos principales"
+  - "Entender el coste real en tiempo y estrés"
+  - "Elegir un estilo compatible con tu vida"
+dataset: "btc-4h"
+related: ["estilos", "costes", "dca-vs-trading"]
+tags: ["estilos", "tiempo", "expectativas"]
+---
+
+No existe "el trading". Existe un conjunto de estilos con ritmos y riesgos muy diferentes. El mejor no es el que más gana en un backtest: es el que puedes ejecutar durante años.
+
+| Estilo | Horizonte | Pantalla | Estrés | Capital |
+|---|---|---|---|---|
+| Scalping | Segundos–minutos | 3–6 h/día | Muy alto | Alto |
+| Day trading | Minutos–horas | 2–4 h/día | Alto | Medio |
+| Swing | Días–semanas | 30–60 min/día | Medio | Bajo |
+| Posición | Meses–años | 15 min/semana | Bajo | Bajo |
+
+<DatasetChart dataset="btc-4h" from={380} to={500} height={220} showVolume caption="En 4 horas, el ruido es menor que en 5 minutos, pero sigue habiendo muchas señales falsas." />
+
+## Scalping
+
+Muchas operaciones muy cortas. Depende de la ejecución, el spread y la velocidad. Es el estilo con mayor desgaste y peor base estadística para principiantes.
+
+## Day trading
+
+Abres y cierras el mismo día. Evitas el riesgo nocturno, pero te expones al ruido intradía y a la tentación de sobreoperar.
+
+## Swing
+
+Buscas movimientos de varios días. Analizas en diario o 4 horas y puedes compaginarlo con un trabajo. Es el punto de entrada más razonable para la mayoría.
+
+## Posición
+
+Compras pensando en meses o años. Menos decisiones, menos costes y más dependencia de la paciencia.
+
+<Quiz
+  slug="estilos-en-detalle"
+  question="¿Qué estilo exige más tiempo frente a la pantalla?"
+  options={["Scalping", "Day trading", "Swing trading", "Position trading"]}
+  correct={0}
+  wrong={[
+    "",
+    "El day trading exige 2–4 horas, menos que el scalping.",
+    "El swing se revisa en 30–60 minutos al día.",
+    "La posición se revisa en unos 15 minutos a la semana.",
+  ]}
+  explanation="El scalping requiere estar concentrado durante horas y operar muchas veces. Es el estilo con mayor desgaste y peor base para empezar."
+/>
+
+<KeyIdea>
+Si tu estilo te obliga a estar pendiente cuando no puedes, no es un estilo: es una fuente de estrés.
+</KeyIdea>

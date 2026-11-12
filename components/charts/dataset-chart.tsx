@@ -15,6 +15,8 @@ export type DatasetChartProps = {
   overlays?: Overlay[];
   showVolume?: boolean;
   showRsi?: boolean;
+  showBollinger?: boolean;
+  showMacd?: boolean;
   markers?: ChartMarker[];
   priceLines?: number[];
   onPick?: (absoluteIndex: number) => void;
@@ -30,6 +32,8 @@ export function DatasetChart({
   overlays,
   showVolume,
   showRsi,
+  showBollinger,
+  showMacd,
   markers,
   priceLines,
   onPick,
@@ -88,6 +92,8 @@ export function DatasetChart({
         overlays={overlays}
         showVolume={showVolume}
         showRsi={showRsi}
+        showBollinger={showBollinger}
+        showMacd={showMacd}
         markers={relativeMarkers}
         priceLines={priceLines}
         onPick={onPick ? (rel) => onPick(rel + from) : undefined}

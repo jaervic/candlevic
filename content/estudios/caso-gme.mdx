@@ -1,0 +1,63 @@
+---
+title: "GME: el squeeze que rompió la lógica"
+kind: "caso"
+date: "2021-01-27"
+minutes: 5
+level: "intermedio"
+summary: "Una acción muy vendida en corto, un foro de internet y una subida histórica. La lección no es sobre GME: es sobre FOMO, mecánica y riesgo."
+tags: ["caso", "acciones", "psicología", "fomo"]
+related: ["fomo-tilt", "errores-comunes", "apalancamiento"]
+---
+
+GameStop era una cadena de videojuegos en declive. Muchos fondos apostaban contra ella vendiendo en corto. En enero de 2021, una comunidad de Reddit coordinó compras y el precio se multiplicó.
+
+## Qué es un short squeeze
+
+Vender en corto es apostar a que el precio baja. Si sube, el vendedor en corto pierde y puede verse obligado a comprar para cerrar la posición. Esa compra forzada empuja el precio aún más arriba, lo que obliga a más cortos a comprar. Es una espiral.
+
+| Fecha | Qué pasó |
+|---|---|
+| 2020 | GME cotiza cerca de 4 $ y muchos fondos están cortos |
+| Enero 2021 | El precio supera los 100 $ y luego los 400 $ |
+| 27–28 enero | Varios brókers limitan la compra; el precio cae con fuerza |
+| Después | La volatilidad sigue, pero el pico no se repite |
+
+## Las tres lecciones
+
+**1. La mecánica importa.** No entendías el squeeze si no sabías que los cortos podían ser forzados a comprar.
+
+**2. El FOMO llega tarde.** Quien compró en el pico por miedo a perderse la fiesta asumió un riesgo enorme sin plan.
+
+**3. El bróker también es un riesgo.** Si no puedes comprar o vender cuando lo necesitas, tu plan no existe.
+
+<Callout type="warning" title="El riesgo de perseguir">
+Comprar después de una subida vertical no es una estrategia: es una apuesta a que alguien compre aún más caro. Puede funcionar una vez; no es un proceso repetible.
+</Callout>
+
+<Scenario
+  situation="GME sube un 100 % en un día y todo el mundo en redes dice que 'va a 1.000'. ¿Qué haces?"
+  options={[
+    { label: "Comprar rápido antes de que siga subiendo", feedback: "Estás persiguiendo el precio por FOMO. No tienes entrada, stop ni tamaño definidos.", quality: "bad" },
+    { label: "No operar: no tengo plan ni entiendo el riesgo", feedback: "Correcto. Si no puedes explicar la operación y el riesgo, no es una oportunidad: es una apuesta.", quality: "good" },
+    { label: "Comprar con un stop muy ajustado", feedback: "Un stop ajustado en un activo con volatilidad extrema salta por ruido. No resuelve la falta de plan.", quality: "neutral" },
+  ]}
+/>
+
+<Quiz
+  slug="caso-gme"
+  question="¿Qué es un short squeeze?"
+  options={[
+    "Una subida provocada por compras forzadas de vendedores en corto",
+    "Una bajada por ventas de pánico",
+    "Un dividendo especial",
+    "Una fusión entre empresas",
+  ]}
+  correct={0}
+  wrong={[
+    "",
+    "Una bajada por pánico es otra cosa; el squeeze es una subida por compras forzadas.",
+    "Un dividendo no fuerza a los cortos a comprar.",
+    "Una fusión no explica el movimiento.",
+  ]}
+  explanation="Cuando el precio sube, los vendedores en corto pueden verse obligados a comprar para cerrar. Esa demanda empuja el precio más arriba y alimenta la espiral."
+/>

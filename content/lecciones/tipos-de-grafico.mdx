@@ -1,0 +1,65 @@
+---
+title: "Tipos de gráfico y temporalidades"
+module: "m3"
+order: 2
+minutes: 4
+level: "principiante"
+summary: "Una vela, una barra y una línea cuentan cosas distintas. La temporalidad cambia el ruido y el horizonte de la señal."
+objectives:
+  - "Distinguir velas, barras, líneas y Heikin Ashi"
+  - "Elegir la temporalidad según el objetivo"
+  - "Entender la escala lineal y la logarítmica"
+dataset: "btc-1d"
+related: ["velas", "tendencia", "estilos-en-detalle"]
+tags: ["gráficos", "temporalidad", "escala"]
+---
+
+El gráfico es una herramienta de lectura, no una verdad única. Cambiar el tipo de gráfico o la temporalidad cambia lo que ves, aunque el precio sea el mismo.
+
+## Tipos de gráfico
+
+| Tipo | Qué muestra | Cuándo usarlo |
+|---|---|---|
+| **Velas** | OHLC y rango | Análisis general; el más usado |
+| **Barras** | OHLC con menos tinta | Lectura clásica de price action |
+| **Línea** | Solo el cierre | Tendencias de largo plazo |
+| **Heikin Ashi** | Velas suavizadas | Ver tendencia; pierde precisión de precio |
+
+<DatasetChart dataset="btc-1d" from={600} to={700} height={220} showVolume caption="Velas diarias: cada una resume un día completo. En 1 hora, el mismo periodo tendría 24 velas y mucho más ruido." />
+
+## Temporalidades
+
+- **Semanal/diario:** tendencia principal y niveles importantes.
+- **4 horas/1 hora:** ejecución y estructura intermedia.
+- **15 minutos/5 minutos:** ruido y microestructura; útil para timing, peligroso para principiantes.
+
+<Callout type="info" title="Regla práctica">
+Analiza en una temporalidad alta y ejecuta en una más baja. Ejemplo: análisis en diario, ejecución en 4 horas.
+</Callout>
+
+## Escala lineal vs. logarítmica
+
+En escala **lineal**, un movimiento de 10.000 a 20.000 parece el doble que uno de 1.000 a 2.000, aunque ambos sean un 100 %. En escala **logarítmica**, distancias iguales representan porcentajes iguales. Para activos que se multiplican o dividen por 10, la logarítmica es más honesta.
+
+<Quiz
+  slug="tipos-de-grafico"
+  question="¿Qué muestra una vela que una línea de cierre no muestra?"
+  options={[
+    "La apertura, el máximo, el mínimo y el cierre",
+    "El volumen",
+    "Las comisiones",
+    "La tendencia",
+  ]}
+  correct={0}
+  wrong={[
+    "",
+    "El volumen puede mostrarse aparte, pero no es lo que distingue la vela de la línea.",
+    "Las comisiones no aparecen en el gráfico.",
+    "La tendencia se puede ver en ambos, aunque con distinto detalle.",
+  ]}
+  explanation="La vela muestra los cuatro precios del periodo y el rango. La línea solo muestra el cierre, ocultando la volatilidad interna."
+/>
+
+<KeyIdea>
+La temporalidad no cambia el precio: cambia tu forma de mirarlo. Elige una y sé consistente.
+</KeyIdea>

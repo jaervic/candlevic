@@ -1,0 +1,66 @@
+---
+title: "Rutina y diario emocional"
+module: "m8"
+order: 7
+minutes: 4
+level: "principiante"
+summary: "La disciplina no es fuerza de voluntad: es diseño. Una rutina sencilla reduce las decisiones que tomas en caliente."
+objectives:
+  - "Diseñar una rutina antes y después de operar"
+  - "Registrar el estado emocional sin juzgarte"
+  - "Detectar cuándo no estás en condiciones de operar"
+dataset: "spy-1d"
+related: ["diario-de-trading", "fomo-tilt", "identidad-paciencia"]
+tags: ["psicología", "rutina", "diario"]
+---
+
+No necesitas más motivación. Necesitas menos decisiones improvisadas. La rutina existe para que el estado emocional no sea el que elige por ti.
+
+## Antes de operar
+
+| Paso | Pregunta |
+|---|---|
+| Contexto | ¿Cuál es la tendencia y los niveles del día? |
+| Plan | ¿Qué setups están permitidos hoy? |
+| Riesgo | ¿Cuánto puedo perder y cuántas operaciones como máximo? |
+| Estado | ¿He dormido? ¿Estoy enfadado, ansioso o eufórico? |
+| Límites | ¿A qué hora cierro la plataforma? |
+
+## Después de operar
+
+- Revisa las operaciones del día y anota **una** lección.
+- Registra la emoción antes y después.
+- No abras el gráfico para "compensar" una pérdida.
+- Cierra la sesión con una acción concreta para mañana.
+
+<Scenario
+  situation="Has dormido cuatro horas, vienes de una discusión y abres la plataforma. Hay una señal que parece clara. ¿Qué haces?"
+  options={[
+    { label: "Operar: la señal es clara y no quiero perderla", feedback: "Tu estado no cambia la señal, pero cambia tu forma de ejecutarla. Con sueño y tensión, el stop se mueve y el tamaño se dispara.", quality: "bad" },
+    { label: "No operar hoy y revisar el plan mañana", feedback: "Correcto. El mercado abre mañana; tu capital y tu criterio no se recuperan tan rápido.", quality: "good" },
+    { label: "Operar con la mitad del tamaño", feedback: "Reducir el tamaño ayuda, pero si el problema es el estado emocional, la decisión sigue siendo operar por impulso.", quality: "neutral" },
+  ]}
+/>
+
+<Quiz
+  slug="rutina-diario-emocional"
+  question="¿Qué deberías hacer antes de operar?"
+  options={[
+    "Mirar el precio y operar si hay una señal",
+    "Revisar el plan, el estado emocional y el riesgo máximo",
+    "Abrir redes sociales para ver qué hace el mercado",
+    "Duplicar el tamaño si ayer ganaste",
+  ]}
+  correct={1}
+  wrong={[
+    "Mirar el precio sin contexto es empezar por el final.",
+    "",
+    "Las redes añaden ruido y comparación, no preparación.",
+    "Ganar ayer no cambia tu riesgo de hoy.",
+  ]}
+  explanation="La rutina previa alinea contexto, plan, riesgo y estado emocional. Si falta uno, la probabilidad de improvisar aumenta."
+/>
+
+<Callout type="info" title="El dato que nadie mide">
+Durante dos semanas, puntúa tu sueño y tu nivel de estrés del 1 al 5 antes de operar. Cruza esos datos con tus resultados. Casi siempre aparece un patrón.
+</Callout>
