@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import {
   Check,
+  Eye,
   Minus,
   Monitor,
   Moon,
@@ -99,6 +100,7 @@ export function SettingsSheet() {
   const readingWidth = usePreferences((s) => s.readingWidth);
   const ambient = usePreferences((s) => s.ambient);
   const motion = usePreferences((s) => s.motion);
+  const colorBlind = usePreferences((s) => s.colorBlind);
   const isDesktop = useIsDesktop();
 
   const setTheme = usePreferences((s) => s.setTheme);
@@ -107,6 +109,7 @@ export function SettingsSheet() {
   const setReadingWidth = usePreferences((s) => s.setReadingWidth);
   const setAmbient = usePreferences((s) => s.setAmbient);
   const setMotion = usePreferences((s) => s.setMotion);
+  const setColorBlind = usePreferences((s) => s.setColorBlind);
   const reset = usePreferences((s) => s.reset);
 
   useEffect(() => {
@@ -370,6 +373,26 @@ export function SettingsSheet() {
                   </Chip>
                 ))}
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="mb-5">
+          <SectionLabel icon={Eye}>Accesibilidad</SectionLabel>
+          <div className="flex items-center justify-between gap-2">
+            <div>
+              <p className="text-[11px] text-muted">Velas huecas (daltónico)</p>
+              <p className="text-[10px] text-faint">
+                Forma además de color: alcista hueca, bajista rellena.
+              </p>
+            </div>
+            <div className="flex gap-1">
+              <Chip active={!colorBlind} onClick={() => setColorBlind(false)}>
+                No
+              </Chip>
+              <Chip active={colorBlind} onClick={() => setColorBlind(true)}>
+                Sí
+              </Chip>
             </div>
           </div>
         </section>

@@ -6,9 +6,9 @@ Web app educativa, gratuita y mobile-first para aprender trading de acciones y c
 
 > Candlevic es contenido educativo. No es asesoramiento financiero, no da señales y no promete rentabilidad.
 
-| Móvil | Laboratorio |
-| --- | --- |
-| ![Inicio en móvil](docs/home-mobile.png) | ![Laboratorio en escritorio](docs/lab-desktop.png) |
+| Móvil | Laboratorio | Demo |
+| --- | --- | --- |
+| ![Inicio en móvil](docs/home-mobile.png) | ![Laboratorio en escritorio](docs/lab-desktop.png) | ![Trading demo](docs/demo-desktop.png) |
 
 
 ## Qué incluye
@@ -21,8 +21,11 @@ Web app educativa, gratuita y mobile-first para aprender trading de acciones y c
 - **Quizzes con explicación de cada opción incorrecta**, no solo de la correcta.
 - **Gráficos reales interactivos** con velas, medias móviles, RSI, MACD, Bollinger, volumen, marcadores y líneas de precio.
 - **Ejercicios interactivos**: escenarios ramificados, plan de trading editable, calculadoras de liquidación y funding, y patrones esquemáticos.
-- **Laboratorio**: indicadores, replay de velas, líneas horizontales y datos en vivo con respaldo Binance/Coinbase.
+- **Laboratorio**: indicadores (SMA, EMA, RSI, MACD, Bollinger), replay de velas, líneas horizontales y datos en vivo con respaldo Binance/Coinbase.
 - **Radar**: titulares en español de cripto, bolsa y macro, calendario de eventos y explicadores permanentes.
+- **Trading demo**: 10.000 $ virtuales, compras y ventas a mercado, cartera, P&L, historial con emoción y curva de equity.
+- **Backtesting didáctico**: comprar y mantener vs. cruce de medias vs. DCA, con costes, drawdown y curvas de equity.
+- **Accesibilidad**: tabla de datos OHLC, resumen textual de cada gráfico y modo daltónico con velas huecas.
 - **Estudios**: 5 casos históricos (LUNA, COVID, FTX, GME, dotcom) y evidencia científica (Barber & Odean, SPIVA, Dalbar…).
 - **Biblioteca**: fichas originales de 10 libros clave del trading.
 - **Glosario** con buscador y categorías.

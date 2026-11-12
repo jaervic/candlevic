@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BookOpen, Flame, FlaskConical, Radio, Search, Settings2, Zap } from "lucide-react";
+import { BookOpen, Flame, FlaskConical, Radio, Search, Settings2, Wallet, Zap } from "lucide-react";
 import { Logo } from "./logo";
 import { cn } from "@/lib/utils";
 import { useHydrated } from "@/lib/use-hydrated";
@@ -13,6 +13,7 @@ const NAV = [
   { href: "/aprender", label: "Aprender", icon: BookOpen },
   { href: "/radar", label: "Radar", icon: Radio },
   { href: "/lab", label: "Lab", icon: FlaskConical },
+  { href: "/demo", label: "Demo", icon: Wallet },
   { href: "/progreso", label: "Progreso", icon: Zap },
 ];
 

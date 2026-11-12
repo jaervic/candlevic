@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BookOpen, FlaskConical, Radio, Zap } from "lucide-react";
+import { BookOpen, FlaskConical, Radio, Wallet, Zap } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const ITEMS = [
   { href: "/aprender", label: "Aprender", icon: BookOpen },
   { href: "/radar", label: "Radar", icon: Radio },
   { href: "/lab", label: "Lab", icon: FlaskConical },
+  { href: "/demo", label: "Demo", icon: Wallet },
   { href: "/progreso", label: "Progreso", icon: Zap },
 ];
 
@@ -20,7 +21,7 @@ export function BottomNav() {
       className="bottom-nav safe-bottom fixed inset-x-0 bottom-0 z-40 border-t border-line/80 bg-bg md:hidden"
       aria-label="Navegación principal"
     >
-      <div className="mx-auto grid max-w-md grid-cols-4">
+      <div className="mx-auto grid max-w-md grid-cols-5">
         {ITEMS.map((item) => {
           const active =
             pathname === item.href || pathname.startsWith(`${item.href}/`);

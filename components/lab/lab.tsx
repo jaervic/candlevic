@@ -8,6 +8,7 @@ import {
   Pause,
   Play,
   RotateCcw,
+  Table2,
   Wifi,
 } from "lucide-react";
 import { PriceChart, type Overlay } from "@/components/charts/price-chart";
@@ -15,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { DATASETS, DATASET_IDS, loadDataset, type Dataset, type DatasetId } from "@/lib/datasets";
 import { toCandles, type Candle } from "@/lib/indicators";
 import { formatPercent, formatPrice, cn } from "@/lib/utils";
+import { ChartDataTable } from "@/components/charts/chart-data-table";
 
 const INDICATORS = [
   { id: "sma20", label: "SMA 20" },
@@ -56,6 +58,7 @@ export function Lab() {
 
   const [drawMode, setDrawMode] = useState(false);
   const [lines, setLines] = useState<number[]>([]);
+  const [showData, setShowData] = useState(false);
 
   const entry = DATASETS[datasetId];
   const isCrypto = entry.kind === "crypto";
@@ -316,6 +319,18 @@ export function Lab() {
 
           <div className="ml-auto flex items-center gap-1.5">
             <button
+              onClick={() => setShowData((value) => !value)}
+              aria-pressed={showData}
+              className={cn(
+                "inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-[11px] transition-colors",
+                showData
+                  ? "border-info/30 bg-info/10 text-info"
+                  : "border-line text-muted hover:text-fg",
+              )}
+            >
+              <Table2 className="h-3.5 w-3.5" /> Datos
+            </button>
+            <button
               onClick={() => setDrawMode((d) => !d)}
               className={cn(
                 "inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-[11px] transition-colors",
@@ -384,6 +399,12 @@ export function Lab() {
             visibleCount={replay && visible != null ? visible : undefined}
             priceLines={lines}
             onPick={handlePick}
+          />
+        )}
+        {showData && (
+          <ChartDataTable
+            candles={displayed}
+            interval={liveInfo ? liveInterval : data?.interval}
           />
         )}
       </section>

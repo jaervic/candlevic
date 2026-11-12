@@ -22,6 +22,7 @@ import { bollinger, ema, macd, rsi, sma, toSeries } from "@/lib/indicators";
 import { cn, formatPrice } from "@/lib/utils";
 import { CHART_PALETTES, chartColor } from "@/lib/chart-theme";
 import { useResolvedTheme } from "@/components/theme/theme-context";
+import { usePreferences } from "@/lib/preferences";
 
 export type Overlay = {
   type: "sma" | "ema";
@@ -101,6 +102,7 @@ export function PriceChart({
 
   const resolvedTheme = useResolvedTheme();
   const palette = CHART_PALETTES[resolvedTheme];
+  const colorBlind = usePreferences((state) => state.colorBlind);
 
   const overlaysKey = JSON.stringify(overlays);
 
@@ -163,9 +165,11 @@ export function PriceChart({
     });
 
     const candleSeries = chart.addSeries(CandlestickSeries, {
-      upColor: palette.up,
+      upColor: colorBlind ? "rgba(0,0,0,0)" : palette.up,
       downColor: palette.down,
-      borderVisible: false,
+      borderVisible: colorBlind,
+      borderUpColor: palette.up,
+      borderDownColor: palette.down,
       wickUpColor: palette.up,
       wickDownColor: palette.down,
       priceFormat: { type: "price", precision, minMove: 10 ** -precision },
@@ -355,6 +359,7 @@ export function PriceChart({
     symbol,
     height,
     resolvedTheme,
+    colorBlind,
   ]);
 
   // Actualiza los datos (incluido el replay).
@@ -514,6 +519,16 @@ export function PriceChart({
         className="num pointer-events-none absolute left-2 top-1.5 z-10 max-w-[68%] truncate rounded bg-bg/60 px-1 py-0.5 text-[9px] leading-none text-muted backdrop-blur-sm"
         aria-hidden="true"
       />
+      {showRsi && (
+        <span className="pointer-events-none absolute bottom-2 left-2 z-10 rounded bg-bg/70 px-1 py-0.5 text-[9px] text-faint">
+          RSI 14
+        </span>
+      )}
+      {showMacd && !showRsi && (
+        <span className="pointer-events-none absolute bottom-2 left-2 z-10 rounded bg-bg/70 px-1 py-0.5 text-[9px] text-faint">
+          MACD 12·26·9
+        </span>
+      )}
       <div ref={containerRef} style={{ height }} className="w-full" />
     </div>
   );

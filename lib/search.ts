@@ -96,6 +96,18 @@ export function buildSearchIndex(): SearchItem[] {
       keywords: ["progreso", "logros", "respaldo", "código"],
     },
     {
+      title: "Backtesting didáctico",
+      summary: "Compara comprar y mantener, cruce de medias y DCA.",
+      href: "/lab/backtest",
+      keywords: ["backtest", "estrategias", "dca", "medias", "equity"],
+    },
+    {
+      title: "Trading demo",
+      summary: "Practica con 10.000 $ virtuales, sin órdenes reales.",
+      href: "/demo",
+      keywords: ["demo", "simulador", "paper trading", "cartera", "práctica"],
+    },
+    {
       title: "¿Qué trader eres?",
       summary: "Test de perfil con plan de 30 días.",
       href: "/test",

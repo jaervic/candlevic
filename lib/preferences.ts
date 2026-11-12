@@ -52,6 +52,7 @@ type Preferences = {
   readingWidth: number;
   ambient: AmbientMode;
   motion: MotionMode;
+  colorBlind: boolean;
 };
 
 type Actions = {
@@ -61,6 +62,7 @@ type Actions = {
   setReadingWidth: (width: number) => void;
   setAmbient: (ambient: AmbientMode) => void;
   setMotion: (motion: MotionMode) => void;
+  setColorBlind: (value: boolean) => void;
   reset: () => void;
 };
 
@@ -73,6 +75,7 @@ const defaults: Preferences = {
   readingWidth: 66,
   ambient: "auto",
   motion: "system",
+  colorBlind: false,
 };
 
 export const usePreferences = create<PreferencesStore>()(
@@ -87,6 +90,7 @@ export const usePreferences = create<PreferencesStore>()(
         set({ readingWidth: clamp(readingWidth, 52, 78) }),
       setAmbient: (ambient) => set({ ambient }),
       setMotion: (motion) => set({ motion }),
+      setColorBlind: (colorBlind) => set({ colorBlind }),
       reset: () => set({ ...defaults }),
     }),
     { name: "candlevic:prefs:v1", version: 1 },

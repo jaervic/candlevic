@@ -1,11 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Loader2 } from "lucide-react";
+import { Loader2, Table2 } from "lucide-react";
 import { loadDataset, type DatasetId } from "@/lib/datasets";
 import type { Candle } from "@/lib/indicators";
 import { PriceChart, type ChartMarker, type Overlay } from "./price-chart";
-import { cn } from "@/lib/utils";
+import { cn, formatPercent, formatPrice } from "@/lib/utils";
+import { ChartDataTable } from "./chart-data-table";
 
 export type DatasetChartProps = {
   dataset: DatasetId;
@@ -41,6 +42,7 @@ export function DatasetChart({
   caption,
 }: DatasetChartProps) {
   const [candles, setCandles] = useState<Candle[] | null>(null);
+  const [showData, setShowData] = useState(false);
   const [meta, setMeta] = useState<{
     symbol: string;
     interval: string;
@@ -98,12 +100,38 @@ export function DatasetChart({
         priceLines={priceLines}
         onPick={onPick ? (rel) => onPick(rel + from) : undefined}
       />
-      <figcaption className="flex items-center justify-between gap-2 border-t border-line/70 px-3 py-1.5 text-[10px] text-faint">
-        <span>{caption ?? "Datos históricos reales"}</span>
-        <span>
-          {meta?.symbol} · {meta?.interval} · {meta?.source}
-        </span>
+      <figcaption className="border-t border-line/70 px-3 py-1.5">
+        <div className="flex items-center justify-between gap-2 text-[10px] text-faint">
+          <span>{caption ?? "Datos históricos reales"}</span>
+          <span className="shrink-0">
+            {meta?.symbol} · {meta?.interval} · {meta?.source}
+          </span>
+        </div>
+        <div className="mt-1 flex flex-wrap items-center justify-between gap-2 text-[9px] text-faint">
+          <span>
+            Últimas {slice.length} velas · Máx{" "}
+            {formatPrice(Math.max(...slice.map((candle) => candle.high)))} · Mín{" "}
+            {formatPrice(Math.min(...slice.map((candle) => candle.low)))} ·{" "}
+            {formatPercent(
+              ((slice[slice.length - 1].close - slice[0].close) /
+                slice[0].close) *
+                100,
+            )}
+          </span>
+          <button
+            type="button"
+            onClick={() => setShowData((value) => !value)}
+            aria-expanded={showData}
+            className="inline-flex items-center gap-1 rounded-md border border-line px-1.5 py-0.5 text-[9px] text-muted transition-colors hover:text-fg"
+          >
+            <Table2 className="h-3 w-3" />
+            {showData ? "Ocultar datos" : "Ver datos"}
+          </button>
+        </div>
       </figcaption>
+      {showData && (
+        <ChartDataTable candles={slice} interval={meta?.interval} />
+      )}
     </figure>
   );
 }

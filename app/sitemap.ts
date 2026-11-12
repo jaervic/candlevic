@@ -13,6 +13,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/aprender/glosario",
     "/radar",
     "/lab",
+    "/lab/backtest",
+    "/demo",
     "/progreso",
     "/test",
   ].map((path) => ({
