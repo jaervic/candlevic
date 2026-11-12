@@ -1,18 +1,22 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, Loader2 } from "lucide-react";
 import {
   DATASETS,
   DATASET_IDS,
+  isDatasetId,
   loadDataset,
   type DatasetId,
 } from "@/lib/datasets";
 import type { Candle } from "@/lib/indicators";
 import {
-  runAllBacktests,
+  BACKTEST_STRATEGIES,
+  STRATEGY_NAMES,
+  runBacktests,
   type BacktestResult,
+  type StrategyId,
 } from "@/lib/backtest";
 import { track } from "@/lib/analytics";
 import {
@@ -22,7 +26,15 @@ import {
   formatPercent,
 } from "@/lib/utils";
 
-const COLORS = ["var(--color-accent)", "var(--color-info)", "var(--color-up)"];
+const COLORS = [
+  "var(--color-accent)",
+  "var(--color-info)",
+  "var(--color-up)",
+  "var(--color-down)",
+  "#a78bfa",
+  "#f472b6",
+  "#22d3ee",
+];
 
 export function Backtest() {
   const [datasetId, setDatasetId] = useState<DatasetId>("btc-1d");
@@ -30,7 +42,21 @@ export function Backtest() {
   const [loading, setLoading] = useState(true);
   const [withFees, setWithFees] = useState(true);
   const [source, setSource] = useState("");
-  const [results, setResults] = useState<BacktestResult[]>([]);
+  const [selected, setSelected] = useState<StrategyId[]>([
+    "hold",
+    "sma",
+    "dca",
+  ]);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const dataset = params.get("dataset");
+    if (dataset && isDatasetId(dataset)) setDatasetId(dataset);
+    const strategy = params.get("strategy") as StrategyId | null;
+    if (strategy && BACKTEST_STRATEGIES.includes(strategy)) {
+      setSelected(strategy === "hold" ? ["hold"] : ["hold", strategy]);
+    }
+  }, []);
 
   useEffect(() => {
     let active = true;
@@ -46,12 +72,35 @@ export function Backtest() {
     };
   }, [datasetId]);
 
+  const results = useMemo(
+    () =>
+      candles.length > 0
+        ? runBacktests(candles, selected, { fee: withFees ? 0.001 : 0 })
+        : [],
+    [candles, selected, withFees],
+  );
+
   useEffect(() => {
-    if (candles.length === 0) return;
-    const next = runAllBacktests(candles, { fee: withFees ? 0.001 : 0 });
-    setResults(next);
-    track("backtest_run", { dataset: datasetId, fees: withFees });
-  }, [candles, withFees, datasetId]);
+    if (candles.length > 0) {
+      track("backtest_run", {
+        dataset: datasetId,
+        fees: withFees,
+        strategies: selected,
+      });
+    }
+  }, [candles.length, datasetId, withFees, selected]);
+
+  function toggleStrategy(id: StrategyId) {
+    setSelected((previous) => {
+      if (previous.includes(id)) {
+        return previous.length > 1
+          ? previous.filter((strategy) => strategy !== id)
+          : previous;
+      }
+      if (previous.length >= 4) return previous;
+      return [...previous, id];
+    });
+  }
 
   const entry = DATASETS[datasetId];
 
@@ -68,6 +117,9 @@ export function Backtest() {
           <Link href="/aprender/backtesting" className="hover:text-muted">
             Lección: qué es el backtesting
           </Link>
+          <Link href="/aprender/estrategias" className="hover:text-muted">
+            Biblioteca de estrategias
+          </Link>
         </div>
         <p className="text-[10px] uppercase tracking-[0.16em] text-accent">
           Práctica
@@ -76,9 +128,9 @@ export function Backtest() {
           Backtesting didáctico
         </h1>
         <p className="mt-1 max-w-xl text-[13px] leading-relaxed text-muted">
-          Compara tres formas de estar en el mercado sobre datos reales. No es
-          una recomendación: es una forma de ver el efecto del timing, los
-          costes y el drawdown.
+          Compara hasta cuatro estrategias sobre datos reales. No es una
+          recomendación: es una forma de ver el efecto del timing, los costes y
+          el drawdown.
         </p>
       </header>
 
@@ -103,6 +155,35 @@ export function Backtest() {
                 {DATASETS[id].label}
               </button>
             ))}
+          </div>
+        </div>
+
+        <div className="border-t border-line/70 pt-3">
+          <div className="mb-1.5 flex items-center justify-between gap-2">
+            <p className="text-[10px] uppercase tracking-wider text-faint">
+              Estrategias a comparar
+            </p>
+            <span className="text-[10px] text-faint">Máx. 4</span>
+          </div>
+          <div className="flex flex-wrap gap-1.5">
+            {BACKTEST_STRATEGIES.map((id) => {
+              const active = selected.includes(id);
+              return (
+                <button
+                  key={id}
+                  onClick={() => toggleStrategy(id)}
+                  aria-pressed={active}
+                  className={cn(
+                    "rounded-lg border px-2.5 py-1.5 text-[11px] transition-colors",
+                    active
+                      ? "border-accent/30 bg-accent/10 text-accent"
+                      : "border-line bg-surface-2/60 text-muted hover:text-fg",
+                  )}
+                >
+                  {STRATEGY_NAMES[id]}
+                </button>
+              );
+            })}
           </div>
         </div>
 
@@ -146,8 +227,8 @@ export function Backtest() {
               {entry.label} · {entry.interval}
             </h2>
             <p className="text-[10px] text-faint">
-              {entry.kind === "crypto" ? "Cripto" : "Acciones"} ·{" "}
-              {source} · capital inicial 10.000 $
+              {entry.kind === "crypto" ? "Cripto" : "Acciones"} · {source} ·
+              capital inicial 10.000 $
             </p>
           </div>
           {loading && <Loader2 className="h-4 w-4 animate-spin text-faint" />}
@@ -166,7 +247,7 @@ export function Backtest() {
                 >
                   <span
                     className="h-2 w-2 rounded-full"
-                    style={{ backgroundColor: COLORS[index] }}
+                    style={{ backgroundColor: COLORS[index % COLORS.length] }}
                   />
                   {result.name}
                 </span>
@@ -205,7 +286,9 @@ export function Backtest() {
                     <span className="inline-flex items-center gap-2">
                       <span
                         className="h-2 w-2 rounded-full"
-                        style={{ backgroundColor: COLORS[index] }}
+                        style={{
+                          backgroundColor: COLORS[index % COLORS.length],
+                        }}
                       />
                       {result.name}
                     </span>
@@ -262,9 +345,16 @@ export function Backtest() {
       </section>
 
       <p className="rounded-xl border border-line bg-surface p-3 text-[10.5px] leading-relaxed text-faint">
-        Simulación sobre datos históricos. Incluye la comisión seleccionada,
-        pero no impuestos ni slippage. Los resultados pasados no garantizan los
-        futuros.
+        Simulación sobre datos históricos. Incluye la comisión seleccionada, pero
+        no impuestos ni slippage. Los resultados pasados no garantizan los
+        futuros.{" "}
+        <Link
+          href="/aprender/estrategias"
+          className="text-muted underline-offset-4 hover:text-fg hover:underline"
+        >
+          Ver qué hay detrás de cada estrategia
+        </Link>
+        .
       </p>
     </div>
   );
@@ -298,7 +388,7 @@ function EquityChart({ results }: { results: BacktestResult[] }) {
       viewBox={`0 0 ${width} ${height}`}
       className="w-full"
       role="img"
-      aria-label="Curvas de equity de comprar y mantener, cruce de medias y DCA"
+      aria-label="Curvas de equity de las estrategias seleccionadas"
     >
       {[0, 0.25, 0.5, 0.75, 1].map((step) => {
         const value = min + step * span;
@@ -337,7 +427,7 @@ function EquityChart({ results }: { results: BacktestResult[] }) {
             )
             .join(" ")}
           fill="none"
-          stroke={COLORS[index]}
+          stroke={COLORS[index % COLORS.length]}
           strokeWidth="1.8"
           strokeLinejoin="round"
         />

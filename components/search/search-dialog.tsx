@@ -6,6 +6,7 @@ import {
   ArrowDown,
   ArrowUp,
   BookOpen,
+  Compass,
   CornerDownLeft,
   FileText,
   GraduationCap,
@@ -31,6 +32,7 @@ const TYPE_ICONS: Record<SearchType, typeof Search> = {
   libro: Library,
   estudio: GraduationCap,
   explicador: Radio,
+  estrategia: Compass,
   pagina: Search,
 };
 

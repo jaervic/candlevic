@@ -3,6 +3,7 @@ import type { SearchItem } from "./search-types";
 import { GLOSSARY, GLOSSARY_CATEGORIES } from "@/content/glosario";
 import { BOOKS } from "@/content/biblioteca";
 import { MODULE_MAP } from "@/content/modulos";
+import { STRATEGIES } from "@/content/estrategias";
 
 export function buildSearchIndex(): SearchItem[] {
   const items: SearchItem[] = [];
@@ -36,6 +37,24 @@ export function buildSearchIndex(): SearchItem[] {
       summary: term.definition,
       href: `/aprender/glosario?q=${encodeURIComponent(term.term)}`,
       keywords: [...(term.aliases ?? []), category].filter(Boolean),
+    });
+  }
+
+  for (const strategy of STRATEGIES) {
+    items.push({
+      id: `estrategia:${strategy.slug}`,
+      type: "estrategia",
+      title: strategy.name,
+      subtitle: `${strategy.familyLabel} · ${strategy.difficulty}`,
+      summary: strategy.summary,
+      href: `/aprender/estrategias/${strategy.slug}`,
+      keywords: [
+        strategy.familyLabel,
+        strategy.difficulty,
+        strategy.horizon,
+        ...strategy.context,
+        ...strategy.related,
+      ],
     });
   }
 

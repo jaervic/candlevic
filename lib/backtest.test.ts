@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { runAllBacktests, runBacktest } from "./backtest";
+import {
+  BACKTEST_STRATEGIES,
+  runAllBacktests,
+  runBacktest,
+} from "./backtest";
 import { toCandles } from "./indicators";
 
 function series(closes: number[]) {
@@ -39,6 +43,46 @@ describe("backtest", () => {
     expect(result.equity).toHaveLength(200);
   });
 
+  it("Donchian compra una ruptura y vende al perder el mínimo", () => {
+    const closes = [
+      ...Array(25).fill(100),
+      ...Array(10).fill(120),
+      90,
+      90,
+    ];
+    const result = runBacktest(series(closes), "donchian");
+    expect(result.trades).toBeGreaterThan(0);
+  });
+
+  it("la reversión RSI compra en sobreventa y vende en sobrecompra", () => {
+    const closes = [
+      ...Array.from({ length: 30 }, (_, i) => 100 - i * 3),
+      ...Array.from({ length: 30 }, (_, i) => 40 + i * 4),
+    ];
+    const result = runBacktest(series(closes), "rsi");
+    expect(result.trades).toBeGreaterThan(0);
+  });
+
+  it("el pullback a media genera operaciones en una tendencia con retrocesos", () => {
+    const closes = [
+      ...Array.from({ length: 60 }, (_, i) => 100 + i),
+      150, 140, 130, 140, 150, 160,
+      170, 180, 190, 200,
+      180, 160, 140, 120,
+    ];
+    const result = runBacktest(series(closes), "pullback");
+    expect(result.trades).toBe(2);
+    expect(result.equity).toHaveLength(closes.length);
+  });
+
+  it("el rango compra cerca del mínimo y vende cerca del máximo", () => {
+    const closes = Array.from({ length: 220 }, (_, i) =>
+      100 + Math.sin(i / 5) * 12,
+    );
+    const result = runBacktest(series(closes), "range");
+    expect(result.trades).toBeGreaterThan(0);
+  });
+
   it("el DCA invierte periódicamente", () => {
     const candles = series(Array.from({ length: 120 }, (_, i) => 100 + i));
     const result = runBacktest(candles, "dca", {
@@ -49,10 +93,10 @@ describe("backtest", () => {
     expect(result.equity).toHaveLength(120);
   });
 
-  it("devuelve las tres estrategias", () => {
+  it("devuelve todas las estrategias", () => {
     const candles = series(Array.from({ length: 100 }, (_, i) => 100 + i));
     const results = runAllBacktests(candles);
-    expect(results.map((result) => result.id)).toEqual(["hold", "sma", "dca"]);
+    expect(results.map((result) => result.id)).toEqual(BACKTEST_STRATEGIES);
     for (const result of results) {
       expect(result.maxDrawdown).toBeGreaterThanOrEqual(0);
       expect(result.maxDrawdown).toBeLessThanOrEqual(100);

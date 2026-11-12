@@ -14,6 +14,7 @@ Web app educativa, gratuita y mobile-first para aprender trading de acciones y c
 ## Qué incluye
 
 - **38 lecciones** repartidas en 10 módulos: mentalidad, fundamentos, estilos, gráficos, tendencia, indicadores, riesgo, estrategia, **psicología del trading** y cripto práctico.
+- **8 estrategias de trading** con reglas, contexto, errores, quiz y backtest: tendencia, ruptura, reversión, rango, DCA y carry.
 - **Cuatro temas** (Noche, Grafito, Papel y Sepia) con detección del sistema, tipografía Inter y ajustes de lectura: tamaño, interlineado, ancho, modo concentración y fondo ambiente.
 - **Buscador global (Ctrl+K)** en lecciones, glosario, libros, estudios, explicadores y páginas.
 - **Índice de lección** en escritorio y hoja inferior en móvil, con seguimiento de la sección activa.
@@ -24,7 +25,7 @@ Web app educativa, gratuita y mobile-first para aprender trading de acciones y c
 - **Laboratorio**: indicadores (SMA, EMA, RSI, MACD, Bollinger), replay de velas, líneas horizontales y datos en vivo con respaldo Binance/Coinbase.
 - **Radar**: titulares en español de cripto, bolsa y macro, calendario de eventos y explicadores permanentes.
 - **Trading demo**: 10.000 $ virtuales, compras y ventas a mercado, cartera, P&L, historial con emoción y curva de equity.
-- **Backtesting didáctico**: comprar y mantener vs. cruce de medias vs. DCA, con costes, drawdown y curvas de equity.
+- **Backtesting didáctico**: comprar y mantener, cruce de medias, Donchian, RSI, pullback, rango y DCA, con costes, drawdown y curvas de equity.
 - **Accesibilidad**: tabla de datos OHLC, resumen textual de cada gráfico y modo daltónico con velas huecas.
 - **Legal y confianza**: Sobre, Privacidad, Términos, Accesibilidad, Fuentes y atribuciones.
 - **Analítica opcional** agregada y sin cookies (Umami); desactivada si no se configura.

@@ -11,6 +11,7 @@ export const metadata = {
 
 const TABS = [
   { href: "/aprender", label: "Ruta" },
+  { href: "/aprender/estrategias", label: "Estrategias" },
   { href: "/aprender/estudios", label: "Estudios" },
   { href: "/aprender/biblioteca", label: "Biblioteca" },
   { href: "/aprender/glosario", label: "Glosario" },

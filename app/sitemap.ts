@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getDocs, getLessons } from "@/lib/content";
 import { BOOKS } from "@/content/biblioteca";
+import { STRATEGIES } from "@/content/estrategias";
 
 const BASE = "https://candlevic.com";
 
@@ -8,6 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     "",
     "/aprender",
+    "/aprender/estrategias",
     "/aprender/estudios",
     "/aprender/biblioteca",
     "/aprender/glosario",
@@ -36,6 +38,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
+  const strategies = STRATEGIES.map((strategy) => ({
+    url: `${BASE}/aprender/estrategias/${strategy.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
   const estudios = getDocs("estudios").map((doc) => ({
     url: `${BASE}/aprender/estudios/${doc.meta.slug}`,
     lastModified: new Date(),
@@ -57,5 +66,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.5,
   }));
 
-  return [...staticRoutes, ...lessons, ...estudios, ...explicadores, ...books];
+  return [
+    ...staticRoutes,
+    ...lessons,
+    ...strategies,
+    ...estudios,
+    ...explicadores,
+    ...books,
+  ];
 }
