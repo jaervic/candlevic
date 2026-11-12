@@ -58,12 +58,17 @@ export function Backtest() {
   return (
     <div className="space-y-5">
       <header>
-        <Link
-          href="/lab"
-          className="mb-3 inline-flex items-center gap-1.5 text-[11px] text-faint hover:text-muted"
-        >
-          <ArrowLeft className="h-3 w-3" /> Laboratorio
-        </Link>
+        <div className="mb-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-faint">
+          <Link
+            href="/lab"
+            className="inline-flex items-center gap-1.5 hover:text-muted"
+          >
+            <ArrowLeft className="h-3 w-3" /> Laboratorio
+          </Link>
+          <Link href="/aprender/backtesting" className="hover:text-muted">
+            Lección: qué es el backtesting
+          </Link>
+        </div>
         <p className="text-[10px] uppercase tracking-[0.16em] text-accent">
           Práctica
         </p>
