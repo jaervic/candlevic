@@ -126,6 +126,36 @@ export function buildSearchIndex(): SearchItem[] {
       keywords: ["glosario", "términos"],
     },
     {
+      title: "Sobre Candlevic",
+      summary: "Qué es, cómo se crea el contenido y por qué es independiente.",
+      href: "/sobre",
+      keywords: ["sobre", "proyecto", "editorial", "contacto"],
+    },
+    {
+      title: "Privacidad",
+      summary: "Qué datos se guardan y cómo borrarlos.",
+      href: "/privacidad",
+      keywords: ["privacidad", "datos", "localstorage", "respaldo"],
+    },
+    {
+      title: "Términos de uso",
+      summary: "Condiciones, riesgo y responsabilidad.",
+      href: "/terminos",
+      keywords: ["términos", "legal", "riesgo", "responsabilidad"],
+    },
+    {
+      title: "Accesibilidad",
+      summary: "Temas, teclado, movimiento reducido y gráficos accesibles.",
+      href: "/accesibilidad",
+      keywords: ["accesibilidad", "wcag", "teclado", "daltónico"],
+    },
+    {
+      title: "Fuentes y atribuciones",
+      summary: "Datos, medios, libros, estudios y licencias.",
+      href: "/fuentes",
+      keywords: ["fuentes", "datos", "licencias", "atribución"],
+    },
+    {
       title: "Estudios",
       summary: "Casos históricos y evidencia científica.",
       href: "/aprender/estudios",

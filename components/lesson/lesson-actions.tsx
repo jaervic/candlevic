@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowLeft, ArrowRight, Check, CircleCheck, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useProgress } from "@/lib/progress";
+import { track } from "@/lib/analytics";
 
 export function LessonActions({
   slug,
@@ -42,7 +43,10 @@ export function LessonActions({
           <Button
             variant={done ? "secondary" : "primary"}
             size="sm"
-            onClick={() => complete(slug, entry?.quizScore)}
+            onClick={() => {
+              complete(slug, entry?.quizScore);
+              track("lesson_complete", { slug });
+            }}
             disabled={done}
           >
             {done ? (

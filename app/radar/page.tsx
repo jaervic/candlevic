@@ -16,6 +16,7 @@ import { relativeTime } from "@/lib/utils";
 export const revalidate = 900;
 
 export const metadata = {
+  alternates: { canonical: "/radar" },
   title: "Radar de mercado",
   description:
     "Titulares de cripto, macro y acciones con contexto educativo. Sin señales ni predicciones.",

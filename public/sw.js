@@ -1,4 +1,4 @@
-const CACHE = "candlevic-v2";
+const CACHE = "candlevic-v3";
 const PRECACHE = ["/", "/aprender", "/lab", "/radar", "/progreso", "/icons/icon-192.png"];
 
 self.addEventListener("install", (event) => {
@@ -6,6 +6,10 @@ self.addEventListener("install", (event) => {
     caches.open(CACHE).then((cache) => cache.addAll(PRECACHE)).catch(() => {}),
   );
   self.skipWaiting();
+});
+
+self.addEventListener("message", (event) => {
+  if (event.data === "SKIP_WAITING") self.skipWaiting();
 });
 
 self.addEventListener("activate", (event) => {

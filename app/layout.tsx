@@ -4,6 +4,9 @@ import "./globals.css";
 import { Header } from "@/components/layout/header";
 import { BottomNav } from "@/components/layout/bottom-nav";
 import { AmbientBackground } from "@/components/layout/ambient-background";
+import { SiteFooter } from "@/components/site-footer";
+import { OfflineBanner } from "@/components/pwa/offline-banner";
+import { Analytics } from "@/components/analytics";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { Onboarding } from "@/components/onboarding";
 import { ProgressSync } from "@/components/progress/progress-sync";
@@ -92,13 +95,16 @@ export default function RootLayout({
         <AmbientBackground />
         <ThemeProvider>
           <Header />
+          <OfflineBanner />
           <main className="app-main mx-auto w-full max-w-5xl px-4 pb-28 pt-5 md:pb-16">
             {children}
+            <SiteFooter />
           </main>
           <BottomNav />
           <Onboarding />
           <ProgressSync />
           <PwaRegister />
+        <Analytics />
         </ThemeProvider>
       </body>
     </html>

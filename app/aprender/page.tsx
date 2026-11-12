@@ -3,6 +3,7 @@ import { LearnHub } from "@/components/learn/learn-hub";
 import { getModulesWithLessons } from "@/lib/content";
 
 export const metadata = {
+  alternates: { canonical: "/aprender" },
   title: "Aprender",
   description:
     "Ruta completa de aprendizaje: mentalidad, fundamentos, estilos de trading, gráficos, análisis técnico y gestión de riesgo.",

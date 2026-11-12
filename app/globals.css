@@ -440,13 +440,18 @@
 /* ------------------------------------------------------------------ */
 
 html[data-focus="true"] .app-header,
-html[data-focus="true"] .bottom-nav {
+html[data-focus="true"] .bottom-nav,
+html[data-focus="true"] .site-footer {
   display: none;
 }
 
 html[data-focus="true"] .app-main {
   padding-top: 1.25rem;
   padding-bottom: 3rem;
+}
+
+html[data-focus="true"] .offline-banner {
+  top: 0;
 }
 
 /* ------------------------------------------------------------------ */

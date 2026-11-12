@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { LearnTabs } from "@/components/learn/learn-tabs";
 
 export const metadata = {
+  alternates: { canonical: "/aprender/estudios" },
   title: "Estudios",
   description:
     "Casos históricos y evidencia científica sobre trading: LUNA, COVID, Barber & Odean, SPIVA y más.",

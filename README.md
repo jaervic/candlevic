@@ -26,12 +26,15 @@ Web app educativa, gratuita y mobile-first para aprender trading de acciones y c
 - **Trading demo**: 10.000 $ virtuales, compras y ventas a mercado, cartera, P&L, historial con emoción y curva de equity.
 - **Backtesting didáctico**: comprar y mantener vs. cruce de medias vs. DCA, con costes, drawdown y curvas de equity.
 - **Accesibilidad**: tabla de datos OHLC, resumen textual de cada gráfico y modo daltónico con velas huecas.
+- **Legal y confianza**: Sobre, Privacidad, Términos, Accesibilidad, Fuentes y atribuciones.
+- **Analítica opcional** agregada y sin cookies (Umami); desactivada si no se configura.
+- **E2E** de los flujos críticos con Playwright en CI.
 - **Estudios**: 5 casos históricos (LUNA, COVID, FTX, GME, dotcom) y evidencia científica (Barber & Odean, SPIVA, Dalbar…).
 - **Biblioteca**: fichas originales de 10 libros clave del trading.
 - **Glosario** con buscador y categorías.
 - **Test “¿Qué trader eres?”** con plan de 30 días.
 - **Progreso local** con XP, racha y logros. Respaldo con un código de guardado: corto y cifrado si hay nube (Upstash), o autónomo y sin servidor si no la hay. Sin email ni contraseña.
-- **PWA** instalable y con soporte offline para el contenido ya visitado.
+- **PWA** instalable, con aviso offline, actualización de versión y atajos a Demo y Lab.
 
 ## Stack
 
@@ -42,7 +45,7 @@ Web app educativa, gratuita y mobile-first para aprender trading de acciones y c
 - Zustand para el progreso local
 - MDX para el contenido
 - Upstash Redis (opcional) para el respaldo cifrado
-- Vitest para tests
+- Vitest para unit tests y Playwright para E2E
 
 ## Empezar en local
 
@@ -66,6 +69,13 @@ UPSTASH_REDIS_REST_URL=
 UPSTASH_REDIS_REST_TOKEN=
 ```
 
+Analítica opcional (Umami, sin cookies). Si no se configura, no se carga ningún script:
+
+```env
+NEXT_PUBLIC_UMAMI_WEBSITE_ID=
+NEXT_PUBLIC_UMAMI_SRC=
+```
+
 En desarrollo, si no hay Upstash, el respaldo se guarda en `.data/progress-backups.json` (ignorado por git).
 
 ## Scripts
@@ -74,7 +84,8 @@ En desarrollo, si no hay Upstash, el respaldo se guarda en `.data/progress-backu
 npm run dev        # desarrollo
 npm run build      # build de producción
 npm run start      # servidor de producción
-npm test           # tests (indicadores + cifrado)
+npm test           # tests unitarios
+npm run test:e2e   # tests E2E (requiere build y servidor)
 npm run typecheck  # TypeScript
 node scripts/fetch-data.mjs   # refresca los datasets desde Binance y Yahoo
 ```
@@ -141,7 +152,8 @@ También funciona en cualquier hosting que soporte Next.js.
 
 - El progreso se guarda en el navegador (localStorage).
 - El respaldo se cifra en el cliente con AES-GCM y una clave derivada del código mediante PBKDF2. El servidor solo almacena un blob cifrado y no puede leerlo.
-- No hay cuentas, email ni analítica de terceros.
+- No hay cuentas ni email. La analítica es opcional, agregada y sin cookies.
+- Las páginas de Privacidad, Términos, Accesibilidad y Fuentes explican el detalle.
 - Las noticias enlazan siempre a la fuente original.
 
 ## Derechos de autor

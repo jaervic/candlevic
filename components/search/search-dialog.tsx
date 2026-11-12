@@ -23,6 +23,7 @@ import {
 } from "@/lib/search-types";
 import { searchItems } from "@/lib/search-utils";
 import { cn } from "@/lib/utils";
+import { track } from "@/lib/analytics";
 
 const TYPE_ICONS: Record<SearchType, typeof Search> = {
   leccion: FileText,
@@ -85,6 +86,7 @@ export function SearchDialog() {
     setQuery("");
     setActive(0);
     setError(null);
+    track("search_open");
     const timer = window.setTimeout(() => inputRef.current?.focus(), 40);
 
     if (indexRef.current) {
@@ -131,6 +133,7 @@ export function SearchDialog() {
 
   function go(item?: SearchItem) {
     if (!item) return;
+    track("search_result", { query, href: item.href });
     close();
     router.push(item.href);
   }

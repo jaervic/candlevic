@@ -6,13 +6,29 @@ export default function manifest(): MetadataRoute.Manifest {
     short_name: "Candlevic",
     description:
       "Lecciones cortas, gráficos interactivos y práctica real para aprender trading de acciones y cripto. Gratis y sin registro.",
+    id: "/",
     start_url: "/",
+    scope: "/",
     display: "standalone",
     background_color: "#0b0f14",
     theme_color: "#0b0f14",
     orientation: "portrait",
     lang: "es",
     categories: ["education", "finance"],
+    shortcuts: [
+      {
+        name: "Trading demo",
+        short_name: "Demo",
+        description: "Practica con dinero virtual",
+        url: "/demo",
+      },
+      {
+        name: "Laboratorio",
+        short_name: "Lab",
+        description: "Gráficos e indicadores",
+        url: "/lab",
+      },
+    ],
     icons: [
       {
         src: "/icons/icon-192.png",

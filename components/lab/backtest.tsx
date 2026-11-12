@@ -14,6 +14,7 @@ import {
   runAllBacktests,
   type BacktestResult,
 } from "@/lib/backtest";
+import { track } from "@/lib/analytics";
 import {
   cn,
   formatDate,
@@ -47,8 +48,10 @@ export function Backtest() {
 
   useEffect(() => {
     if (candles.length === 0) return;
-    setResults(runAllBacktests(candles, { fee: withFees ? 0.001 : 0 }));
-  }, [candles, withFees]);
+    const next = runAllBacktests(candles, { fee: withFees ? 0.001 : 0 });
+    setResults(next);
+    track("backtest_run", { dataset: datasetId, fees: withFees });
+  }, [candles, withFees, datasetId]);
 
   const entry = DATASETS[datasetId];
 

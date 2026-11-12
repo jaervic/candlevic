@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { LearnTabs } from "@/components/learn/learn-tabs";
 
 export const metadata = {
+  alternates: { canonical: "/aprender/biblioteca" },
   title: "Biblioteca",
   description:
     "Resúmenes originales de los libros clave del trading: Murphy, Nison, Elder, Douglas, Tharp y más.",

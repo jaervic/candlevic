@@ -22,6 +22,7 @@ import {
   type ThemeMode,
 } from "@/lib/preferences";
 import { useUI } from "@/lib/ui";
+import { track } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 
 function useIsDesktop() {
@@ -202,7 +203,10 @@ export function SettingsSheet() {
                 <button
                   key={option.id}
                   type="button"
-                  onClick={() => setTheme(option.id as ThemeMode)}
+                  onClick={() => {
+                    setTheme(option.id as ThemeMode);
+                    track("theme_change", { theme: option.id });
+                  }}
                   aria-pressed={active}
                   className={cn(
                     "flex flex-col items-center gap-1.5 rounded-xl border p-2 transition-colors",

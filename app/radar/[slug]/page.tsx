@@ -6,7 +6,6 @@ import { ArrowLeft, Clock } from "lucide-react";
 import { getDoc, getDocs } from "@/lib/content";
 import { Badge } from "@/components/ui/badge";
 import { Callout, KeyIdea } from "@/components/lesson/callout";
-import { Disclaimer } from "@/components/disclaimer";
 
 type Params = { slug: string };
 
@@ -75,10 +74,6 @@ export default async function ExplicadorPage({
           }}
           options={{ blockJS: false, mdxOptions: { remarkPlugins: [remarkGfm] } }}
         />
-      </div>
-
-      <div className="mt-8 border-t border-line pt-4">
-        <Disclaimer />
       </div>
     </article>
   );

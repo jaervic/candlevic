@@ -20,6 +20,7 @@ import { EquitySparkline } from "@/components/demo/equity-sparkline";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { loadDataset } from "@/lib/datasets";
+import { track } from "@/lib/analytics";
 import { toCandles, type Candle } from "@/lib/indicators";
 import {
   DEMO_ASSETS,
@@ -188,6 +189,7 @@ export function Demo() {
     };
     const result = side === "buy" ? data.buy(input) : data.sell(input);
     if (result.ok) {
+      track("demo_trade", { side, symbol: asset.symbol });
       setStatus({
         type: "ok",
         message:

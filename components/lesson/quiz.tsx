@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Check, RotateCcw, X } from "lucide-react";
 import { useProgress, type Confidence } from "@/lib/progress";
+import { track } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 
 type QuizProps = {
@@ -35,6 +36,7 @@ export function Quiz({
 
     const isRight = index === correct;
     if (slug) {
+      track("quiz_answer", { slug, correct: isRight });
       recordQuiz(slug, isRight ? 100 : 40);
       if (!isRight) {
         recordConfidence(slug, "low");

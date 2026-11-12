@@ -12,3 +12,8 @@ build
 next-env.d.ts
 .data
 coverage
+
+test-results
+playwright-report
+blob-report
+.playwright

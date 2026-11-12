@@ -14,7 +14,6 @@ import { DatasetChart } from "@/components/charts/dataset-chart";
 import { ChartQuiz } from "@/components/charts/chart-quiz";
 import { LessonActions } from "@/components/lesson/lesson-actions";
 import { LessonReadingBar } from "@/components/lesson/lesson-reading-bar";
-import { Disclaimer } from "@/components/disclaimer";
 import { LessonToc } from "@/components/lesson/lesson-toc";
 import { Scenario } from "@/components/lesson/scenario";
 import { PlanBuilder } from "@/components/lesson/plan-builder";
@@ -50,6 +49,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
   return {
     title: lesson.meta.title,
     description: lesson.meta.summary,
+    alternates: { canonical: `/aprender/${slug}` },
   };
 }
 
@@ -65,6 +65,24 @@ export default async function LessonPage({
   const { meta, content, headings } = lesson;
   const module = MODULE_MAP[meta.module];
   const { prev, next } = getLessonNeighbours(slug);
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "LearningResource",
+    name: meta.title,
+    description: meta.summary,
+    learningResourceType: "Lesson",
+    educationalLevel: meta.level,
+    timeRequired: `PT${meta.minutes}M`,
+    inLanguage: "es",
+    isAccessibleForFree: true,
+    isPartOf: {
+      "@type": "Course",
+      name: "Candlevic",
+      url: "https://candlevic.com",
+    },
+    url: `https://candlevic.com/aprender/${slug}`,
+  };
 
   const components = {
     Callout,
@@ -118,6 +136,10 @@ export default async function LessonPage({
     <div className="lg:mx-auto lg:grid lg:max-w-[980px] lg:grid-cols-[190px_minmax(0,1fr)] lg:items-start lg:gap-10">
       <LessonToc headings={headings} />
       <article className="reading-shell lg:mx-0">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <LessonReadingBar />
 
       <nav className="mb-4 flex items-center gap-1 text-[11px] text-faint">
@@ -180,10 +202,6 @@ export default async function LessonPage({
         next={next ? { slug: next.meta.slug, title: next.meta.title } : null}
         prev={prev ? { slug: prev.meta.slug, title: prev.meta.title } : null}
       />
-
-      <div className="mt-8 border-t border-line pt-4">
-        <Disclaimer />
-      </div>
       </article>
     </div>
   );
