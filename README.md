@@ -15,7 +15,7 @@ Web app educativa, gratuita y mobile-first para aprender trading de acciones y c
 
 - **38 lecciones** repartidas en 10 módulos: mentalidad, fundamentos, estilos, gráficos, tendencia, indicadores, riesgo, estrategia, **psicología del trading** y cripto práctico.
 - **Cuatro temas** (Noche, Grafito, Papel y Sepia) con detección del sistema, tipografía Inter y ajustes de lectura: tamaño, interlineado, ancho, modo concentración y fondo ambiente.
-- **Buscador global (⌘K)** en lecciones, glosario, libros, estudios, explicadores y páginas.
+- **Buscador global (Ctrl+K)** en lecciones, glosario, libros, estudios, explicadores y páginas.
 - **Índice de lección** en escritorio y hoja inferior en móvil, con seguimiento de la sección activa.
 - **Repaso espaciado** a nivel de lección y **dominio por módulo**, con señal de confianza en los quizzes.
 - **Quizzes con explicación de cada opción incorrecta**, no solo de la correcta.

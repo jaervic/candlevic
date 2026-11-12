@@ -56,14 +56,11 @@ export function Header() {
           <button
             onClick={openSearch}
             aria-label="Buscar"
-            title="Buscar (⌘K)"
+            title="Buscar"
             className="inline-flex h-8 items-center gap-2 rounded-full border border-line bg-surface px-2.5 text-[12px] text-muted transition-colors hover:border-line-strong hover:text-fg md:px-3"
           >
             <Search className="h-3.5 w-3.5" />
             <span className="hidden md:inline">Buscar</span>
-            <kbd className="hidden rounded border border-line px-1 text-[9px] text-faint md:inline">
-              ⌘K
-            </kbd>
           </button>
           <span
             className="inline-flex h-8 items-center gap-1.5 rounded-full border border-line bg-surface px-2.5 text-[12px] text-muted"

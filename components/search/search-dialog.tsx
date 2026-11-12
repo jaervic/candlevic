@@ -196,7 +196,7 @@ export function SearchDialog() {
             </button>
           ) : (
             <kbd className="hidden rounded border border-line px-1.5 py-0.5 text-[10px] text-faint sm:inline">
-              esc
+              Esc
             </kbd>
           )}
         </div>
@@ -242,8 +242,7 @@ export function SearchDialog() {
               </div>
               <p className="mt-4 text-[11px] leading-relaxed text-faint">
                 Busca en lecciones, glosario, libros, estudios, explicadores y
-                páginas. También puedes usar{" "}
-                <kbd className="rounded border border-line px-1">⌘K</kbd>.
+                páginas.
               </p>
             </div>
           )}
@@ -309,8 +308,8 @@ export function SearchDialog() {
           <span className="inline-flex items-center gap-1">
             <CornerDownLeft className="h-3 w-3" /> abrir
           </span>
-          <span>esc cerrar</span>
-          <span className="ml-auto">⌘K</span>
+          <span>Esc cerrar</span>
+          <span className="ml-auto">Ctrl+K</span>
         </div>
       </div>
     </div>
