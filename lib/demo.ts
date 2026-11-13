@@ -48,6 +48,7 @@ export type DemoTrade = {
   note?: string;
   emotion?: DemoEmotion;
   realized?: number;
+  strategy?: string;
 };
 
 export type DemoPosition = {
@@ -56,6 +57,9 @@ export type DemoPosition = {
   qty: number;
   avgPrice: number;
   lastPrice: number;
+  /** Comisión de compra repartida por unidad, para calcular el P&L neto. */
+  feePerUnit?: number;
+  strategy?: string;
 };
 
 export type DemoEquityPoint = { at: number; value: number };
@@ -76,6 +80,7 @@ type TradeInput = {
   price: number;
   note?: string;
   emotion?: DemoEmotion;
+  strategy?: string;
 };
 
 type DemoActions = {
@@ -133,6 +138,43 @@ export function demoWinRate(trades: DemoTrade[]) {
   );
 }
 
+export type DemoStrategyPnl = {
+  strategy: string | null;
+  trades: number;
+  sells: number;
+  wins: number;
+  realized: number;
+};
+
+/**
+ * Agrupa las operaciones por la etiqueta de estrategia con la que se abrieron.
+ * Solo las ventas tienen P&L realizado; las compras cuentan como actividad.
+ */
+export function demoPnlByStrategy(trades: DemoTrade[]): DemoStrategyPnl[] {
+  const groups = new Map<string, DemoStrategyPnl>();
+  for (const trade of trades) {
+    const key = trade.strategy ?? "";
+    let group = groups.get(key);
+    if (!group) {
+      group = {
+        strategy: trade.strategy ?? null,
+        trades: 0,
+        sells: 0,
+        wins: 0,
+        realized: 0,
+      };
+      groups.set(key, group);
+    }
+    group.trades += 1;
+    if (trade.side === "sell" && trade.realized != null) {
+      group.sells += 1;
+      group.realized += trade.realized;
+      if (trade.realized > 0) group.wins += 1;
+    }
+  }
+  return [...groups.values()];
+}
+
 export const useDemo = create<DemoStore>()(
   persist(
     (set, get) => ({
@@ -140,7 +182,7 @@ export const useDemo = create<DemoStore>()(
 
       buy: (input) => {
         const state = get();
-        const { symbol, label, qty, price, note, emotion } = input;
+        const { symbol, label, qty, price, note, emotion, strategy } = input;
         if (!Number.isFinite(qty) || qty <= 0) {
           return { ok: false, error: "La cantidad debe ser mayor que cero." };
         }
@@ -159,6 +201,8 @@ export const useDemo = create<DemoStore>()(
         const newAvg =
           ((existing?.qty ?? 0) * (existing?.avgPrice ?? 0) + qty * price) /
           newQty;
+        const newFeePerUnit =
+          ((existing?.qty ?? 0) * (existing?.feePerUnit ?? 0) + fee) / newQty;
 
         const positions: Record<string, DemoPosition> = {
           ...state.positions,
@@ -168,6 +212,8 @@ export const useDemo = create<DemoStore>()(
             qty: newQty,
             avgPrice: newAvg,
             lastPrice: price,
+            feePerUnit: newFeePerUnit,
+            strategy: strategy ?? existing?.strategy,
           },
         };
 
@@ -182,6 +228,7 @@ export const useDemo = create<DemoStore>()(
           at: Date.now(),
           note: note?.trim() || undefined,
           emotion,
+          strategy: strategy ?? existing?.strategy,
         };
 
         const cash = state.cash - gross - fee;
@@ -197,7 +244,7 @@ export const useDemo = create<DemoStore>()(
 
       sell: (input) => {
         const state = get();
-        const { symbol, label, qty, price, note, emotion } = input;
+        const { symbol, label, qty, price, note, emotion, strategy } = input;
         const existing = state.positions[symbol];
         if (!existing) {
           return { ok: false, error: "No tienes posición en este activo." };
@@ -215,7 +262,10 @@ export const useDemo = create<DemoStore>()(
         const gross = qty * price;
         const fee = gross * DEMO_FEE_RATE;
         const proceeds = gross - fee;
-        const realized = (price - existing.avgPrice) * qty - fee;
+        const realized =
+          (price - existing.avgPrice) * qty -
+          fee -
+          (existing.feePerUnit ?? 0) * qty;
         const cash = state.cash + proceeds;
 
         const positions = { ...state.positions };
@@ -238,6 +288,7 @@ export const useDemo = create<DemoStore>()(
           note: note?.trim() || undefined,
           emotion,
           realized,
+          strategy: existing.strategy ?? strategy,
         };
 
         const value = demoEquity({ cash, positions });

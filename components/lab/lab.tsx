@@ -136,11 +136,7 @@ export function Lab() {
   }
 
   function toggle(id: IndicatorId) {
-    setEnabled((prev) => {
-      if (id === "rsi") return { ...prev, rsi: !prev.rsi, macd: false };
-      if (id === "macd") return { ...prev, macd: !prev.macd, rsi: false };
-      return { ...prev, [id]: !prev[id] };
-    });
+    setEnabled((prev) => ({ ...prev, [id]: !prev[id] }));
   }
 
   const overlays = useMemo(() => {

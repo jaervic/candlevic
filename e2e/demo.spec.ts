@@ -12,6 +12,7 @@ test("compra en el simulador y guarda la operación", async ({ page }) => {
   const qty = page.getByLabel(/Cantidad/);
   await expect(qty).toBeVisible({ timeout: 15_000 });
   await qty.fill("0.01");
+  await page.getByLabel(/Estrategia/).selectOption("cruce-de-medias");
 
   const buy = page.getByRole("button", { name: /Comprar BTC/ });
   await expect(buy).toBeEnabled({ timeout: 15_000 });
@@ -21,7 +22,10 @@ test("compra en el simulador y guarda la operación", async ({ page }) => {
 
   const state = await page.evaluate(() => {
     const raw = localStorage.getItem("candlevic:demo:v1");
-    return raw ? (JSON.parse(raw).state as { trades: unknown[] }) : null;
+    return raw
+      ? (JSON.parse(raw).state as { trades: { strategy?: string }[] })
+      : null;
   });
   expect(state?.trades.length).toBe(1);
+  expect(state?.trades[0]?.strategy).toBe("cruce-de-medias");
 });

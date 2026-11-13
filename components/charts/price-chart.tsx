@@ -132,12 +132,7 @@ export function PriceChart({
         borderVisible: false,
         scaleMargins: {
           top: 0.08,
-          bottom:
-            showRsi || showMacd
-              ? 0.36
-              : showVolume
-                ? 0.22
-                : 0.06,
+          bottom: showVolume ? 0.22 : 0.06,
         },
       },
       timeScale: {
@@ -187,28 +182,26 @@ export function PriceChart({
         priceLineVisible: false,
       });
       chart.priceScale("volume").applyOptions({
-        scaleMargins: {
-          top: showRsi || showMacd ? 0.86 : 0.8,
-          bottom: 0,
-        },
+        scaleMargins: { top: 0.8, bottom: 0 },
         borderVisible: false,
       });
       volumeRef.current = volume;
     }
 
     if (showRsi) {
-      const rsiSeries = chart.addSeries(LineSeries, {
-        color: palette.rsi,
-        lineWidth: 1,
-        priceScaleId: "rsi",
-        priceLineVisible: false,
-        lastValueVisible: false,
-        priceFormat: { type: "price", precision: 0, minMove: 1 },
-      });
-      chart.priceScale("rsi").applyOptions({
-        scaleMargins: { top: showVolume ? 0.56 : 0.74, bottom: showVolume ? 0.24 : 0.02 },
-        borderVisible: false,
-      });
+      const pane = chart.addPane();
+      const rsiSeries = chart.addSeries(
+        LineSeries,
+        {
+          color: palette.rsi,
+          lineWidth: 1,
+          priceLineVisible: false,
+          lastValueVisible: false,
+          priceFormat: { type: "price", precision: 0, minMove: 1 },
+        },
+        pane.paneIndex(),
+      );
+      pane.setStretchFactor(1);
       rsiSeries.createPriceLine({
         price: 70,
         color: palette.rsiHigh,
@@ -252,36 +245,46 @@ export function PriceChart({
       bollingerRefs.current = { upper, middle, lower };
     }
 
-    if (showMacd && !showRsi) {
-      const hist = chart.addSeries(HistogramSeries, {
-        priceScaleId: "macd",
-        priceLineVisible: false,
-        lastValueVisible: false,
-        priceFormat: { type: "price", precision: 2, minMove: 0.01 },
-      });
-      const line = chart.addSeries(LineSeries, {
-        priceScaleId: "macd",
-        color: palette.accent,
-        lineWidth: 1,
-        priceLineVisible: false,
-        lastValueVisible: false,
-        crosshairMarkerVisible: false,
-      });
-      const signal = chart.addSeries(LineSeries, {
-        priceScaleId: "macd",
-        color: palette.info,
-        lineWidth: 1,
-        priceLineVisible: false,
-        lastValueVisible: false,
-        crosshairMarkerVisible: false,
-      });
-      chart.priceScale("macd").applyOptions({
-        scaleMargins: showVolume
-          ? { top: 0.62, bottom: 0.22 }
-          : { top: 0.76, bottom: 0.02 },
-        borderVisible: false,
-      });
+    if (showMacd) {
+      const pane = chart.addPane();
+      const hist = chart.addSeries(
+        HistogramSeries,
+        {
+          priceLineVisible: false,
+          lastValueVisible: false,
+          priceFormat: { type: "price", precision: 2, minMove: 0.01 },
+        },
+        pane.paneIndex(),
+      );
+      const line = chart.addSeries(
+        LineSeries,
+        {
+          color: palette.accent,
+          lineWidth: 1,
+          priceLineVisible: false,
+          lastValueVisible: false,
+          crosshairMarkerVisible: false,
+        },
+        pane.paneIndex(),
+      );
+      const signal = chart.addSeries(
+        LineSeries,
+        {
+          color: palette.info,
+          lineWidth: 1,
+          priceLineVisible: false,
+          lastValueVisible: false,
+          crosshairMarkerVisible: false,
+        },
+        pane.paneIndex(),
+      );
+      pane.setStretchFactor(1);
       macdRefs.current = { hist, line, signal };
+    }
+
+    const panes = chart.panes();
+    if (panes.length > 1) {
+      panes[0].setStretchFactor(3.2);
     }
 
     const overlayPalette = [
@@ -519,17 +522,13 @@ export function PriceChart({
         className="num pointer-events-none absolute left-2 top-1.5 z-10 max-w-[68%] truncate rounded bg-bg/60 px-1 py-0.5 text-[9px] leading-none text-muted backdrop-blur-sm"
         aria-hidden="true"
       />
-      {showRsi && (
-        <span className="pointer-events-none absolute bottom-2 left-2 z-10 rounded bg-bg/70 px-1 py-0.5 text-[9px] text-faint">
-          RSI 14
-        </span>
-      )}
-      {showMacd && !showRsi && (
-        <span className="pointer-events-none absolute bottom-2 left-2 z-10 rounded bg-bg/70 px-1 py-0.5 text-[9px] text-faint">
-          MACD 12·26·9
-        </span>
-      )}
       <div ref={containerRef} style={{ height }} className="w-full" />
+      {(showRsi || showMacd) && (
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 px-2 pt-0.5 text-[9px] text-faint">
+          {showRsi && <span>RSI 14 · 70 / 30</span>}
+          {showMacd && <span>MACD 12·26·9</span>}
+        </div>
+      )}
     </div>
   );
 }

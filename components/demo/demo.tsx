@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import Link from "next/link";
 import {
   AlertTriangle,
   ArrowRight,
@@ -21,6 +22,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { loadDataset } from "@/lib/datasets";
 import { track } from "@/lib/analytics";
+import { STRATEGIES } from "@/content/estrategias";
 import { toCandles, type Candle } from "@/lib/indicators";
 import {
   DEMO_ASSETS,
@@ -28,6 +30,7 @@ import {
   DEMO_FEE_RATE,
   demoEquity,
   demoMaxDrawdown,
+  demoPnlByStrategy,
   demoWinRate,
   useDemo,
   type DemoAsset,
@@ -57,6 +60,7 @@ export function Demo() {
   const [qty, setQty] = useState("");
   const [note, setNote] = useState("");
   const [emotion, setEmotion] = useState<DemoEmotion>("calma");
+  const [strategy, setStrategy] = useState("");
   const [status, setStatus] = useState<Status>(null);
   const fileRef = useRef<HTMLInputElement>(null);
 
@@ -158,6 +162,10 @@ export function Demo() {
   );
   const maxDrawdown = demoMaxDrawdown(equityPoints);
   const winRate = demoWinRate(data.trades);
+  const strategyPnl = useMemo(
+    () => demoPnlByStrategy(data.trades),
+    [data.trades],
+  );
   const positionsValue = equity - data.cash;
   const exposure = equity > 0 ? (positionsValue / equity) * 100 : 0;
 
@@ -186,6 +194,7 @@ export function Demo() {
       price,
       note,
       emotion,
+      strategy: strategy || undefined,
     };
     const result = side === "buy" ? data.buy(input) : data.sell(input);
     if (result.ok) {
@@ -406,6 +415,11 @@ export function Demo() {
                         <tr key={item.symbol} className="border-t border-line/60">
                           <td className="py-1.5 pr-2 font-medium">
                             {item.label}
+                            {item.strategy && (
+                              <span className="mt-0.5 block text-[9px] font-normal text-faint">
+                                {strategyName(item.strategy)}
+                              </span>
+                            )}
                           </td>
                           <td className="num px-2 py-1.5 text-right text-muted">
                             {formatNumber(item.qty, 4)}
@@ -469,6 +483,11 @@ export function Demo() {
                       <span className="text-[11.5px] font-medium">
                         {trade.label}
                       </span>
+                      {trade.strategy && (
+                        <span className="rounded-md border border-line bg-surface px-1.5 py-0.5 text-[9px] text-muted">
+                          {strategyName(trade.strategy)}
+                        </span>
+                      )}
                       <span className="num text-[10px] text-muted">
                         {formatNumber(trade.qty, 4)} × {formatPrice(trade.price)}
                       </span>
@@ -614,6 +633,31 @@ export function Demo() {
 
               <label className="block">
                 <span className="mb-1 block text-[10px] uppercase tracking-wider text-faint">
+                  Estrategia (opcional)
+                </span>
+                <select
+                  value={strategy}
+                  onChange={(event) => setStrategy(event.target.value)}
+                  className="h-9 w-full rounded-lg border border-line bg-surface-2 px-2 text-[12px] text-fg outline-none focus:border-accent/40"
+                >
+                  <option value="">Sin estrategia</option>
+                  {STRATEGIES.map((item) => (
+                    <option key={item.slug} value={item.slug}>
+                      {item.name}
+                    </option>
+                  ))}
+                </select>
+                {side === "sell" && position?.strategy && (
+                  <span className="mt-1 block text-[9.5px] leading-relaxed text-faint">
+                    Esta posición se abrió con{" "}
+                    {strategyName(position.strategy)}. La venta conserva esa
+                    etiqueta para no mezclar el P&L.
+                  </span>
+                )}
+              </label>
+
+              <label className="block">
+                <span className="mb-1 block text-[10px] uppercase tracking-wider text-faint">
                   Nota (opcional)
                 </span>
                 <input
@@ -666,6 +710,86 @@ export function Demo() {
               />
               <Mini label="Operaciones" value={String(data.trades.length)} />
             </div>
+          </section>
+
+          <section className="rounded-2xl border border-line bg-surface p-4">
+            <div className="flex items-center justify-between gap-2">
+              <h2 className="text-sm font-semibold">P&L por estrategia</h2>
+              <Link
+                href="/aprender/estrategias"
+                className="text-[10px] text-faint hover:text-muted"
+              >
+                Ver fichas
+              </Link>
+            </div>
+            <p className="mt-1 text-[10px] leading-relaxed text-faint">
+              Solo cuenta el resultado cerrado al vender, con las dos comisiones.
+              Una posición abierta todavía no tiene P&L realizado.
+            </p>
+
+            {strategyPnl.length === 0 ? (
+              <p className="mt-2 text-[11px] text-muted">
+                Etiqueta tus operaciones con una estrategia para comparar tu
+                resultado por tipo de plan.
+              </p>
+            ) : (
+              <div className="mt-2 overflow-x-auto">
+                <table className="w-full text-left text-[11px]">
+                  <thead>
+                    <tr className="text-faint">
+                      <th className="py-1 pr-2 font-medium">Estrategia</th>
+                      <th className="px-2 py-1 text-right font-medium">Ops</th>
+                      <th className="px-2 py-1 text-right font-medium">
+                        Cerradas
+                      </th>
+                      <th className="px-2 py-1 text-right font-medium">
+                        P&L
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {strategyPnl.map((group) => (
+                      <tr
+                        key={group.strategy ?? "sin-estrategia"}
+                        className="border-t border-line/60"
+                      >
+                        <td className="py-1.5 pr-2">
+                          <span className="text-fg/90">
+                            {group.strategy
+                              ? strategyName(group.strategy)
+                              : "Sin estrategia"}
+                          </span>
+                          {group.sells > 0 && (
+                            <span className="mt-0.5 block text-[9px] text-faint">
+                              {formatNumber(
+                                (group.wins / group.sells) * 100,
+                                0,
+                              )}
+                              % de acierto
+                            </span>
+                          )}
+                        </td>
+                        <td className="num px-2 py-1.5 text-right text-muted">
+                          {group.trades}
+                        </td>
+                        <td className="num px-2 py-1.5 text-right text-muted">
+                          {group.sells}
+                        </td>
+                        <td
+                          className={cn(
+                            "num px-2 py-1.5 text-right",
+                            group.realized >= 0 ? "text-up" : "text-down",
+                          )}
+                        >
+                          {group.realized >= 0 ? "+" : "−"}$
+                          {formatNumber(Math.abs(group.realized), 2)}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </section>
 
           <section className="rounded-2xl border border-line bg-surface p-4">
@@ -730,6 +854,10 @@ export function Demo() {
       </div>
     </div>
   );
+}
+
+function strategyName(slug: string) {
+  return STRATEGIES.find((item) => item.slug === slug)?.name ?? slug;
 }
 
 function Stat({

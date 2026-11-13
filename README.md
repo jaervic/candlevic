@@ -20,11 +20,11 @@ Web app educativa, gratuita y mobile-first para aprender trading de acciones y c
 - **Índice de lección** en escritorio y hoja inferior en móvil, con seguimiento de la sección activa.
 - **Repaso espaciado** a nivel de lección y **dominio por módulo**, con señal de confianza en los quizzes.
 - **Quizzes con explicación de cada opción incorrecta**, no solo de la correcta.
-- **Gráficos reales interactivos** con velas, medias móviles, RSI, MACD, Bollinger, volumen, marcadores y líneas de precio.
+- **Gráficos reales interactivos** con velas, medias móviles, RSI, MACD, Bollinger, volumen, marcadores y líneas de precio, con paneles separados para RSI y MACD.
 - **Ejercicios interactivos**: escenarios ramificados, plan de trading editable, calculadoras de liquidación y funding, y patrones esquemáticos.
 - **Laboratorio**: indicadores (SMA, EMA, RSI, MACD, Bollinger), replay de velas, líneas horizontales y datos en vivo con respaldo Binance/Coinbase.
 - **Radar**: titulares en español de cripto, bolsa y macro, calendario de eventos y explicadores permanentes.
-- **Trading demo**: 10.000 $ virtuales, compras y ventas a mercado, cartera, P&L, historial con emoción y curva de equity.
+- **Trading demo**: 10.000 $ virtuales, compras y ventas a mercado, cartera, P&L, historial con emoción y estrategia, y P&L realizado por estrategia.
 - **Backtesting didáctico**: comprar y mantener, cruce de medias, Donchian, RSI, pullback, rango y DCA, con costes, drawdown y curvas de equity.
 - **Accesibilidad**: tabla de datos OHLC, resumen textual de cada gráfico y modo daltónico con velas huecas.
 - **Legal y confianza**: Sobre, Privacidad, Términos, Accesibilidad, Fuentes y atribuciones.
