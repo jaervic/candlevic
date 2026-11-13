@@ -84,6 +84,13 @@ export const DATASETS = {
     kind: "stock",
     load: () => import("../data/spy-2008.json"),
   },
+  "n225-1990": {
+    label: "Nikkei · 1989-2010",
+    symbol: "N225",
+    interval: "1wk",
+    kind: "stock",
+    load: () => import("../data/n225-1990.json"),
+  },
 } satisfies Record<string, RegistryEntry>;
 
 export type DatasetId = keyof typeof DATASETS;

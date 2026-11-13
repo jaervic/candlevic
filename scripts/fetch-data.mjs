@@ -51,13 +51,13 @@ async function binance({ symbol, interval, startTime, endTime, limit = 800 }) {
   ]);
 }
 
-async function yahoo({ symbol, range = "2y", period1, period2 }) {
+async function yahoo({ symbol, range = "2y", period1, period2, interval = "1d" }) {
   const query =
     period1 && period2
       ? `period1=${Math.floor(period1 / 1000)}&period2=${Math.floor(period2 / 1000)}`
       : `range=${range}`;
   const data = await getJSON(
-    `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?${query}&interval=1d`,
+    `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?${query}&interval=${interval}`,
   );
   const result = data?.chart?.result?.[0];
   if (!result) throw new Error(`Sin datos para ${symbol}`);
@@ -186,6 +186,22 @@ const jobs = [
         interval: "1d",
         source: "Yahoo Finance",
         note: "Crisis financiera 2007-2009",
+        candles: c,
+      })),
+  },
+  {
+    name: "n225-1990",
+    run: () =>
+      yahoo({
+        symbol: "^N225",
+        period1: Date.UTC(1989, 0, 1),
+        period2: Date.UTC(2010, 11, 31),
+        interval: "1wk",
+      }).then((c) => ({
+        symbol: "N225",
+        interval: "1wk",
+        source: "Yahoo Finance",
+        note: "Nikkei 225, burbuja y década perdida (1989-2010)",
         candles: c,
       })),
   },

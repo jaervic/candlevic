@@ -7,6 +7,7 @@ import { AmbientBackground } from "@/components/layout/ambient-background";
 import { SiteFooter } from "@/components/site-footer";
 import { OfflineBanner } from "@/components/pwa/offline-banner";
 import { Analytics } from "@/components/analytics";
+import { WebVitals } from "@/components/analytics/web-vitals";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { Onboarding } from "@/components/onboarding";
 import { ProgressSync } from "@/components/progress/progress-sync";
@@ -106,6 +107,7 @@ export default function RootLayout({
           <ProgressSync />
           <PwaRegister />
         <Analytics />
+        <WebVitals />
         </ThemeProvider>
       </body>
     </html>

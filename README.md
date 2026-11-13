@@ -29,9 +29,9 @@ Web app educativa, gratuita y mobile-first para aprender trading de acciones y c
 - **Backtesting didáctico**: comprar y mantener, cruce de medias, Donchian, RSI, pullback, rango y DCA, con comisión, slippage, parámetros ajustables, benchmark y aviso de muestra corta.
 - **Accesibilidad**: tabla de datos OHLC, resumen textual de cada gráfico y modo daltónico con velas huecas.
 - **Legal y confianza**: Sobre, Privacidad, Términos, Accesibilidad, Fuentes y atribuciones.
-- **Analítica opcional** agregada y sin cookies (Umami); desactivada si no se configura.
+- **Analítica opcional** agregada y sin cookies (Umami), con eventos de uso y Web Vitals; desactivada si no se configura.
 - **E2E** de los flujos críticos con Playwright en CI.
-- **Estudios**: 6 casos históricos (2008, LUNA, COVID, FTX, GME, dotcom) y evidencia científica (Barber & Odean, SPIVA, Dalbar…).
+- **Estudios**: 7 casos históricos (2008, Nikkei, LUNA, COVID, FTX, GME, dotcom) y evidencia científica (Barber & Odean, SPIVA, Dalbar…).
 - **Biblioteca**: fichas originales de 10 libros clave del trading.
 - **Glosario** con buscador y categorías.
 - **Test “¿Qué trader eres?”** con plan de 30 días.
@@ -157,6 +157,7 @@ También funciona en cualquier hosting que soporte Next.js.
 ### Mantenimiento
 
 - `GET /api/health` devuelve un JSON mínimo para monitorización externa.
+- Los errores de interfaz muestran una pantalla de recuperación y envían un evento sin datos personales.
 - El workflow **Refresh market data** descarga los datasets el día 1 de cada mes y abre un PR para revisarlos.
 - El workflow **Uptime** comprueba la salud de producción cada 6 horas.
 - `npm run budget` falla el CI si el JS+CSS comprimido supera 600 KB o un chunk supera 110 KB.
