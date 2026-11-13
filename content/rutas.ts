@@ -18,7 +18,7 @@ export const LEARNING_PATHS: LearningPath[] = [
     name: "Empieza desde cero",
     tagline: "El orden que yo seguiría si hoy supiera lo que sé.",
     description:
-      "Nueve lecciones para pasar de no saber qué es una vela a tener un plan con riesgo definido. Sin atajos y sin señales.",
+      "Diez lecciones para pasar de no saber qué es una vela a tener un plan con riesgo definido. Sin atajos y sin señales.",
     level: "principiante",
     icon: "sparkles",
     accent: "#f0b429",
@@ -33,6 +33,7 @@ export const LEARNING_PATHS: LearningPath[] = [
       "acciones-y-cripto",
       "ordenes",
       "costes",
+      "fiscalidad-basica",
       "velas",
       "tipos-de-grafico",
       "stop-loss",

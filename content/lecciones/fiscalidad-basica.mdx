@@ -1,0 +1,127 @@
+---
+title: "Fiscalidad básica: lo que te queda después de impuestos"
+module: "m1"
+order: 6
+minutes: 5
+level: "intermedio"
+summary: "La rentabilidad que ves no es la que llega a tu bolsillo. Hechos imponibles, pérdidas, FIFO y errores habituales, con un aviso claro: esto no es asesoría fiscal."
+objectives:
+  - "Entender qué operaciones generan un hecho imponible"
+  - "Distinguir ganancias, pérdidas y rendimientos"
+  - "Guardar los registros necesarios para declarar sin sustos"
+dataset: "spy-1d"
+related: ["costes", "dca-vs-trading", "acciones-y-cripto", "expectativas-realistas"]
+tags: ["fundamentos", "fiscalidad", "impuestos"]
+---
+
+<Callout type="warning" title="Esto no es asesoría fiscal">
+Esta lección explica conceptos generales con enfoque educativo. Las normas cambian por país, año y situación personal. No la uses para calcular tu declaración: consulta la Agencia Tributaria o a un asesor fiscal.
+</Callout>
+
+Un 20 % de rentabilidad no significa un 20 % más en tu cuenta. Los impuestos, las comisiones y el momento de vender cambian el resultado. Ignorarlos es como hacer un backtest sin costes: el número queda bonito y no sirve.
+
+<KeyIdea>
+No tributas por "tener" una inversión, sino cuando ocurre un hecho imponible: vendes, cobras un dividendo o recibes un rendimiento. El papel mojado no paga impuestos; la venta sí.
+</KeyIdea>
+
+## Qué suele generar un hecho imponible
+
+- **Vender un activo** con ganancia o pérdida.
+- **Cobrar dividendos** o intereses.
+- **Permutar una cripto por otra**, aunque no pases por euros.
+- **Recibir rendimientos** por staking, minería, airdrops o préstamos, según el caso.
+- **Vender un fondo o ETF** y materializar la plusvalía.
+
+Comprar y mantener no suele generar un impuesto por sí mismo. Pero cada venta, aunque reinviertas inmediatamente, puede ser un hecho imponible.
+
+## Ganancias y pérdidas
+
+La ganancia es la diferencia entre el precio de venta y el de compra, menos los gastos directamente relacionados: comisiones, custodia y, según el caso, otros costes.
+
+Ejemplo simplificado:
+
+| Concepto | Importe |
+|---|---|
+| Compra de 10 acciones | 1.000 € |
+| Comisión de compra | 5 € |
+| Venta | 1.200 € |
+| Comisión de venta | 5 € |
+| Ganancia bruta | 190 € |
+
+Si el tipo aplicable fuera del 20 %, pagarías 38 € y te quedarían 152 € antes de inflación. El tipo real depende de tu base imponible y del país.
+
+## Pérdidas: no todas compensan igual
+
+Las pérdidas pueden compensar ganancias, pero con reglas y límites. No des por hecho que una pérdida en cripto compensa automáticamente tu salario o una ganancia de otro tipo.
+
+Además, en algunos países existen normas antiabuso: si vendes con pérdida y recompras el mismo valor en un plazo corto, la pérdida puede no computar como creías. Consúltalo antes de hacer operaciones "solo por impuestos".
+
+<Callout type="warning" title="No dejes que Hacienda dirija tu estrategia">
+Vender una buena posición solo para "aprovechar" una pérdida, o mantener una mala solo para no tributar, suele salir caro. Primero decide con criterio de inversión; después, optimiza lo fiscal con ayuda profesional.
+</Callout>
+
+## FIFO y registro de operaciones
+
+Con varios lotes del mismo activo, muchos países aplican **FIFO** (first in, first out): la primera compra es la primera que se vende. Eso cambia la ganancia que declaras.
+
+Guarda, como mínimo:
+
+- Fecha y hora de cada compra y venta.
+- Cantidad y precio en euros.
+- Comisiones y gastos.
+- Tipo de cambio si operaste en otra divisa.
+- Origen y destino de las transferencias.
+- Rendimientos de dividendos, intereses, staking o airdrops.
+
+Un diario de trading sirve para esto y para revisar tus decisiones. No lo borres al cerrar el año.
+
+## Cripto: el detalle que sorprende
+
+En España, cambiar una cripto por otra suele ser una alteración patrimonial: vendes una y compras otra, aunque no veas euros. También puede tributar el uso de cripto para pagar bienes o servicios.
+
+No es lo mismo:
+
+- **Comprar con euros y mantener:** normalmente no genera impuesto hasta la venta.
+- **Cambiar BTC por ETH:** puede generar ganancia o pérdida.
+- **Recibir staking o minería:** puede ser rendimiento, no plusvalía.
+- **Mover monedas entre tus wallets:** no debería ser una venta, pero documenta el origen.
+
+## Fondos, ETFs y traspasos
+
+En España, los **fondos de inversión** permiten traspasar dinero de un fondo a otro sin tributar la plusvalía en ese momento. Los **ETFs cotizados** no tienen ese régimen de traspaso: vender un ETF materializa la ganancia.
+
+Esa diferencia puede importar más que una comisión de 0,1 %. Antes de elegir producto, mira cómo tributa, no solo su TER.
+
+## Errores habituales
+
+- No registrar las comisiones y declarar una ganancia mayor.
+- Olvidar que cambiar cripto por cripto puede tributar.
+- Vender con pérdidas y recomprar sin conocer las reglas antiabuso.
+- Mezclar cuentas personales y de inversión.
+- Esperar al último día para reconstruir el año con extractos incompletos.
+- Comparar productos sin mirar su fiscalidad.
+
+<DatasetChart dataset="spy-1d" height={210} overlays={[{ type: "sma", period: 50 }]} caption="La rentabilidad del gráfico es bruta. Tu rentabilidad neta depende de costes, impuestos y del momento en que vendas." />
+
+<Quiz
+  slug="fiscalidad-basica"
+  question="Compras BTC y meses después lo cambias por ETH sin pasar por euros. ¿Qué suele ocurrir a efectos fiscales en España?"
+  options={[
+    "Nada: no ha habido venta en euros",
+    "Puede ser una alteración patrimonial y generar ganancia o pérdida",
+    "Solo tributa si superas 10.000 €",
+    "Tributa siempre como dividendo",
+  ]}
+  correct={1}
+  explanation="El cambio de una cripto por otra se suele tratar como una transmisión: valoras lo que entregas y comparas con su coste. No hace falta convertir a euros para que exista el hecho imponible."
+  wrong={[
+    "No es necesario pasar por euros: la permuta puede ser un hecho imponible.",
+    "",
+    "No hay un umbral general de 10.000 € para esta operación.",
+    "Los dividendos son rendimientos de acciones, no una permuta de cripto.",
+  ]}
+/>
+
+<Callout type="tip" title="Checklist de diciembre">
+Antes de cerrar el año, revisa operaciones, comisiones, pérdidas pendientes y rendimientos. Si tienes dudas, pregunta a un asesor con tus datos reales. La tranquilidad también es rentabilidad.
+</Callout>

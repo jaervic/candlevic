@@ -44,7 +44,7 @@ export const MODULES: CourseModule[] = [
     title: "Fundamentos del mercado",
     short: "Fundamentos",
     description:
-      "Acciones, cripto, órdenes, spread, comisiones y todo lo que ocurre cuando pulsas comprar.",
+      "Acciones, cripto, órdenes, spread, comisiones, fiscalidad básica y todo lo que ocurre cuando pulsas comprar.",
     icon: "landmark",
     accent: "#5aa9ff",
   },

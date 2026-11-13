@@ -10,7 +10,8 @@
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
     "test:e2e": "playwright test",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "budget": "node scripts/check-bundle.mjs"
   },
   "dependencies": {
     "@upstash/redis": "^1.34.0",

@@ -13,7 +13,7 @@ Web app educativa, gratuita y mobile-first para aprender trading de acciones y c
 
 ## Qué incluye
 
-- **43 lecciones** repartidas en 10 módulos: mentalidad, fundamentos, estilos, gráficos, tendencia, indicadores, riesgo, estrategia, **psicología del trading** y cripto práctico.
+- **44 lecciones** repartidas en 10 módulos: mentalidad, fundamentos, estilos, gráficos, tendencia, indicadores, riesgo, estrategia, **psicología del trading** y cripto práctico.
 - **Rutas guiadas**: cuatro itinerarios con orden recomendado y progreso (desde cero, riesgo, gráficos y cripto).
 - **8 estrategias de trading** con reglas, contexto, errores, quiz y backtest: tendencia, ruptura, reversión, rango, DCA y carry.
 - **Cuatro temas** (Noche, Grafito, Papel y Sepia) con detección del sistema, tipografía Inter y ajustes de lectura: tamaño, interlineado, ancho, modo concentración y fondo ambiente.
@@ -87,6 +87,7 @@ En desarrollo, si no hay Upstash, el respaldo se guarda en `.data/progress-backu
 ```bash
 npm run dev        # desarrollo
 npm run build      # build de producción
+npm run budget     # presupuesto de JS/CSS comprimido
 npm run start      # servidor de producción
 npm test           # tests unitarios
 npm run test:e2e   # tests E2E (requiere build y servidor)
@@ -158,6 +159,7 @@ También funciona en cualquier hosting que soporte Next.js.
 - `GET /api/health` devuelve un JSON mínimo para monitorización externa.
 - El workflow **Refresh market data** descarga los datasets el día 1 de cada mes y abre un PR para revisarlos.
 - El workflow **Uptime** comprueba la salud de producción cada 6 horas.
+- `npm run budget` falla el CI si el JS+CSS comprimido supera 600 KB o un chunk supera 110 KB.
 
 ## Privacidad y datos
 

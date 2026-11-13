@@ -22,7 +22,7 @@ test("muestra las rutas guiadas y abre la primera lección", async ({ page }) =>
   await expect(
     page.getByRole("heading", { name: "Empieza desde cero", exact: true }),
   ).toBeVisible();
-  await expect(page.locator("ol li")).toHaveCount(9);
+  await expect(page.locator("ol li")).toHaveCount(10);
   await expect(page.getByRole("link", { name: /Empezar/ }).first()).toBeVisible();
 
   await page.getByRole("link", { name: /Empezar/ }).first().click();
