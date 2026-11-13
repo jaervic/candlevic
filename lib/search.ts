@@ -9,18 +9,18 @@ export function buildSearchIndex(): SearchItem[] {
   const items: SearchItem[] = [];
 
   for (const lesson of getLessons()) {
-    const module = MODULE_MAP[lesson.meta.module];
+    const courseModule = MODULE_MAP[lesson.meta.module];
     items.push({
       id: `leccion:${lesson.meta.slug}`,
       type: "leccion",
       title: lesson.meta.title,
-      subtitle: module?.title,
+      subtitle: courseModule?.title,
       summary: lesson.meta.summary,
       href: `/aprender/${lesson.meta.slug}`,
       keywords: [
         ...lesson.meta.tags,
         ...lesson.meta.objectives,
-        module?.title ?? "",
+        courseModule?.title ?? "",
         lesson.meta.level,
       ].filter(Boolean),
     });

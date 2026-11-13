@@ -1,10 +1,13 @@
 import { ImageResponse } from "next/og";
+import { getLessons } from "@/lib/content";
 
 export const alt = "Candlevic — Aprende trading viendo velas";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default async function Image() {
+  const lessonCount = getLessons().length;
+
   return new ImageResponse(
     (
       <div
@@ -81,7 +84,7 @@ export default async function Image() {
             color: "#f0b429",
           }}
         >
-          <span>38 lecciones</span>
+          <span>{lessonCount} lecciones</span>
           <span>·</span>
           <span>Laboratorio</span>
           <span>·</span>

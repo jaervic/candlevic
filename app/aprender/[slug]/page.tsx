@@ -22,6 +22,7 @@ import { FundingCalculator } from "@/components/lesson/funding-calculator";
 import { PatternChart } from "@/components/lesson/pattern-chart";
 import { Term } from "@/components/lesson/term";
 import { slugify } from "@/lib/utils";
+import { SITE_URL } from "@/lib/site";
 
 type Params = { slug: string };
 
@@ -63,7 +64,7 @@ export default async function LessonPage({
   if (!lesson) notFound();
 
   const { meta, content, headings } = lesson;
-  const module = MODULE_MAP[meta.module];
+  const moduleMeta = MODULE_MAP[meta.module];
   const { prev, next } = getLessonNeighbours(slug);
 
   const jsonLd = {
@@ -79,9 +80,9 @@ export default async function LessonPage({
     isPartOf: {
       "@type": "Course",
       name: "Candlevic",
-      url: "https://candlevic.com",
+      url: SITE_URL,
     },
-    url: `https://candlevic.com/aprender/${slug}`,
+    url: `${SITE_URL}/aprender/${slug}`,
   };
 
   const components = {
@@ -147,14 +148,14 @@ export default async function LessonPage({
           Aprender
         </Link>
         <ChevronRight className="h-3 w-3" />
-        <Link href={`/aprender#${module.id}`} className="hover:text-muted">
-          {module.short}
+        <Link href={`/aprender#${moduleMeta.id}`} className="hover:text-muted">
+          {moduleMeta.short}
         </Link>
       </nav>
 
       <header>
         <div className="flex flex-wrap items-center gap-2">
-          <Badge tone="accent">{module.title}</Badge>
+          <Badge tone="accent">{moduleMeta.title}</Badge>
           <span className="flex items-center gap-1 text-[11px] text-faint">
             <Clock className="h-3 w-3" /> {meta.minutes} min
           </span>

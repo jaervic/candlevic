@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   ArrowRight,
   CandlestickChart,
@@ -48,6 +49,7 @@ const STEPS = [
 ];
 
 export function Onboarding() {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [step, setStep] = useState(0);
 
@@ -138,7 +140,7 @@ export function Onboarding() {
             onClick={() => {
               if (isLast) {
                 close();
-                window.location.href = "/aprender";
+                router.push("/aprender");
               } else {
                 setStep((s) => s + 1);
               }

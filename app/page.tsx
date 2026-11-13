@@ -1,5 +1,6 @@
 import { Dashboard } from "@/components/dashboard/dashboard";
 import { getModulesWithLessons, getLessons } from "@/lib/content";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata = {
   alternates: { canonical: "/" },
@@ -14,7 +15,7 @@ const COURSE_JSON_LD = {
   provider: {
     "@type": "Organization",
     name: "Candlevic",
-    url: "https://candlevic.com",
+    url: SITE_URL,
   },
   isAccessibleForFree: true,
   inLanguage: "es",

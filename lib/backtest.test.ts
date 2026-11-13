@@ -93,6 +93,37 @@ describe("backtest", () => {
     expect(result.equity).toHaveLength(120);
   });
 
+  it("el slippage reduce el resultado de comprar y mantener", () => {
+    const candles = series(Array.from({ length: 120 }, (_, i) => 100 + i));
+    const without = runBacktest(candles, "hold");
+    const withSlippage = runBacktest(candles, "hold", { slippage: 0.001 });
+    expect(withSlippage.finalValue).toBeLessThan(without.finalValue);
+    expect(without.trades).toBe(1);
+  });
+
+  it("acepta parámetros personalizados de Donchian y RSI", () => {
+    const closes = Array.from({ length: 180 }, (_, i) =>
+      100 + Math.sin(i / 6) * 12 + i * 0.1,
+    );
+    const candles = series(closes);
+    const looseRsi = runBacktest(candles, "rsi", {
+      rsiBuy: 45,
+      rsiSell: 55,
+    });
+    const strictRsi = runBacktest(candles, "rsi", {
+      rsiBuy: 20,
+      rsiSell: 80,
+    });
+    expect(looseRsi.trades).toBeGreaterThan(strictRsi.trades);
+
+    const fastDonchian = runBacktest(candles, "donchian", {
+      donchianEntry: 5,
+      donchianExit: 3,
+    });
+    expect(fastDonchian.trades).toBeGreaterThan(0);
+    expect(fastDonchian.equity).toHaveLength(closes.length);
+  });
+
   it("devuelve todas las estrategias", () => {
     const candles = series(Array.from({ length: 100 }, (_, i) => 100 + i));
     const results = runAllBacktests(candles);

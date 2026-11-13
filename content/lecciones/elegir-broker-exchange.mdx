@@ -1,0 +1,91 @@
+---
+title: "Cómo elegir bróker o exchange sin arruinarte"
+module: "m1"
+order: 5
+minutes: 5
+level: "principiante"
+summary: "El sitio donde guardas tu dinero importa más que el gráfico que miras. Regulación, custodia, costes y retiradas: la lista que sí deberías revisar."
+objectives:
+  - "Distinguir un bróker regulado de una plataforma opaca"
+  - "Comparar comisiones, spread y coste real de operar"
+  - "Reconocer señales de alarma antes de depositar dinero"
+dataset: "spy-1d"
+related: ["costes", "wallets-custodia", "estafas-seguridad"]
+tags: ["fundamentos", "bróker", "seguridad"]
+---
+
+Elegir bróker por un anuncio de "cero comisiones" es como elegir un banco por el color de la tarjeta. Lo que importa es dónde está regulado, cómo custodia tu dinero y cuánto te cuesta operar de verdad.
+
+<KeyIdea>
+Si no sabes en qué país está regulado tu bróker y quién custodia tus activos, todavía no has elegido bróker: has abierto una cuenta.
+</KeyIdea>
+
+## Las cuatro preguntas
+
+**1. ¿Está regulado?** Busca el regulador y el número de registro: CNMV (España), SEC/FINRA (EE. UU.), FCA (Reino Unido), BaFin (Alemania). La regulación no elimina el riesgo, pero impone reglas de capital, custodia y resolución de conflictos.
+
+**2. ¿Dónde está mi dinero?** En un bróker de acciones, los valores suelen estar segregados de los activos de la empresa. En un exchange centralizado de cripto, tus monedas pueden estar en una wallet del exchange: si quiebra, eres un acreedor más.
+
+**3. ¿Cuánto cuesta operar de verdad?** Suma comisión, <Term term="Spread">spread</Term>, cambio de divisa, custodia, inactividad y retirada. Una comisión de 0 € con un spread del 0,5 % puede ser más cara que 2 € fijos.
+
+**4. ¿Puedo sacar mi dinero?** Prueba una retirada pequeña al principio. Los plazos, límites y requisitos de verificación te dicen más que cualquier página de marketing.
+
+## Costes que no están en el titular
+
+| Coste | Dónde aparece | Ejemplo |
+|---|---|---|
+| Comisión | Por operación | 2 € por compra |
+| Spread | En el precio | 0,05 % por lado |
+| Cambio de divisa | Al operar fuera de tu moneda | 0,5 % |
+| Custodia | Mensual o anual | 0,1 % del saldo |
+| Retirada | Al sacar dinero | 1 € o 5 USDT |
+| Inactividad | Si no operas | 5 €/mes |
+
+<Callout type="tip" title="Haz la cuenta con tu operativa real">
+Si haces 4 operaciones al mes de 500 €, una comisión de 2 € por lado son 8 €/mes, un 1,6 % del capital operado. El "cero comisiones" del vecino puede ser más barato o más caro según el spread.
+</Callout>
+
+## Bróker de acciones frente a exchange de cripto
+
+En acciones suele haber más protección al inversor y mercados regulados. En cripto, la custodia es el riesgo central: exchanges centralizados, wallets propias, stablecoins y contrapartes.
+
+Si operas cripto, revisa:
+- Historial y transparencia del exchange.
+- Pruebas de reservas y auditorías.
+- Verificación en dos pasos y claves de API con permisos mínimos.
+- Posibilidad de retirar a una wallet propia.
+- Que exista soporte humano y no solo un chat automático.
+
+## Señales de alarma
+
+- Promesas de rentabilidad fija.
+- Presión para depositar rápido.
+- Bonos por traer amigos.
+- Imposibilidad de retirar sin "impuestos" o "comisiones" nuevas.
+- Atención solo por Telegram o WhatsApp.
+- Equipo sin nombres ni regulación verificable.
+
+<DatasetChart dataset="spy-1d" height={200} caption="El activo no arregla un bróker malo. La custodia y los costes se pagan igual, suba o baje el mercado." />
+
+<Quiz
+  slug="elegir-broker-exchange"
+  question="¿Cuál es la primera comprobación antes de depositar dinero en un bróker?"
+  options={[
+    "Que la app funcione rápido",
+    "Que esté regulado y se pueda verificar el registro",
+    "Que regale acciones por registrarte",
+    "Que tenga un canal de Telegram muy activo",
+  ]}
+  correct={1}
+  explanation="La regulación y la custodia son la base. Sin eso, los costes o la velocidad de la app son secundarios: el riesgo principal es no poder recuperar tu dinero."
+  wrong={[
+    "La velocidad es cómoda, pero no protege tu capital.",
+    "",
+    "Los regalos suelen ser marketing y no dicen nada de la seguridad.",
+    "Un canal activo no sustituye la regulación ni la transparencia.",
+  ]}
+/>
+
+<Callout type="warning" title="Prueba con poco">
+Antes de mover tu capital, haz una operación pequeña, retira parte y comprueba plazos y comisiones. La confianza se gana con hechos, no con una web bonita.
+</Callout>

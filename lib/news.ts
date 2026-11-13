@@ -1,4 +1,5 @@
 import { XMLParser } from "fast-xml-parser";
+import { SITE_URL } from "./site";
 
 export type NewsCategory = "cripto" | "macro" | "acciones";
 
@@ -48,7 +49,7 @@ const FEEDS: Feed[] = [
 ];
 
 const UA =
-  "Mozilla/5.0 (compatible; CandlevicBot/1.0; +https://candlevic.com)";
+  `Mozilla/5.0 (compatible; CandlevicBot/1.0; +${SITE_URL})`;
 
 const parser = new XMLParser({
   ignoreAttributes: false,

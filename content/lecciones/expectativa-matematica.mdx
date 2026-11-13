@@ -1,0 +1,82 @@
+---
+title: "Esperanza matemática: la única ventaja que se puede medir"
+module: "m7"
+order: 5
+minutes: 5
+level: "intermedio"
+summary: "Ganar 6 de 10 operaciones no sirve de nada si las pérdidas son grandes. La esperanza combina acierto, tamaño de la ganancia y tamaño de la pérdida en un solo número."
+objectives:
+  - "Calcular la esperanza de una estrategia en múltiplos de R"
+  - "Entender por qué el acierto aislado no dice nada"
+  - "Incluir costes y tamaño de muestra antes de confiar"
+dataset: "btc-1d"
+related: ["ratio-riesgo-beneficio", "backtesting", "psicologia-probabilidades"]
+tags: ["estrategia", "riesgo", "expectativa"]
+---
+
+Un sistema puede acertar el 70 % de las veces y perder dinero. Otro puede acertar el 35 % y ganarlo. La diferencia está en cuánto gana cuando acierta, cuánto pierde cuando falla y cuántas veces ocurre cada cosa.
+
+<KeyIdea>
+Esperanza = (probabilidad de ganar × ganancia media) − (probabilidad de perder × pérdida media). Se mide por operación, no por día.
+</KeyIdea>
+
+## La cuenta con R
+
+Trabaja en <Term term="R múltiplo">R</Term>: si arriesgas 100 € y ganas 200 €, has hecho +2R. Si pierdes los 100 €, has hecho −1R.
+
+Ejemplo:
+
+- Aciertas el 40 % de las veces.
+- Cuando aciertas, ganas +2R.
+- Cuando fallas, pierdes −1R.
+
+`Esperanza = (0,40 × 2) − (0,60 × 1) = 0,8 − 0,6 = +0,2R por operación`
+
+Eso significa que, de media, ganas 0,2 veces lo que arriesgas en cada operación. Con 100 operaciones y 100 € de riesgo, la esperanza bruta es 2.000 €. Después hay que restar comisiones, spread y slippage.
+
+## Por qué el acierto aislado engaña
+
+| Acierto | Ganancia media | Pérdida media | Esperanza |
+|---|---|---|---|
+| 70 % | +0,5R | −1R | +0,05R |
+| 50 % | +1R | −1R | 0R |
+| 40 % | +2R | −1R | +0,20R |
+| 30 % | +3R | −1R | +0,20R |
+
+El sistema del 70 % gana casi siempre, pero su esperanza es mínima. Un mal día o unos costes altos lo convierten en negativo. El del 30 % falla mucho, pero cada acierto paga tres veces el riesgo.
+
+## La muestra manda
+
+Una esperanza de +0,2R con 10 operaciones no es una ventaja: es una anécdota. Necesitas una muestra amplia, condiciones parecidas y costes realistas. Si cambias de estrategia cada semana, nunca tendrás muestra.
+
+<Callout type="tip" title="Cómo usarlo en el laboratorio">
+En el backtest, compara la rentabilidad con el número de operaciones y el drawdown. Una estrategia con +30 % en 3 operaciones no es mejor que una con +15 % en 80. La segunda tiene más evidencia.
+</Callout>
+
+## Lo que la esperanza no te dice
+
+- No te dice cuándo llegará la próxima pérdida.
+- No elimina rachas malas: con 40 % de acierto, perder 5 seguidas es normal.
+- No incluye el riesgo de ruina si el tamaño es demasiado grande.
+- No garantiza que la ventaja siga existiendo mañana.
+
+<DatasetChart dataset="btc-1d" height={220} showVolume caption="El gráfico no enseña la esperanza de tu sistema. La esperanza sale de tus reglas, tus costes y una muestra de operaciones." />
+
+<Quiz
+  slug="expectativa-matematica"
+  question="Un sistema acierta el 40 % con +2R y falla el 60 % con −1R. ¿Cuál es su esperanza por operación?"
+  options={[
+    "−0,20R",
+    "0R",
+    "+0,20R",
+    "+2,00R",
+  ]}
+  correct={2}
+  explanation="(0,40 × 2) − (0,60 × 1) = 0,80 − 0,60 = +0,20R. Gana poco por operación, pero positivo antes de costes."
+  wrong={[
+    "Ese sería el resultado si la ganancia media fuera +1R.",
+    "La esperanza no es cero: 0,80 menos 0,60 deja 0,20.",
+    "",
+    "2R es la ganancia cuando acierta, no la esperanza media.",
+  ]}
+/>

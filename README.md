@@ -13,7 +13,7 @@ Web app educativa, gratuita y mobile-first para aprender trading de acciones y c
 
 ## Qué incluye
 
-- **38 lecciones** repartidas en 10 módulos: mentalidad, fundamentos, estilos, gráficos, tendencia, indicadores, riesgo, estrategia, **psicología del trading** y cripto práctico.
+- **42 lecciones** repartidas en 10 módulos: mentalidad, fundamentos, estilos, gráficos, tendencia, indicadores, riesgo, estrategia, **psicología del trading** y cripto práctico.
 - **8 estrategias de trading** con reglas, contexto, errores, quiz y backtest: tendencia, ruptura, reversión, rango, DCA y carry.
 - **Cuatro temas** (Noche, Grafito, Papel y Sepia) con detección del sistema, tipografía Inter y ajustes de lectura: tamaño, interlineado, ancho, modo concentración y fondo ambiente.
 - **Buscador global (Ctrl+K)** en lecciones, glosario, libros, estudios, explicadores y páginas.
@@ -24,8 +24,8 @@ Web app educativa, gratuita y mobile-first para aprender trading de acciones y c
 - **Ejercicios interactivos**: escenarios ramificados, plan de trading editable, calculadoras de liquidación y funding, y patrones esquemáticos.
 - **Laboratorio**: indicadores (SMA, EMA, RSI, MACD, Bollinger), replay de velas, líneas horizontales y datos en vivo con respaldo Binance/Coinbase.
 - **Radar**: titulares en español de cripto, bolsa y macro, calendario de eventos y explicadores permanentes.
-- **Trading demo**: 10.000 $ virtuales, compras y ventas a mercado, cartera, P&L, historial con emoción y estrategia, y P&L realizado por estrategia.
-- **Backtesting didáctico**: comprar y mantener, cruce de medias, Donchian, RSI, pullback, rango y DCA, con costes, drawdown y curvas de equity.
+- **Trading demo**: 10.000 $ virtuales, órdenes a mercado y límite, stop y objetivo automáticos, cartera, P&L, historial filtrable por estrategia y exportación CSV.
+- **Backtesting didáctico**: comprar y mantener, cruce de medias, Donchian, RSI, pullback, rango y DCA, con comisión, slippage, parámetros ajustables, benchmark y aviso de muestra corta.
 - **Accesibilidad**: tabla de datos OHLC, resumen textual de cada gráfico y modo daltónico con velas huecas.
 - **Legal y confianza**: Sobre, Privacidad, Términos, Accesibilidad, Fuentes y atribuciones.
 - **Analítica opcional** agregada y sin cookies (Umami); desactivada si no se configura.
@@ -77,6 +77,8 @@ NEXT_PUBLIC_UMAMI_WEBSITE_ID=
 NEXT_PUBLIC_UMAMI_SRC=
 ```
 
+La URL pública para canonical, sitemap, robots y Open Graph se toma de `NEXT_PUBLIC_SITE_URL`. Si no se define, usa `https://candlevic.vercel.app`.
+
 En desarrollo, si no hay Upstash, el respaldo se guarda en `.data/progress-backups.json` (ignorado por git).
 
 ## Scripts
@@ -88,6 +90,7 @@ npm run start      # servidor de producción
 npm test           # tests unitarios
 npm run test:e2e   # tests E2E (requiere build y servidor)
 npm run typecheck  # TypeScript
+npm run lint       # ESLint
 node scripts/fetch-data.mjs   # refresca los datasets desde Binance y Yahoo
 ```
 

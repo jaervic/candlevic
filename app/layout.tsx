@@ -11,6 +11,7 @@ import { ThemeProvider } from "@/components/theme/theme-provider";
 import { Onboarding } from "@/components/onboarding";
 import { ProgressSync } from "@/components/progress/progress-sync";
 import { PwaRegister } from "@/components/pwa-register";
+import { SITE_URL } from "@/lib/site";
 
 const inter = localFont({
   src: "./fonts/InterVariable.woff2",
@@ -21,7 +22,7 @@ const inter = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://candlevic.com"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Candlevic — Aprende trading viendo velas",
     template: "%s · Candlevic",

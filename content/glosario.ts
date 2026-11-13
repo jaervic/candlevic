@@ -14,6 +14,9 @@ export type GlossaryTerm = {
 export const GLOSSARY: GlossaryTerm[] = [
   { term: "Acción", category: "fundamentos", definition: "Una parte de la propiedad de una empresa. Si la empresa crece y gana dinero, tu participación puede valer más; si pierde, puede valer menos." },
   { term: "ETF", category: "fundamentos", definition: "Fondo cotizado que agrupa muchos activos y se compra como una acción. Un ETF del S&P 500 te da exposición a 500 empresas con una sola orden." },
+  { term: "Fondo indexado", category: "fundamentos", definition: "Fondo que replica un índice en lugar de intentar batirlo. Su coste suele ser menor que el de un fondo de gestión activa." },
+  { term: "TER", category: "fundamentos", definition: "Total Expense Ratio: el gasto anual de un fondo o ETF expresado en porcentaje. Se descuenta del valor de la participación." },
+  { term: "Sobreajuste", category: "riesgo", definition: "Adaptar una estrategia al pasado hasta que parece perfecta, pero deja de funcionar con datos nuevos. Se combate validando fuera de la muestra." },
   { term: "Spread", category: "fundamentos", definition: "Diferencia entre el precio al que puedes comprar (ask) y el precio al que puedes vender (bid). Es un coste invisible que pagas en cada operación." },
   { term: "Liquidez", category: "fundamentos", definition: "Facilidad para comprar o vender sin mover el precio. Un mercado líquido tiene mucho volumen y spreads estrechos." },
   { term: "Volumen", category: "fundamentos", definition: "Cantidad de activos negociados en un periodo. Confirma si un movimiento tiene participación real detrás." },

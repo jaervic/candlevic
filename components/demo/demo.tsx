@@ -61,8 +61,15 @@ export function Demo() {
   const [note, setNote] = useState("");
   const [emotion, setEmotion] = useState<DemoEmotion>("calma");
   const [strategy, setStrategy] = useState("");
+  const [orderType, setOrderType] = useState<"market" | "limit">("market");
+  const [limitPrice, setLimitPrice] = useState("");
   const [status, setStatus] = useState<Status>(null);
+  const [historyFilter, setHistoryFilter] = useState("todas");
+  const [stopInput, setStopInput] = useState("");
+  const [targetInput, setTargetInput] = useState("");
+  const [ticketVisible, setTicketVisible] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
+  const ticketRef = useRef<HTMLElement>(null);
 
   const data = useDemo();
   const updatePrices = useDemo((state) => state.updatePrices);
@@ -156,10 +163,10 @@ export function Demo() {
   const pnl = equity - data.startingCash;
   const returnPct =
     data.startingCash > 0 ? (pnl / data.startingCash) * 100 : 0;
-  const equityPoints = useMemo(
-    () => [...data.equity, { at: Date.now(), value: equity }],
-    [data.equity, equity],
-  );
+  const equityPoints = useMemo(() => {
+    const lastAt = data.equity[data.equity.length - 1]?.at ?? 0;
+    return [...data.equity, { at: lastAt, value: equity }];
+  }, [data.equity, equity]);
   const maxDrawdown = demoMaxDrawdown(equityPoints);
   const winRate = demoWinRate(data.trades);
   const strategyPnl = useMemo(
@@ -169,24 +176,111 @@ export function Demo() {
   const positionsValue = equity - data.cash;
   const exposure = equity > 0 ? (positionsValue / equity) * 100 : 0;
 
+  useEffect(() => {
+    setStopInput(position?.stop != null ? String(position.stop) : "");
+    setTargetInput(position?.target != null ? String(position.target) : "");
+  }, [asset.symbol, position?.stop, position?.target]);
+
+  useEffect(() => {
+    const node = ticketRef.current;
+    if (!node) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setTicketVisible(entry.isIntersecting),
+      { threshold: 0.15 },
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  const filteredTrades = useMemo(
+    () =>
+      data.trades.filter((trade) =>
+        historyFilter === "todas"
+          ? true
+          : historyFilter === "sin"
+            ? !trade.strategy
+            : trade.strategy === historyFilter,
+      ),
+    [data.trades, historyFilter],
+  );
+
+  const stopValue = Number(stopInput.replace(",", "."));
+  const targetValue = Number(targetInput.replace(",", "."));
+  const validStop = Number.isFinite(stopValue) && stopValue > 0;
+  const validTarget = Number.isFinite(targetValue) && targetValue > 0;
+  const stopRiskPct =
+    position && price > 0 && validStop
+      ? ((price - stopValue) / price) * 100
+      : 0;
+  const protectionRr =
+    validStop && validTarget && stopValue < price && targetValue > price
+      ? (targetValue - price) / (price - stopValue)
+      : 0;
+
+  const limitNumber = Number(limitPrice.replace(",", "."));
+  const validLimit = Number.isFinite(limitNumber) && limitNumber > 0;
+  const effectivePrice =
+    orderType === "limit" && validLimit ? limitNumber : price;
+
   const maxQty =
     side === "buy"
-      ? price > 0
-        ? data.cash / (price * (1 + DEMO_FEE_RATE))
+      ? effectivePrice > 0
+        ? data.cash / (effectivePrice * (1 + DEMO_FEE_RATE))
         : 0
       : (position?.qty ?? 0);
 
   const qtyNumber = Number(qty.replace(",", "."));
   const validQty = Number.isFinite(qtyNumber) && qtyNumber > 0;
-  const gross = validQty ? qtyNumber * price : 0;
+  const gross = validQty ? qtyNumber * effectivePrice : 0;
   const fee = gross * DEMO_FEE_RATE;
   const total = side === "buy" ? gross + fee : gross - fee;
 
   function execute() {
-    if (!validQty || price <= 0) {
+    if (!validQty || effectivePrice <= 0) {
       setStatus({ type: "err", message: "Introduce una cantidad válida." });
       return;
     }
+
+    if (orderType === "limit") {
+      if (!validLimit) {
+        setStatus({ type: "err", message: "Introduce un precio límite válido." });
+        return;
+      }
+      const result = data.placeLimit({
+        symbol: asset.symbol,
+        label: asset.label,
+        side,
+        qty: qtyNumber,
+        limit: limitNumber,
+        note,
+        emotion,
+        strategy: strategy || undefined,
+      });
+      if (result.ok) {
+        track("demo_limit_order", {
+          side,
+          symbol: asset.symbol,
+          limit: limitNumber,
+        });
+        setStatus({
+          type: "ok",
+          message: `Orden límite colocada: ${
+            side === "buy" ? "compra" : "venta"
+          } de ${formatNumber(qtyNumber, 4)} ${asset.label} a ${formatPrice(
+            limitNumber,
+          )}.`,
+        });
+        setQty("");
+        setNote("");
+      } else {
+        setStatus({
+          type: "err",
+          message: result.error ?? "No se pudo colocar la orden.",
+        });
+      }
+      return;
+    }
+
     const input = {
       symbol: asset.symbol,
       label: asset.label,
@@ -213,6 +307,74 @@ export function Demo() {
     }
   }
 
+  function saveProtection() {
+    if (!position) return;
+    const result = data.setProtection(
+      asset.symbol,
+      validStop ? stopValue : null,
+      validTarget ? targetValue : null,
+    );
+    setStatus(
+      result.ok
+        ? {
+            type: "ok",
+            message: validStop || validTarget
+              ? "Protección guardada. Se ejecutará con el próximo precio."
+              : "Protección eliminada.",
+          }
+        : { type: "err", message: result.error ?? "No se pudo guardar." },
+    );
+  }
+
+  function exportCsv() {
+    if (data.trades.length === 0) return;
+    const escape = (value: string | number) => {
+      const text = String(value ?? "");
+      return /[",\n;]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
+    };
+    const header = [
+      "fecha",
+      "activo",
+      "lado",
+      "cantidad",
+      "precio",
+      "comision",
+      "realizado",
+      "estrategia",
+      "emocion",
+      "nota",
+    ];
+    const rows = data.trades.map((trade) => [
+      new Date(trade.at).toISOString(),
+      trade.label,
+      trade.side === "buy" ? "compra" : "venta",
+      trade.qty,
+      trade.price,
+      trade.fee,
+      trade.realized ?? "",
+      trade.strategy ? strategyName(trade.strategy) : "",
+      trade.emotion
+        ? (DEMO_EMOTIONS.find((item) => item.id === trade.emotion)?.label ??
+          trade.emotion)
+        : "",
+      trade.note ?? "",
+    ]);
+    const csv = [header, ...rows]
+      .map((row) => row.map(escape).join(","))
+      .join("\r\n");
+    const blob = new Blob([`\uFEFF${csv}`], {
+      type: "text/csv;charset=utf-8",
+    });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = `candlevic-operaciones-${new Date()
+      .toISOString()
+      .slice(0, 10)}.csv`;
+    anchor.click();
+    URL.revokeObjectURL(url);
+  }
+
   function quick(percent: number) {
     setQty((maxQty * percent).toFixed(6));
   }
@@ -227,6 +389,7 @@ export function Demo() {
         startingCash: data.startingCash,
         positions: data.positions,
         trades: data.trades,
+        orders: data.orders,
         equity: data.equity,
         createdAt: data.createdAt,
       },
@@ -295,12 +458,14 @@ export function Demo() {
         />
       </section>
 
-      <a
-        href="#order-ticket"
-        className="fixed bottom-20 right-4 z-30 inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2.5 text-[12px] font-medium text-on-accent shadow-lg lg:hidden"
-      >
-        <Wallet className="h-4 w-4" /> Operar
-      </a>
+      {!ticketVisible && (
+        <a
+          href="#order-ticket"
+          className="fixed bottom-20 right-4 z-30 inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2.5 text-[12px] font-medium text-on-accent shadow-lg lg:hidden"
+        >
+          <Wallet className="h-4 w-4" /> Operar
+        </a>
+      )}
 
       <div className="grid gap-4 lg:grid-cols-[1.45fr_1fr] lg:items-start">
         <div className="space-y-4">
@@ -420,6 +585,19 @@ export function Demo() {
                                 {strategyName(item.strategy)}
                               </span>
                             )}
+                            {(item.stop != null || item.target != null) && (
+                              <span className="mt-0.5 block text-[9px] font-normal text-faint">
+                                {item.stop != null && (
+                                  <>SL {formatPrice(item.stop)}</>
+                                )}
+                                {item.stop != null && item.target != null
+                                  ? " · "
+                                  : ""}
+                                {item.target != null && (
+                                  <>TP {formatPrice(item.target)}</>
+                                )}
+                              </span>
+                            )}
                           </td>
                           <td className="num px-2 py-1.5 text-right text-muted">
                             {formatNumber(item.qty, 4)}
@@ -449,17 +627,113 @@ export function Demo() {
                 </table>
               </div>
             )}
+
+            {position && (
+              <div className="mt-3 rounded-xl border border-line bg-surface-2/40 p-3">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <p className="text-[11px] font-medium">
+                    Protección de {position.label}
+                  </p>
+                  <span className="text-[9px] text-faint">
+                    Salida simulada con el último precio
+                  </span>
+                </div>
+                <div className="mt-2 grid grid-cols-2 gap-2">
+                  <label className="block">
+                    <span className="mb-1 block text-[9px] uppercase tracking-wider text-faint">
+                      Stop loss
+                    </span>
+                    <input
+                      inputMode="decimal"
+                      value={stopInput}
+                      onChange={(event) => setStopInput(event.target.value)}
+                      placeholder={
+                        price > 0 ? formatPrice(price * 0.95) : "0,00"
+                      }
+                      className="num h-9 w-full rounded-lg border border-line bg-surface px-2 text-[12px] text-fg outline-none focus:border-accent/40"
+                    />
+                  </label>
+                  <label className="block">
+                    <span className="mb-1 block text-[9px] uppercase tracking-wider text-faint">
+                      Objetivo
+                    </span>
+                    <input
+                      inputMode="decimal"
+                      value={targetInput}
+                      onChange={(event) => setTargetInput(event.target.value)}
+                      placeholder={
+                        price > 0 ? formatPrice(price * 1.1) : "0,00"
+                      }
+                      className="num h-9 w-full rounded-lg border border-line bg-surface px-2 text-[12px] text-fg outline-none focus:border-accent/40"
+                    />
+                  </label>
+                </div>
+                <div className="mt-2 flex flex-wrap items-center gap-2">
+                  <Button size="sm" variant="secondary" onClick={saveProtection}>
+                    Guardar protección
+                  </Button>
+                  {(position.stop != null || position.target != null) && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        data.setProtection(asset.symbol, null, null);
+                        setStopInput("");
+                        setTargetInput("");
+                        setStatus({
+                          type: "ok",
+                          message: "Protección eliminada.",
+                        });
+                      }}
+                      className="text-[10px] text-faint underline-offset-4 hover:text-fg hover:underline"
+                    >
+                      Quitar
+                    </button>
+                  )}
+                  <span className="text-[9.5px] text-faint">
+                    {stopRiskPct > 0 &&
+                      `Riesgo hasta el stop ${formatNumber(stopRiskPct, 2)} %`}
+                    {stopRiskPct > 0 && protectionRr > 0 && " · "}
+                    {protectionRr > 0 &&
+                      `R:B ${formatNumber(protectionRr, 2)}`}
+                  </span>
+                </div>
+                <p className="mt-1 text-[9px] leading-relaxed text-faint">
+                  La demo ejecuta la venta cuando el precio cruza el stop o el
+                  objetivo. No son órdenes reales.
+                </p>
+              </div>
+            )}
           </section>
 
           <section className="rounded-2xl border border-line bg-surface p-4">
-            <h2 className="text-sm font-semibold">Historial</h2>
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <h2 className="text-sm font-semibold">Historial</h2>
+              <select
+                value={historyFilter}
+                onChange={(event) => setHistoryFilter(event.target.value)}
+                aria-label="Filtrar historial por estrategia"
+                className="h-8 max-w-[180px] rounded-lg border border-line bg-surface-2 px-2 text-[10px] text-fg outline-none focus:border-accent/40"
+              >
+                <option value="todas">Todas las estrategias</option>
+                {STRATEGIES.map((item) => (
+                  <option key={item.slug} value={item.slug}>
+                    {item.name}
+                  </option>
+                ))}
+                <option value="sin">Sin estrategia</option>
+              </select>
+            </div>
             {data.trades.length === 0 ? (
               <p className="mt-2 text-[12px] text-muted">
                 Cada operación quedará registrada aquí con tu nota y tu emoción.
               </p>
+            ) : filteredTrades.length === 0 ? (
+              <p className="mt-2 text-[12px] text-muted">
+                No hay operaciones con ese filtro. Prueba con otra estrategia.
+              </p>
             ) : (
               <div className="mt-2 space-y-2">
-                {data.trades.slice(0, 12).map((trade) => (
+                {filteredTrades.slice(0, 30).map((trade) => (
                   <div
                     key={trade.id}
                     className="rounded-xl border border-line bg-surface-2/40 p-2.5"
@@ -528,6 +802,7 @@ export function Demo() {
         <div className="space-y-4">
           <section
             id="order-ticket"
+            ref={ticketRef}
             className="scroll-mt-20 rounded-2xl border border-line bg-surface p-4"
           >
             <div className="flex items-center justify-between">
@@ -561,7 +836,45 @@ export function Demo() {
               ))}
             </div>
 
+            <div className="mt-2 flex items-center gap-1.5">
+              <span className="mr-1 text-[9px] uppercase tracking-wider text-faint">
+                Tipo
+              </span>
+              {(["market", "limit"] as const).map((value) => (
+                <button
+                  key={value}
+                  aria-pressed={orderType === value}
+                  onClick={() => {
+                    setOrderType(value);
+                    setStatus(null);
+                  }}
+                  className={cn(
+                    "rounded-lg border px-2.5 py-1 text-[10px] transition-colors",
+                    orderType === value
+                      ? "border-accent/30 bg-accent/10 text-accent"
+                      : "border-line text-muted hover:text-fg",
+                  )}
+                >
+                  {value === "market" ? "Mercado" : "Límite"}
+                </button>
+              ))}
+            </div>
+
             <div className="mt-3 space-y-2">
+              {orderType === "limit" && (
+                <label className="block">
+                  <span className="mb-1 block text-[10px] uppercase tracking-wider text-faint">
+                    Precio límite
+                  </span>
+                  <input
+                    inputMode="decimal"
+                    value={limitPrice}
+                    onChange={(event) => setLimitPrice(event.target.value)}
+                    placeholder={price > 0 ? formatPrice(price) : "0,00"}
+                    className="num h-10 w-full rounded-lg border border-line bg-surface-2 px-2 text-[14px] text-fg outline-none focus:border-accent/40"
+                  />
+                </label>
+              )}
               <label className="block">
                 <span className="mb-1 block text-[10px] uppercase tracking-wider text-faint">
                   Cantidad ({asset.label})
@@ -591,8 +904,12 @@ export function Demo() {
 
               <div className="rounded-xl border border-line bg-surface-2/40 p-2.5 text-[11px]">
                 <div className="flex justify-between text-muted">
-                  <span>Precio</span>
-                  <span className="num text-fg">{formatPrice(price)}</span>
+                  <span>
+                    {orderType === "limit" ? "Precio límite" : "Precio"}
+                  </span>
+                  <span className="num text-fg">
+                    {formatPrice(effectivePrice)}
+                  </span>
                 </div>
                 <div className="mt-1 flex justify-between text-muted">
                   <span>Importe</span>
@@ -671,9 +988,15 @@ export function Demo() {
               <Button
                 className="w-full"
                 onClick={execute}
-                disabled={!validQty || price <= 0}
+                disabled={
+                  !validQty ||
+                  effectivePrice <= 0 ||
+                  (orderType === "limit" && !validLimit)
+                }
               >
-                {side === "buy" ? "Comprar" : "Vender"} {asset.label}
+                {orderType === "limit"
+                  ? `Colocar ${side === "buy" ? "compra" : "venta"} límite`
+                  : `${side === "buy" ? "Comprar" : "Vender"} ${asset.label}`}
                 <ArrowRight className="h-4 w-4" />
               </Button>
 
@@ -696,6 +1019,66 @@ export function Demo() {
               )}
             </div>
           </section>
+
+          {data.orders.length > 0 && (
+            <section className="rounded-2xl border border-line bg-surface p-4">
+              <div className="flex items-center justify-between gap-2">
+                <h2 className="text-sm font-semibold">Órdenes pendientes</h2>
+                <span className="text-[10px] text-faint">
+                  {data.orders.length}
+                </span>
+              </div>
+              <div className="mt-2 space-y-2">
+                {data.orders.map((order) => (
+                  <div
+                    key={order.id}
+                    className="rounded-xl border border-line bg-surface-2/40 p-2.5"
+                  >
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span
+                        className={cn(
+                          "rounded-md px-1.5 py-0.5 text-[9px] font-semibold uppercase",
+                          order.side === "buy"
+                            ? "bg-up/10 text-up"
+                            : "bg-down/10 text-down",
+                        )}
+                      >
+                        {order.side === "buy" ? "Compra" : "Venta"}
+                      </span>
+                      <span className="text-[11px] font-medium">
+                        {order.label}
+                      </span>
+                      <span className="num text-[10px] text-muted">
+                        {formatNumber(order.qty, 4)} @{" "}
+                        {formatPrice(order.limit)}
+                      </span>
+                      {order.strategy && (
+                        <span className="rounded-md border border-line bg-surface px-1.5 py-0.5 text-[9px] text-muted">
+                          {strategyName(order.strategy)}
+                        </span>
+                      )}
+                      <button
+                        type="button"
+                        onClick={() => data.cancelOrder(order.id)}
+                        className="ml-auto text-[10px] text-faint underline-offset-4 hover:text-down hover:underline"
+                      >
+                        Cancelar
+                      </button>
+                    </div>
+                    <p className="mt-1 text-[9px] text-faint">
+                      Se ejecuta si el precio{" "}
+                      {order.side === "buy" ? "baja a" : "sube a"}{" "}
+                      {formatPrice(order.limit)}.
+                    </p>
+                  </div>
+                ))}
+              </div>
+              <p className="mt-2 text-[9px] leading-relaxed text-faint">
+                Las órdenes límite se comprueban con el último precio. Si no hay
+                saldo o posición al ejecutar, siguen pendientes.
+              </p>
+            </section>
+          )}
 
           <section className="rounded-2xl border border-line bg-surface p-4">
             <h2 className="text-sm font-semibold">Tu curva</h2>
@@ -778,11 +1161,19 @@ export function Demo() {
                         <td
                           className={cn(
                             "num px-2 py-1.5 text-right",
-                            group.realized >= 0 ? "text-up" : "text-down",
+                            group.sells === 0
+                              ? "text-faint"
+                              : group.realized >= 0
+                                ? "text-up"
+                                : "text-down",
                           )}
                         >
-                          {group.realized >= 0 ? "+" : "−"}$
-                          {formatNumber(Math.abs(group.realized), 2)}
+                          {group.sells === 0
+                            ? "—"
+                            : `${group.realized >= 0 ? "+" : "−"}$${formatNumber(
+                                Math.abs(group.realized),
+                                2,
+                              )}`}
                         </td>
                       </tr>
                     ))}
@@ -801,6 +1192,14 @@ export function Demo() {
             <div className="mt-3 flex flex-wrap gap-2">
               <Button size="sm" variant="secondary" onClick={exportDemo}>
                 <Download className="h-3.5 w-3.5" /> Exportar
+              </Button>
+              <Button
+                size="sm"
+                variant="secondary"
+                onClick={exportCsv}
+                disabled={data.trades.length === 0}
+              >
+                <Download className="h-3.5 w-3.5" /> CSV
               </Button>
               <Button
                 size="sm"

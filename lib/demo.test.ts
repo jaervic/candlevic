@@ -90,6 +90,148 @@ describe("demo strategy tags", () => {
   });
 });
 
+describe("demo protection", () => {
+  beforeEach(() => {
+    useDemo.getState().reset();
+  });
+
+  function openPosition() {
+    useDemo.getState().buy({
+      symbol: "BTCUSDT",
+      label: "BTC/USD",
+      qty: 1,
+      price: 100,
+      strategy: "cruce-de-medias",
+    });
+  }
+
+  it("valida que el stop esté debajo y el objetivo encima", () => {
+    openPosition();
+    const store = useDemo.getState();
+    expect(store.setProtection("BTCUSDT", 110, null).ok).toBe(false);
+    expect(store.setProtection("BTCUSDT", null, 90).ok).toBe(false);
+    expect(store.setProtection("BTCUSDT", 95, 110).ok).toBe(true);
+    expect(useDemo.getState().positions.BTCUSDT).toMatchObject({
+      stop: 95,
+      target: 110,
+    });
+  });
+
+  it("cierra la posición al alcanzar el objetivo", () => {
+    openPosition();
+    useDemo.getState().setProtection("BTCUSDT", 90, 110);
+    useDemo.getState().updatePrices({ BTCUSDT: 111 });
+
+    const state = useDemo.getState();
+    expect(state.positions.BTCUSDT).toBeUndefined();
+    expect(state.trades[0].side).toBe("sell");
+    expect(state.trades[0].price).toBe(110);
+    expect(state.trades[0].note).toBe("Objetivo automático");
+    expect(state.trades[0].strategy).toBe("cruce-de-medias");
+  });
+
+  it("ejecuta el stop con el precio real si hay un hueco a la baja", () => {
+    openPosition();
+    useDemo.getState().setProtection("BTCUSDT", 90, null);
+    useDemo.getState().updatePrices({ BTCUSDT: 80 });
+
+    const state = useDemo.getState();
+    expect(state.positions.BTCUSDT).toBeUndefined();
+    expect(state.trades[0].price).toBe(80);
+    expect(state.trades[0].note).toBe("Stop automático");
+    expect(state.trades[0].realized).toBeLessThan(0);
+  });
+
+  it("permite quitar la protección", () => {
+    openPosition();
+    useDemo.getState().setProtection("BTCUSDT", 90, 110);
+    expect(useDemo.getState().setProtection("BTCUSDT", null, null).ok).toBe(
+      true,
+    );
+    const position = useDemo.getState().positions.BTCUSDT;
+    expect(position.stop).toBeUndefined();
+    expect(position.target).toBeUndefined();
+  });
+});
+
+describe("demo limit orders", () => {
+  beforeEach(() => {
+    useDemo.getState().reset();
+  });
+
+  it("ejecuta una compra límite cuando el precio baja al nivel", () => {
+    const placed = useDemo.getState().placeLimit({
+      symbol: "BTCUSDT",
+      label: "BTC/USD",
+      side: "buy",
+      qty: 1,
+      limit: 90,
+      strategy: "rango-soporte-resistencia",
+    });
+    expect(placed.ok).toBe(true);
+    expect(useDemo.getState().orders).toHaveLength(1);
+
+    useDemo.getState().updatePrices({ BTCUSDT: 95 });
+    expect(useDemo.getState().orders).toHaveLength(1);
+
+    useDemo.getState().updatePrices({ BTCUSDT: 89 });
+    const state = useDemo.getState();
+    expect(state.orders).toHaveLength(0);
+    expect(state.positions.BTCUSDT.qty).toBe(1);
+    expect(state.trades[0].strategy).toBe("rango-soporte-resistencia");
+  });
+
+  it("ejecuta una venta límite cuando el precio sube al nivel", () => {
+    useDemo.getState().buy({
+      symbol: "BTCUSDT",
+      label: "BTC/USD",
+      qty: 1,
+      price: 100,
+    });
+    const placed = useDemo.getState().placeLimit({
+      symbol: "BTCUSDT",
+      label: "BTC/USD",
+      side: "sell",
+      qty: 1,
+      limit: 110,
+    });
+    expect(placed.ok).toBe(true);
+
+    useDemo.getState().updatePrices({ BTCUSDT: 111 });
+    const state = useDemo.getState();
+    expect(state.orders).toHaveLength(0);
+    expect(state.positions.BTCUSDT).toBeUndefined();
+    expect(state.trades[0].side).toBe("sell");
+    expect(state.trades[0].price).toBe(111);
+  });
+
+  it("valida el saldo y permite cancelar", () => {
+    const store = useDemo.getState();
+    expect(
+      store.placeLimit({
+        symbol: "BTCUSDT",
+        label: "BTC/USD",
+        side: "buy",
+        qty: 100,
+        limit: 1000,
+      }).ok,
+    ).toBe(false);
+
+    expect(
+      store.placeLimit({
+        symbol: "BTCUSDT",
+        label: "BTC/USD",
+        side: "buy",
+        qty: 1,
+        limit: 90,
+      }).ok,
+    ).toBe(true);
+    const [order] = useDemo.getState().orders;
+    useDemo.getState().cancelOrder(order.id);
+    expect(useDemo.getState().orders).toHaveLength(0);
+  });
+});
+
 describe("demoPnlByStrategy", () => {
   it("agrupa operaciones y suma el P&L realizado", () => {
     const groups = demoPnlByStrategy([

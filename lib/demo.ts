@@ -60,15 +60,33 @@ export type DemoPosition = {
   /** Comisión de compra repartida por unidad, para calcular el P&L neto. */
   feePerUnit?: number;
   strategy?: string;
+  /** Salida automática si el precio cae a este nivel. */
+  stop?: number;
+  /** Salida automática si el precio alcanza este nivel. */
+  target?: number;
 };
 
 export type DemoEquityPoint = { at: number; value: number };
+
+export type DemoOrder = {
+  id: string;
+  symbol: string;
+  label: string;
+  side: "buy" | "sell";
+  qty: number;
+  limit: number;
+  at: number;
+  note?: string;
+  emotion?: DemoEmotion;
+  strategy?: string;
+};
 
 export type DemoData = {
   cash: number;
   startingCash: number;
   positions: Record<string, DemoPosition>;
   trades: DemoTrade[];
+  orders: DemoOrder[];
   equity: DemoEquityPoint[];
   createdAt: number;
 };
@@ -83,9 +101,21 @@ type TradeInput = {
   strategy?: string;
 };
 
+type LimitInput = Omit<TradeInput, "price"> & {
+  limit: number;
+  side: "buy" | "sell";
+};
+
 type DemoActions = {
   buy: (input: TradeInput) => { ok: boolean; error?: string };
   sell: (input: TradeInput) => { ok: boolean; error?: string };
+  placeLimit: (input: LimitInput) => { ok: boolean; error?: string };
+  cancelOrder: (id: string) => void;
+  setProtection: (
+    symbol: string,
+    stop: number | null,
+    target: number | null,
+  ) => { ok: boolean; error?: string };
   updatePrices: (prices: Record<string, number>) => void;
   reset: () => void;
   importState: (state: unknown) => boolean;
@@ -99,6 +129,7 @@ function initialData(): DemoData {
     startingCash: DEMO_STARTING_CASH,
     positions: {},
     trades: [],
+    orders: [],
     equity: [{ at: Date.now(), value: DEMO_STARTING_CASH }],
     createdAt: Date.now(),
   };
@@ -301,24 +332,190 @@ export const useDemo = create<DemoStore>()(
         return { ok: true };
       },
 
+      placeLimit: (input) => {
+        const state = get();
+        const { symbol, label, side, qty, limit, note, emotion, strategy } =
+          input;
+        if (!Number.isFinite(qty) || qty <= 0) {
+          return { ok: false, error: "La cantidad debe ser mayor que cero." };
+        }
+        if (!Number.isFinite(limit) || limit <= 0) {
+          return { ok: false, error: "El precio límite no es válido." };
+        }
+
+        if (side === "buy") {
+          const cost = qty * limit * (1 + DEMO_FEE_RATE);
+          if (cost > state.cash + 1e-9) {
+            return {
+              ok: false,
+              error: "No tienes suficiente efectivo para esa orden.",
+            };
+          }
+        } else {
+          const position = state.positions[symbol];
+          if (!position || qty > position.qty + 1e-9) {
+            return {
+              ok: false,
+              error: "No tienes tantas unidades para vender.",
+            };
+          }
+        }
+
+        const order: DemoOrder = {
+          id: `o-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+          symbol,
+          label,
+          side,
+          qty,
+          limit,
+          at: Date.now(),
+          note: note?.trim() || undefined,
+          emotion,
+          strategy,
+        };
+        set({ orders: [order, ...state.orders] });
+        return { ok: true };
+      },
+
+      cancelOrder: (id) => {
+        set((state) => ({
+          orders: state.orders.filter((order) => order.id !== id),
+        }));
+      },
+
+      setProtection: (symbol, stop, target) => {
+        const state = get();
+        const position = state.positions[symbol];
+        if (!position) {
+          return { ok: false, error: "No tienes posición en este activo." };
+        }
+
+        const cleanStop = stop != null && Number.isFinite(stop) ? stop : null;
+        const cleanTarget =
+          target != null && Number.isFinite(target) ? target : null;
+
+        if (cleanStop != null && cleanStop <= 0) {
+          return { ok: false, error: "El stop debe ser mayor que cero." };
+        }
+        if (cleanTarget != null && cleanTarget <= 0) {
+          return { ok: false, error: "El objetivo debe ser mayor que cero." };
+        }
+        if (cleanStop != null && cleanStop >= position.lastPrice) {
+          return {
+            ok: false,
+            error: "El stop debe estar por debajo del precio actual.",
+          };
+        }
+        if (cleanTarget != null && cleanTarget <= position.lastPrice) {
+          return {
+            ok: false,
+            error: "El objetivo debe estar por encima del precio actual.",
+          };
+        }
+        if (cleanStop != null && cleanTarget != null && cleanStop >= cleanTarget) {
+          return {
+            ok: false,
+            error: "El stop debe estar por debajo del objetivo.",
+          };
+        }
+
+        const next: DemoPosition = { ...position };
+        if (cleanStop == null) delete next.stop;
+        else next.stop = cleanStop;
+        if (cleanTarget == null) delete next.target;
+        else next.target = cleanTarget;
+
+        set({
+          positions: { ...state.positions, [symbol]: next },
+        });
+        return { ok: true };
+      },
+
       updatePrices: (prices) => {
-        set((state) => {
-          let changed = false;
-          const positions = { ...state.positions };
-          for (const [symbol, price] of Object.entries(prices)) {
-            const position = positions[symbol];
-            if (
-              position &&
-              Number.isFinite(price) &&
-              price > 0 &&
-              Math.abs(position.lastPrice - price) > 1e-9
-            ) {
-              positions[symbol] = { ...position, lastPrice: price };
-              changed = true;
+        const state = get();
+        let changed = false;
+        const positions = { ...state.positions };
+        for (const [symbol, price] of Object.entries(prices)) {
+          const position = positions[symbol];
+          if (
+            position &&
+            Number.isFinite(price) &&
+            price > 0 &&
+            Math.abs(position.lastPrice - price) > 1e-9
+          ) {
+            positions[symbol] = { ...position, lastPrice: price };
+            changed = true;
+          }
+        }
+        if (changed) set({ positions });
+
+        // Ejecuta las salidas automáticas con el precio más reciente.
+        for (const position of Object.values(get().positions)) {
+          const market = prices[position.symbol] ?? position.lastPrice;
+          if (!Number.isFinite(market) || market <= 0) continue;
+
+          if (position.stop != null && market <= position.stop) {
+            // Si hay un hueco a la baja, el fill es peor que el stop.
+            get().sell({
+              symbol: position.symbol,
+              label: position.label,
+              qty: position.qty,
+              price: Math.min(market, position.stop),
+              note: "Stop automático",
+            });
+            continue;
+          }
+
+          if (position.target != null && market >= position.target) {
+            // En un hueco al alza, el fill conservador es el objetivo.
+            get().sell({
+              symbol: position.symbol,
+              label: position.label,
+              qty: position.qty,
+              price: position.target,
+              note: "Objetivo automático",
+            });
+          }
+        }
+
+        // Ejecuta órdenes límite si el precio las cruza.
+        for (const order of [...get().orders]) {
+          const market = prices[order.symbol];
+          if (!Number.isFinite(market) || market <= 0) continue;
+          const { symbol, label, qty, note, emotion, strategy } = order;
+
+          if (order.side === "buy" && market <= order.limit) {
+            const result = get().buy({
+              symbol,
+              label,
+              qty,
+              price: Math.min(market, order.limit),
+              note,
+              emotion,
+              strategy,
+            });
+            if (result.ok) {
+              set((current) => ({
+                orders: current.orders.filter((item) => item.id !== order.id),
+              }));
+            }
+          } else if (order.side === "sell" && market >= order.limit) {
+            const result = get().sell({
+              symbol,
+              label,
+              qty,
+              price: Math.max(market, order.limit),
+              note,
+              emotion,
+              strategy,
+            });
+            if (result.ok) {
+              set((current) => ({
+                orders: current.orders.filter((item) => item.id !== order.id),
+              }));
             }
           }
-          return changed ? { positions } : {};
-        });
+        }
       },
 
       reset: () => set(initialData()),
@@ -339,6 +536,7 @@ export const useDemo = create<DemoStore>()(
           startingCash: candidate.startingCash ?? DEMO_STARTING_CASH,
           positions: candidate.positions as Record<string, DemoPosition>,
           trades: candidate.trades as DemoTrade[],
+          orders: Array.isArray(candidate.orders) ? candidate.orders : [],
           equity: Array.isArray(candidate.equity) ? candidate.equity : [],
           createdAt: candidate.createdAt ?? Date.now(),
         });

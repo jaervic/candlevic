@@ -98,7 +98,10 @@ export function PriceChart({
   const markersApiRef = useRef<ISeriesMarkersPluginApi<Time> | null>(null);
   const priceLinesRef = useRef<IPriceLine[]>([]);
   const onPickRef = useRef(onPick);
-  onPickRef.current = onPick;
+
+  useEffect(() => {
+    onPickRef.current = onPick;
+  }, [onPick]);
 
   const resolvedTheme = useResolvedTheme();
   const palette = CHART_PALETTES[resolvedTheme];

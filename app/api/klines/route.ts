@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { SITE_URL } from "@/lib/site";
 
 export const runtime = "nodejs";
 
@@ -45,7 +46,7 @@ type ProviderResult = {
 
 const HEADERS = {
   Accept: "application/json",
-  "User-Agent": "Candlevic/1.0 (+https://candlevic.com)",
+  "User-Agent": `Candlevic/1.0 (+${SITE_URL})`,
 };
 
 async function fetchBinance(

@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, Loader2 } from "lucide-react";
+import { AlertTriangle, ArrowLeft, Loader2 } from "lucide-react";
 import {
   DATASETS,
   DATASET_IDS,
@@ -14,6 +14,7 @@ import type { Candle } from "@/lib/indicators";
 import {
   BACKTEST_STRATEGIES,
   STRATEGY_NAMES,
+  runBacktest,
   runBacktests,
   type BacktestResult,
   type StrategyId,
@@ -41,12 +42,22 @@ export function Backtest() {
   const [candles, setCandles] = useState<Candle[]>([]);
   const [loading, setLoading] = useState(true);
   const [withFees, setWithFees] = useState(true);
+  const [slippage, setSlippage] = useState(0);
   const [source, setSource] = useState("");
   const [selected, setSelected] = useState<StrategyId[]>([
     "hold",
     "sma",
     "dca",
   ]);
+  const [params, setParams] = useState({
+    fast: 20,
+    slow: 50,
+    rsiBuy: 30,
+    rsiSell: 70,
+    donchianEntry: 20,
+    donchianExit: 10,
+    rangeWindow: 20,
+  });
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -72,12 +83,25 @@ export function Backtest() {
     };
   }, [datasetId]);
 
+  const options = useMemo(
+    () => ({
+      fee: withFees ? 0.001 : 0,
+      slippage,
+      ...params,
+    }),
+    [withFees, slippage, params],
+  );
+
   const results = useMemo(
     () =>
-      candles.length > 0
-        ? runBacktests(candles, selected, { fee: withFees ? 0.001 : 0 })
-        : [],
-    [candles, selected, withFees],
+      candles.length > 0 ? runBacktests(candles, selected, options) : [],
+    [candles, selected, options],
+  );
+
+  const benchmark = useMemo(
+    () =>
+      candles.length > 0 ? runBacktest(candles, "hold", options) : null,
+    [candles, options],
   );
 
   useEffect(() => {
@@ -85,10 +109,20 @@ export function Backtest() {
       track("backtest_run", {
         dataset: datasetId,
         fees: withFees,
+        slippage,
         strategies: selected,
       });
     }
-  }, [candles.length, datasetId, withFees, selected]);
+  }, [candles.length, datasetId, withFees, slippage, selected]);
+
+  function updateParam(key: keyof typeof params, value: string) {
+    const parsed = Number(value.replace(",", "."));
+    if (!Number.isFinite(parsed)) return;
+    setParams((previous) => ({
+      ...previous,
+      [key]: Math.max(2, Math.min(300, Math.round(parsed))),
+    }));
+  }
 
   function toggleStrategy(id: StrategyId) {
     setSelected((previous) => {
@@ -191,7 +225,7 @@ export function Backtest() {
           <p className="text-[10px] uppercase tracking-wider text-faint">
             Costes
           </p>
-          <div className="flex gap-1.5">
+          <div className="flex flex-wrap gap-1.5">
             <button
               onClick={() => setWithFees(false)}
               aria-pressed={!withFees}
@@ -218,6 +252,108 @@ export function Backtest() {
             </button>
           </div>
         </div>
+
+        <div className="flex flex-wrap items-center justify-between gap-2 border-t border-line/70 pt-3">
+          <p className="text-[10px] uppercase tracking-wider text-faint">
+            Slippage
+          </p>
+          <div className="flex flex-wrap gap-1.5">
+            {[
+              { value: 0, label: "Sin slippage" },
+              { value: 0.0005, label: "0,05 %" },
+              { value: 0.001, label: "0,1 %" },
+            ].map((option) => (
+              <button
+                key={option.value}
+                onClick={() => setSlippage(option.value)}
+                aria-pressed={slippage === option.value}
+                className={cn(
+                  "rounded-lg border px-2.5 py-1.5 text-[11px]",
+                  slippage === option.value
+                    ? "border-accent/30 bg-accent/10 text-accent"
+                    : "border-line text-muted hover:text-fg",
+                )}
+              >
+                {option.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <details className="border-t border-line/70 pt-3">
+          <summary className="cursor-pointer text-[10px] uppercase tracking-wider text-faint hover:text-muted">
+            Parámetros de las estrategias
+          </summary>
+          <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-3">
+            {[
+              { key: "fast" as const, label: "SMA rápida", value: params.fast },
+              { key: "slow" as const, label: "SMA lenta", value: params.slow },
+              {
+                key: "rsiBuy" as const,
+                label: "RSI compra",
+                value: params.rsiBuy,
+              },
+              {
+                key: "rsiSell" as const,
+                label: "RSI venta",
+                value: params.rsiSell,
+              },
+              {
+                key: "donchianEntry" as const,
+                label: "Donchian entrada",
+                value: params.donchianEntry,
+              },
+              {
+                key: "donchianExit" as const,
+                label: "Donchian salida",
+                value: params.donchianExit,
+              },
+              {
+                key: "rangeWindow" as const,
+                label: "Ventana de rango",
+                value: params.rangeWindow,
+              },
+            ].map((field) => (
+              <label key={field.key} className="block">
+                <span className="mb-1 block text-[9px] uppercase tracking-wider text-faint">
+                  {field.label}
+                </span>
+                <input
+                  type="number"
+                  min={2}
+                  max={300}
+                  value={field.value}
+                  onChange={(event) =>
+                    updateParam(field.key, event.target.value)
+                  }
+                  className="num h-8 w-full rounded-lg border border-line bg-surface-2 px-2 text-[11px] text-fg outline-none focus:border-accent/40"
+                />
+              </label>
+            ))}
+          </div>
+          <div className="mt-2 flex flex-wrap items-center justify-between gap-2">
+            <p className="text-[9px] leading-relaxed text-faint">
+              Cambiar parámetros es fácil; validar que funcionan fuera de la
+              muestra, no. Evita ajustar hasta que el pasado quede perfecto.
+            </p>
+            <button
+              onClick={() =>
+                setParams({
+                  fast: 20,
+                  slow: 50,
+                  rsiBuy: 30,
+                  rsiSell: 70,
+                  donchianEntry: 20,
+                  donchianExit: 10,
+                  rangeWindow: 20,
+                })
+              }
+              className="shrink-0 rounded-lg border border-line px-2 py-1 text-[10px] text-faint hover:text-fg"
+            >
+              Restablecer
+            </button>
+          </div>
+        </details>
       </section>
 
       <section className="rounded-2xl border border-line bg-surface p-4">
@@ -261,6 +397,24 @@ export function Backtest() {
         )}
       </section>
 
+      {results.length > 0 &&
+        (candles.length < 200 ||
+          results.some(
+            (result) => result.id !== "hold" && result.trades < 10,
+          )) && (
+          <div className="flex items-start gap-2 rounded-xl border border-accent/20 bg-accent/5 p-3">
+            <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-accent" />
+            <p className="text-[10.5px] leading-relaxed text-muted">
+              <span className="font-medium text-fg">Muestra corta.</span>{" "}
+              {candles.length < 200
+                ? `${candles.length} velas es poco para concluir.`
+                : "Alguna estrategia cierra menos de 10 operaciones."}{" "}
+              Un resultado así describe este tramo, no una ventaja estadística.
+              Prueba otros periodos antes de sacar conclusiones.
+            </p>
+          </div>
+        )}
+
       {results.length > 0 && (
         <section className="overflow-x-auto rounded-2xl border border-line bg-surface">
           <table className="w-full text-left text-[11.5px]">
@@ -271,6 +425,7 @@ export function Backtest() {
                 <th className="px-3 py-2.5 text-right font-medium">
                   Rentabilidad
                 </th>
+                <th className="px-3 py-2.5 text-right font-medium">vs. hold</th>
                 <th className="px-3 py-2.5 text-right font-medium">
                   Drawdown
                 </th>
@@ -280,38 +435,60 @@ export function Backtest() {
               </tr>
             </thead>
             <tbody>
-              {results.map((result, index) => (
-                <tr key={result.id} className="border-t border-line/60">
-                  <td className="px-4 py-2.5">
-                    <span className="inline-flex items-center gap-2">
-                      <span
-                        className="h-2 w-2 rounded-full"
-                        style={{
-                          backgroundColor: COLORS[index % COLORS.length],
-                        }}
-                      />
-                      {result.name}
-                    </span>
-                  </td>
-                  <td className="num px-3 py-2.5 text-right">
-                    ${formatNumber(result.finalValue, 0)}
-                  </td>
-                  <td
-                    className={cn(
-                      "num px-3 py-2.5 text-right",
-                      result.returnPct >= 0 ? "text-up" : "text-down",
-                    )}
-                  >
-                    {formatPercent(result.returnPct)}
-                  </td>
-                  <td className="num px-3 py-2.5 text-right text-muted">
-                    {formatNumber(result.maxDrawdown, 1)}%
-                  </td>
-                  <td className="num px-3 py-2.5 text-right text-muted">
-                    {result.trades}
-                  </td>
-                </tr>
-              ))}
+              {results.map((result, index) => {
+                const excess = benchmark
+                  ? result.returnPct - benchmark.returnPct
+                  : 0;
+                return (
+                  <tr key={result.id} className="border-t border-line/60">
+                    <td className="px-4 py-2.5">
+                      <span className="inline-flex items-center gap-2">
+                        <span
+                          className="h-2 w-2 rounded-full"
+                          style={{
+                            backgroundColor: COLORS[index % COLORS.length],
+                          }}
+                        />
+                        {result.name}
+                      </span>
+                    </td>
+                    <td className="num px-3 py-2.5 text-right">
+                      ${formatNumber(result.finalValue, 0)}
+                    </td>
+                    <td
+                      className={cn(
+                        "num px-3 py-2.5 text-right",
+                        result.returnPct >= 0 ? "text-up" : "text-down",
+                      )}
+                    >
+                      {formatPercent(result.returnPct)}
+                    </td>
+                    <td
+                      className={cn(
+                        "num px-3 py-2.5 text-right",
+                        result.id === "hold"
+                          ? "text-faint"
+                          : excess >= 0
+                            ? "text-up"
+                            : "text-down",
+                      )}
+                    >
+                      {result.id === "hold"
+                        ? "—"
+                        : `${excess >= 0 ? "+" : "−"}${formatNumber(
+                            Math.abs(excess),
+                            1,
+                          )} pp`}
+                    </td>
+                    <td className="num px-3 py-2.5 text-right text-muted">
+                      {formatNumber(result.maxDrawdown, 1)}%
+                    </td>
+                    <td className="num px-3 py-2.5 text-right text-muted">
+                      {result.trades}
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </section>
@@ -324,7 +501,7 @@ export function Backtest() {
             body: "Un solo trade. La rentabilidad depende del activo y del drawdown que puedas soportar sin vender.",
           },
           {
-            title: "Cruce SMA 20/50",
+            title: "Cruce de medias",
             body: "Entra cuando la media rápida supera a la lenta. Los cruces falsos y los costes pesan en rangos.",
           },
           {
@@ -345,9 +522,9 @@ export function Backtest() {
       </section>
 
       <p className="rounded-xl border border-line bg-surface p-3 text-[10.5px] leading-relaxed text-faint">
-        Simulación sobre datos históricos. Incluye la comisión seleccionada, pero
-        no impuestos ni slippage. Los resultados pasados no garantizan los
-        futuros.{" "}
+        Simulación sobre datos históricos. Incluye la comisión y el slippage
+        seleccionados, pero no impuestos. Los resultados pasados no garantizan
+        los futuros.{" "}
         <Link
           href="/aprender/estrategias"
           className="text-muted underline-offset-4 hover:text-fg hover:underline"

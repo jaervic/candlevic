@@ -94,8 +94,8 @@ export default async function LibroPage({ params }: { params: Promise<Params> })
         </div>
         <div className="flex flex-wrap gap-2">
           {book.modules.map((id) => {
-            const module = MODULE_MAP[id as ModuleId];
-            if (!module) return null;
+            const moduleMeta = MODULE_MAP[id as ModuleId];
+            if (!moduleMeta) return null;
             return (
               <Link
                 key={id}
@@ -103,7 +103,7 @@ export default async function LibroPage({ params }: { params: Promise<Params> })
                 className="inline-flex items-center gap-1.5 rounded-lg border border-line bg-surface px-2.5 py-1.5 text-[11px] text-muted transition-colors hover:border-line-strong hover:text-fg"
               >
                 <Check className="h-3 w-3 text-up" />
-                {module.title}
+                {moduleMeta.title}
               </Link>
             );
           })}

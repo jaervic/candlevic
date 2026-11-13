@@ -44,7 +44,7 @@ export default function FuentesPage() {
       <h2>Libros</h2>
       <p>
         Las fichas de la biblioteca resumen ideas de obras de John J. Murphy,
-        Steve Nison, Alexander Elder, Mark Douglas, Van Tharp, William O'Neil,
+        Steve Nison, Alexander Elder, Mark Douglas, Van Tharp, William O&apos;Neil,
         Edwin Lefèvre, Rubén Villahermosa, Benjamin Graham y Al Brooks. Son
         resúmenes originales y educativos, no reproducciones. Los derechos
         pertenecen a sus autores y editoriales.

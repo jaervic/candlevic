@@ -1,0 +1,86 @@
+---
+title: "ETFs y fondos indexados: comprar el mercado entero"
+module: "m1"
+order: 4
+minutes: 5
+level: "principiante"
+summary: "Un ETF empaqueta cientos de activos en una sola orden. Entiende qué compras, cuánto cuesta y qué riesgos siguen dentro."
+objectives:
+  - "Distinguir un índice, un fondo indexado y un ETF"
+  - "Leer costes, réplica y divisa antes de comprar"
+  - "Evitar los errores típicos al elegir un índice"
+dataset: "spy-1d"
+related: ["acciones-y-cripto", "costes", "dca-vs-trading"]
+tags: ["fundamentos", "etf", "largo plazo"]
+---
+
+Comprar un ETF del S&P 500 no es comprar "la bolsa". Es comprar una cesta de empresas que replica un índice. Esa diferencia importa: el índice es una regla, el ETF es un producto que intenta seguirla.
+
+<KeyIdea>
+Un índice no se compra. Se compra un fondo o un ETF que lo replica. Y todo lo que replica tiene costes, errores de seguimiento y riesgos propios.
+</KeyIdea>
+
+## Índice, fondo y ETF
+
+Un **índice** es una lista con una regla: las 500 mayores empresas de EE. UU., las 35 del IBEX, las 100 tecnológicas del NASDAQ. No es un activo que puedas comprar.
+
+Un **fondo indexado** es una cartera que sigue ese índice. Se compra por participaciones y suele valorarse al cierre del día.
+
+Un **<Term term="ETF">ETF</Term>** es un fondo cotizado: se compra y vende en bolsa como una acción, durante el horario de mercado. Suele tener comisiones bajas y mucha liquidez, pero no todos son iguales.
+
+## Qué mirar antes de comprar
+
+**1. El índice que replica.** No es lo mismo el S&P 500 que el NASDAQ 100, el MSCI World o un índice de países emergentes. Mira qué incluye y qué deja fuera.
+
+**2. El coste total.** El <Term term="TER">TER</Term> es el gasto anual del fondo. Un 0,03 % y un 1,20 % parecen poco, pero sobre 20 años la diferencia se acumula. Añade comisiones de tu bróker y el <Term term="Spread">spread</Term> de compraventa.
+
+**3. La réplica.** Física (compra los activos) o sintética (usa derivados). La sintética no es mala por sí sola, pero añade riesgo de contraparte.
+
+**4. La divisa.** Un ETF cotizado en euros puede invertir en acciones en dólares. Tu resultado depende también del tipo de cambio.
+
+**5. El tamaño y la liquidez.** Un ETF pequeño puede tener spreads amplios y cerrar. Mira el patrimonio y el volumen.
+
+**6. Reparto o acumulación.** El de reparto paga dividendos; el de acumulación los reinvierte. La fiscalidad depende de tu país: infórmate antes.
+
+<DatasetChart dataset="spy-1d" height={220} overlays={[{ type: "sma", period: 50 }]} caption="SPY, un ETF sobre el S&P 500. Diversifica por empresa, pero no elimina las caídas del mercado." />
+
+## Diversificar no es lo mismo que no arriesgar
+
+Un ETF del S&P 500 reparte el riesgo entre 500 empresas. Sigue concentrado en un país, en una divisa y en un tipo de mercado. Si EE. UU. cae, el ETF cae.
+
+Un ETF mundial reduce el riesgo país, pero no el riesgo de mercado: en una crisis global, casi todo cae a la vez. La diversificación suaviza, no elimina.
+
+## Errores típicos
+
+- Comprar el ETF de moda por su rentabilidad del último año.
+- Ignorar el TER y las comisiones del bróker.
+- Comparar ETFs que siguen índices distintos.
+- Olvidar la divisa y el riesgo país.
+- Vender en la primera caída del 10 %.
+
+<Callout type="tip" title="Cómo practicarlo">
+Compara dos ETFs que sigan índices diferentes y anota su TER, su divisa, su número de posiciones y su caída máxima. No hace falta invertir para aprender a leerlos.
+</Callout>
+
+<Quiz
+  slug="etfs-fondos-indexados"
+  question="¿Qué compras exactamente cuando compras un ETF del S&P 500?"
+  options={[
+    "El índice S&P 500",
+    "Una cesta de acciones que intenta replicar ese índice",
+    "Una garantía de rentabilidad del 10 % anual",
+    "Solo las 5 mayores empresas de EE. UU.",
+  ]}
+  correct={1}
+  explanation="El índice es una regla; el ETF es el producto que la replica. Lleva costes, puede desviarse del índice y sigue teniendo riesgo de mercado."
+  wrong={[
+    "El índice no se puede comprar: es una lista con una metodología.",
+    "",
+    "Ningún ETF garantiza una rentabilidad concreta.",
+    "El S&P 500 incluye 500 empresas, no solo las cinco mayores, aunque las primeras pesen mucho.",
+  ]}
+/>
+
+<Callout type="warning" title="Esto no es una recomendación">
+Un ETF es una herramienta, no una promesa. Antes de invertir, revisa el folleto, los costes y tu horizonte. Si no entiendes el producto, no lo compres.
+</Callout>

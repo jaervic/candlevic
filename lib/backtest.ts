@@ -24,10 +24,17 @@ export type BacktestResult = {
 export type BacktestOptions = {
   fee?: number;
   initial?: number;
+  /** Deslizamiento por operación, en tanto por uno (0,0005 = 0,05 %). */
+  slippage?: number;
   fast?: number;
   slow?: number;
   dcaAmount?: number;
   dcaEvery?: number;
+  rsiBuy?: number;
+  rsiSell?: number;
+  donchianEntry?: number;
+  donchianExit?: number;
+  rangeWindow?: number;
 };
 
 export const STRATEGY_NAMES: Record<StrategyId, string> = {
@@ -68,16 +75,34 @@ export function runBacktest(
   const {
     fee = 0.001,
     initial = 10_000,
+    slippage = 0,
     fast = 20,
     slow = 50,
     dcaAmount = 500,
     dcaEvery = 30,
+    rsiBuy = 30,
+    rsiSell = 70,
+    donchianEntry = 20,
+    donchianExit = 10,
+    rangeWindow = 20,
   } = options;
+
+  const name = resultName(strategy, {
+    fast,
+    slow,
+    dcaAmount,
+    dcaEvery,
+    rsiBuy,
+    rsiSell,
+    donchianEntry,
+    donchianExit,
+    rangeWindow,
+  });
 
   if (candles.length < 2) {
     return {
       id: strategy,
-      name: STRATEGY_NAMES[strategy],
+      name,
       equity: [],
       finalValue: initial,
       returnPct: 0,
@@ -98,14 +123,16 @@ export function runBacktest(
 
   const buy = (price: number) => {
     if (cash <= 0) return;
-    units = cash / (price * (1 + fee));
+    const fill = price * (1 + slippage);
+    units = cash / (fill * (1 + fee));
     cash = 0;
     trades += 1;
   };
 
   const sell = (price: number) => {
     if (units <= 0) return;
-    cash = units * price * (1 - fee);
+    const fill = price * (1 - slippage);
+    cash = units * fill * (1 - fee);
     units = 0;
     trades += 1;
   };
@@ -124,7 +151,7 @@ export function runBacktest(
       const candle = candles[i];
       if (i >= nextInvestment && cash > 0) {
         const amount = Math.min(dcaAmount, cash);
-        units += amount / (candle.close * (1 + fee));
+        units += amount / (candle.close * (1 + slippage) * (1 + fee));
         cash -= amount;
         trades += 1;
         nextInvestment = i + dcaEvery;
@@ -151,14 +178,16 @@ export function runBacktest(
   } else if (strategy === "donchian") {
     for (let i = 0; i < candles.length; i++) {
       const candle = candles[i];
-      if (i >= 20 && units === 0) {
+      if (i >= donchianEntry && units === 0) {
         const high = Math.max(
-          ...candles.slice(i - 20, i).map((item) => item.high),
+          ...candles
+            .slice(i - donchianEntry, i)
+            .map((item) => item.high),
         );
         if (candle.close > high) buy(candle.close);
-      } else if (i >= 10 && units > 0) {
+      } else if (i >= donchianExit && units > 0) {
         const low = Math.min(
-          ...candles.slice(i - 10, i).map((item) => item.low),
+          ...candles.slice(i - donchianExit, i).map((item) => item.low),
         );
         if (candle.close < low) sell(candle.close);
       }
@@ -172,8 +201,8 @@ export function runBacktest(
       const candle = candles[i];
       const value = rsiValues[i];
       if (value != null) {
-        if (value < 30) buy(candle.close);
-        else if (value > 70) sell(candle.close);
+        if (value < rsiBuy) buy(candle.close);
+        else if (value > rsiSell) sell(candle.close);
       }
       equity.push({
         time: candle.time,
@@ -183,18 +212,18 @@ export function runBacktest(
   } else if (strategy === "pullback") {
     for (let i = 0; i < candles.length; i++) {
       const candle = candles[i];
-      const f20 = fastSma[i];
-      const f50 = slowSma[i];
-      const prev20 = fastSma[i - 1];
-      if (f20 != null && f50 != null && prev20 != null) {
+      const fastValue = fastSma[i];
+      const slowValue = slowSma[i];
+      const previousFast = fastSma[i - 1];
+      if (fastValue != null && slowValue != null && previousFast != null) {
         if (
           units === 0 &&
-          candle.close > f50 &&
-          closes[i - 1] < prev20 &&
-          candle.close > f20
+          candle.close > slowValue &&
+          closes[i - 1] < previousFast &&
+          candle.close > fastValue
         ) {
           buy(candle.close);
-        } else if (units > 0 && candle.close < f50) {
+        } else if (units > 0 && candle.close < slowValue) {
           sell(candle.close);
         }
       }
@@ -207,8 +236,8 @@ export function runBacktest(
     // range
     for (let i = 0; i < candles.length; i++) {
       const candle = candles[i];
-      if (i >= 20) {
-        const window = candles.slice(i - 20, i);
+      if (i >= rangeWindow) {
+        const window = candles.slice(i - rangeWindow, i);
         const high = Math.max(...window.map((item) => item.high));
         const low = Math.min(...window.map((item) => item.low));
         if (units === 0 && candle.close <= low * 1.01) buy(candle.close);
@@ -225,13 +254,45 @@ export function runBacktest(
 
   return {
     id: strategy,
-    name: STRATEGY_NAMES[strategy],
+    name,
     equity,
     finalValue,
     returnPct: ((finalValue - initial) / initial) * 100,
     maxDrawdown: drawdown(equity),
     trades,
   };
+}
+
+function resultName(
+  strategy: StrategyId,
+  params: {
+    fast: number;
+    slow: number;
+    dcaAmount: number;
+    dcaEvery: number;
+    rsiBuy: number;
+    rsiSell: number;
+    donchianEntry: number;
+    donchianExit: number;
+    rangeWindow: number;
+  },
+) {
+  switch (strategy) {
+    case "sma":
+      return `Cruce SMA ${params.fast}/${params.slow}`;
+    case "pullback":
+      return `Pullback SMA ${params.fast}/${params.slow}`;
+    case "donchian":
+      return `Donchian ${params.donchianEntry}/${params.donchianExit}`;
+    case "rsi":
+      return `RSI ${params.rsiBuy}/${params.rsiSell}`;
+    case "range":
+      return `Rango ${params.rangeWindow}`;
+    case "dca":
+      return `DCA ${params.dcaAmount} $ / ${params.dcaEvery} velas`;
+    default:
+      return STRATEGY_NAMES[strategy];
+  }
 }
 
 export function runAllBacktests(

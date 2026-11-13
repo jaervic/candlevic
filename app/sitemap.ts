@@ -2,8 +2,9 @@ import type { MetadataRoute } from "next";
 import { getDocs, getLessons } from "@/lib/content";
 import { BOOKS } from "@/content/biblioteca";
 import { STRATEGIES } from "@/content/estrategias";
+import { SITE_URL } from "@/lib/site";
 
-const BASE = "https://candlevic.com";
+const BASE = SITE_URL;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [

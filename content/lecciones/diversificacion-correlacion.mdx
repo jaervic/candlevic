@@ -1,0 +1,83 @@
+---
+title: "Diversificación y correlación: no metas todo en la misma apuesta"
+module: "m6"
+order: 5
+minutes: 5
+level: "principiante"
+summary: "Tener 20 criptos no es diversificar si todas caen juntas. La clave no es el número de activos, sino cuánto comparten su riesgo."
+objectives:
+  - "Distinguir diversificación real de acumulación de tickers"
+  - "Entender la correlación y su cambio en las crisis"
+  - "Reconocer el riesgo de concentración oculto"
+dataset: "btc-1d"
+related: ["drawdown-riesgo-ruina", "etfs-fondos-indexados", "stablecoins"]
+tags: ["riesgo", "diversificación", "correlación"]
+---
+
+"Diversificar" no significa comprar muchos activos. Significa repartir el dinero entre fuentes de riesgo que no dependen de lo mismo. Veinte criptos pueden ser una sola apuesta con veinte nombres.
+
+<KeyIdea>
+La diversificación funciona cuando un activo puede compensar la caída de otro. Si todos caen a la vez, tienes muchos tickers y poca diversificación.
+</KeyIdea>
+
+## Concentración disfrazada
+
+Imagina una cartera con BTC, ETH, SOL, ADA y DOGE. Son cinco activos distintos, pero comparten el mismo factor principal: el apetito por riesgo cripto. Cuando el mercado entra en pánico, la <Term term="Correlación">correlación</Term> sube y caen juntos.
+
+Lo mismo pasa con cinco bancos, cinco tecnológicas o cinco empresas del mismo país. El número de posiciones no mide el riesgo; la correlación sí.
+
+<DatasetChart dataset="btc-1d" height={210} showVolume caption="BTC: un solo activo con caídas profundas. Añadir activos parecidos no cambia el factor de riesgo principal." />
+
+## Correlación en números
+
+La correlación va de −1 a +1:
+
+- **+1:** se mueven exactamente igual.
+- **0:** no tienen relación lineal.
+- **−1:** se mueven en direcciones opuestas.
+
+En una crisis, muchas correlaciones que parecían bajas se acercan a +1. Es el momento en que más necesitarías que la diversificación funcionara, y es cuando menos funciona.
+
+<DatasetChart dataset="spy-1d" height={210} overlays={[{ type: "sma", period: 50 }]} caption="SPY: diversificación por empresa dentro de un mercado. Sigue siendo una apuesta a un país, una divisa y un ciclo económico." />
+
+## Formas de diversificar de verdad
+
+**Por activo.** Acciones, bonos, efectivo, materias primas, cripto. Cada uno responde a cosas distintas, aunque no siempre.
+
+**Por geografía.** EE. UU., Europa, emergentes. Reduce el riesgo país, pero no el riesgo global.
+
+**Por sector.** Tecnología, salud, energía, consumo. Evita depender de un solo ciclo.
+
+**Por tiempo.** No meter todo el capital el mismo día. El DCA reparte el riesgo de entrada.
+
+**Por contraparte.** No guardar todo en un solo bróker o exchange. Y en cripto, no todo en una sola wallet.
+
+## La diversificación no es gratis
+
+- Demasiados activos diluyen tu ventaja y complican el seguimiento.
+- Un activo muy volátil puede dominar la cartera aunque sea una posición pequeña.
+- Rebalancear tiene costes y consecuencias fiscales.
+- La diversificación suaviza el camino, no elimina las caídas.
+
+<Callout type="tip" title="Ejercicio">
+Escribe tus 5 posiciones principales y marca qué factor comparten: cripto, tecnológicas, España, dólar, liquidez. Si cuatro comparten el mismo factor, no tienes cinco apuestas: tienes una.
+</Callout>
+
+<Quiz
+  slug="diversificacion-correlacion"
+  question="¿Qué indica una correlación cercana a +1 entre dos activos?"
+  options={[
+    "Que se mueven en direcciones opuestas",
+    "Que tienden a moverse juntos",
+    "Que uno es más rentable que el otro",
+    "Que no tienen ningún riesgo",
+  ]}
+  correct={1}
+  explanation="Una correlación alta y positiva significa que tienden a moverse en la misma dirección. Añadir el segundo activo diversifica menos de lo que parece."
+  wrong={[
+    "Eso sería una correlación negativa, cercana a −1.",
+    "",
+    "La correlación mide movimiento conjunto, no rentabilidad.",
+    "Ningún activo carece de riesgo.",
+  ]}
+/>
