@@ -4,6 +4,7 @@ import { GLOSSARY, GLOSSARY_CATEGORIES } from "@/content/glosario";
 import { BOOKS } from "@/content/biblioteca";
 import { MODULE_MAP } from "@/content/modulos";
 import { STRATEGIES } from "@/content/estrategias";
+import { LEARNING_PATHS } from "@/content/rutas";
 
 export function buildSearchIndex(): SearchItem[] {
   const items: SearchItem[] = [];
@@ -37,6 +38,26 @@ export function buildSearchIndex(): SearchItem[] {
       summary: term.definition,
       href: `/aprender/glosario?q=${encodeURIComponent(term.term)}`,
       keywords: [...(term.aliases ?? []), category].filter(Boolean),
+    });
+  }
+
+  const lessonTitles = new Map(
+    getLessons().map((lesson) => [lesson.meta.slug, lesson.meta.title]),
+  );
+
+  for (const path of LEARNING_PATHS) {
+    items.push({
+      id: `ruta:${path.slug}`,
+      type: "ruta",
+      title: path.name,
+      subtitle: `Ruta guiada · ${path.lessons.length} lecciones`,
+      summary: path.description,
+      href: `/aprender/rutas/${path.slug}`,
+      keywords: [
+        path.level,
+        ...path.outcomes,
+        ...path.lessons.map((slug) => lessonTitles.get(slug) ?? slug),
+      ],
     });
   }
 

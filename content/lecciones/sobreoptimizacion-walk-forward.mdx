@@ -1,0 +1,96 @@
+---
+title: "Sobreoptimización y walk-forward: cuando el pasado miente"
+module: "m7"
+order: 6
+minutes: 5
+level: "intermedio"
+summary: "Ajustar parámetros hasta que un backtest queda perfecto es fácil. Lo difícil es que siga funcionando con datos que no has visto."
+objectives:
+  - "Reconocer el sobreajuste y por qué aparece"
+  - "Separar muestra de entrenamiento y validación"
+  - "Aplicar una validación walk-forward básica"
+dataset: "btc-1d"
+related: ["backtesting", "expectativa-matematica", "errores-comunes"]
+tags: ["estrategia", "backtesting", "sobreajuste"]
+---
+
+Un backtest con 12 parámetros puede quedar espectacular en el pasado. También puede estar describiendo el ruido de ese periodo concreto. Eso es <Term term="Sobreajuste">sobreajuste</Term>: una estrategia que funciona en los datos que usaste para diseñarla y falla en los siguientes.
+
+<KeyIdea>
+Si pruebas suficientes variantes, alguna ganará por casualidad. La validación fuera de muestra es lo que separa una idea de una coincidencia.
+</KeyIdea>
+
+## Cómo se cuela el sobreajuste
+
+1. Pruebas una media de 20/50. Luego 18/48. Luego 22/55.
+2. Añades un filtro de RSI porque mejora el último año.
+3. Añades una regla para evitar las caídas de los martes.
+4. El resultado sube. Tú te convences.
+
+Cada decisión basada en el mismo pasado reduce tu capacidad de sorprenderte. Al final, la estrategia no tiene una ventaja: tiene una descripción muy precisa de lo que ya ocurrió.
+
+## Entrenamiento y validación
+
+Divide los datos antes de mirar resultados:
+
+- **Entrenamiento (in-sample):** aquí exploras y ajustas.
+- **Validación (out-of-sample):** aquí solo compruebas. No tocas parámetros.
+- **Prueba final:** un periodo que no hayas usado ni para una cosa ni para otra.
+
+Si ajustas después de ver la validación, esa validación deja de serlo. Es la trampa más común.
+
+## Walk-forward en la práctica
+
+El **walk-forward** avanza la ventana en el tiempo:
+
+| Bloque | Entrenas con | Compruebas con |
+|---|---|---|
+| 1 | 2020–2021 | 2022 |
+| 2 | 2021–2022 | 2023 |
+| 3 | 2022–2023 | 2024 |
+| 4 | 2023–2024 | 2025 |
+
+En cada bloque eliges parámetros con el pasado y los aplicas al futuro inmediato. Si el resultado se mantiene de forma razonable, hay algo que estudiar. Si solo funciona en un bloque, probablemente sea suerte o régimen de mercado.
+
+<Callout type="tip" title="En el laboratorio">
+Cambia SMA, RSI o Donchian en el backtest y observa cuánto se mueve el resultado. Si pequeños cambios lo destrozan, la estrategia es frágil. Si necesitas un periodo exacto para que gane, no tienes una ventaja: tienes una coincidencia.
+</Callout>
+
+## Señales de que estás sobreajustando
+
+- El resultado cae mucho al cambiar un parámetro un 10 %.
+- Necesitas explicar por qué el martes no cuenta.
+- La estrategia funciona solo en un activo y un periodo.
+- Tienes más parámetros que operaciones.
+- No puedes describir la regla en una frase.
+- El resultado empeora al añadir comisiones y slippage realistas.
+
+## Qué hacer en su lugar
+
+- Define las reglas **antes** de mirar los resultados.
+- Usa pocos parámetros y valores redondos.
+- Incluye costes y slippage desde el principio.
+- Exige una muestra mínima de operaciones.
+- Compara siempre contra comprar y mantener.
+- Valida fuera de muestra y, después, en demo o papel.
+
+<DatasetChart dataset="btc-1d" height={220} showVolume caption="Un gráfico distinto no arregla una estrategia sobreajustada. La validación se hace con datos, no con más indicadores." />
+
+<Quiz
+  slug="sobreoptimizacion-walk-forward"
+  question="Ajustas una estrategia hasta que gana en 2021-2024 y luego compruebas 2025. ¿Qué estás haciendo?"
+  options={[
+    "Entrenamiento y validación fuera de muestra",
+    "Sobreajuste si has usado 2025 para seguir ajustando",
+    "Una garantía de que funcionará en 2026",
+    "Un walk-forward completo",
+  ]}
+  correct={1}
+  explanation="Si después de ver 2025 vuelves a cambiar parámetros, 2025 deja de ser una validación limpia. Estás ajustando al pasado otra vez."
+  wrong={[
+    "Eso sería si defines reglas con 2021-2024 y no tocas nada al ver 2025.",
+    "",
+    "Ningún backtest garantiza el futuro.",
+    "El walk-forward avanza varias ventanas, no una sola comprobación.",
+  ]}
+/>

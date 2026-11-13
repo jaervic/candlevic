@@ -151,30 +151,10 @@ const jobs = [
       })),
   },
   {
-    name: "aapl-1d",
-    run: () =>
-      yahoo({ symbol: "AAPL", range: "2y" }).then((c) => ({
-        symbol: "AAPL",
-        interval: "1d",
-        source: "Yahoo Finance",
-        candles: c,
-      })),
-  },
-  {
     name: "spy-1d",
     run: () =>
       yahoo({ symbol: "SPY", range: "2y" }).then((c) => ({
         symbol: "SPY",
-        interval: "1d",
-        source: "Yahoo Finance",
-        candles: c,
-      })),
-  },
-  {
-    name: "nvda-1d",
-    run: () =>
-      yahoo({ symbol: "NVDA", range: "2y" }).then((c) => ({
-        symbol: "NVDA",
         interval: "1d",
         source: "Yahoo Finance",
         candles: c,

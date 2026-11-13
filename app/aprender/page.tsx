@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowRight, Compass } from "lucide-react";
 import { LearnHub } from "@/components/learn/learn-hub";
 import { getModulesWithLessons } from "@/lib/content";
 
@@ -10,7 +11,8 @@ export const metadata = {
 };
 
 const TABS = [
-  { href: "/aprender", label: "Ruta" },
+  { href: "/aprender", label: "Módulos" },
+  { href: "/aprender/rutas", label: "Rutas" },
   { href: "/aprender/estrategias", label: "Estrategias" },
   { href: "/aprender/estudios", label: "Estudios" },
   { href: "/aprender/biblioteca", label: "Biblioteca" },
@@ -48,6 +50,25 @@ export default function AprenderPage() {
           </Link>
         ))}
       </nav>
+
+      <Link
+        href="/aprender/rutas"
+        className="flex items-center gap-3 rounded-2xl border border-info/25 bg-info/10 p-4 transition-colors hover:bg-info/15"
+      >
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-info/25 bg-info/10 text-info">
+          <Compass className="h-5 w-5" />
+        </span>
+        <span className="min-w-0 flex-1">
+          <span className="block text-[10px] uppercase tracking-wider text-info">
+            ¿No sabes por dónde empezar?
+          </span>
+          <span className="block text-[14px] font-medium">Rutas guiadas</span>
+          <span className="block text-[11px] text-muted">
+            Cuatro itinerarios con orden recomendado y progreso
+          </span>
+        </span>
+        <ArrowRight className="h-4 w-4 shrink-0 text-info" />
+      </Link>
 
       <LearnHub
         modules={modules.map(({ module, lessons }) => ({

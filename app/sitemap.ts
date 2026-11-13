@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { getDocs, getLessons } from "@/lib/content";
 import { BOOKS } from "@/content/biblioteca";
 import { STRATEGIES } from "@/content/estrategias";
+import { LEARNING_PATHS } from "@/content/rutas";
 import { SITE_URL } from "@/lib/site";
 
 const BASE = SITE_URL;
@@ -10,6 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     "",
     "/aprender",
+    "/aprender/rutas",
     "/aprender/estrategias",
     "/aprender/estudios",
     "/aprender/biblioteca",
@@ -37,6 +39,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(),
     changeFrequency: "monthly" as const,
     priority: 0.8,
+  }));
+
+  const paths = LEARNING_PATHS.map((path) => ({
+    url: `${BASE}/aprender/rutas/${path.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.75,
   }));
 
   const strategies = STRATEGIES.map((strategy) => ({
@@ -70,6 +79,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     ...staticRoutes,
     ...lessons,
+    ...paths,
     ...strategies,
     ...estudios,
     ...explicadores,

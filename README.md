@@ -13,7 +13,8 @@ Web app educativa, gratuita y mobile-first para aprender trading de acciones y c
 
 ## Qué incluye
 
-- **42 lecciones** repartidas en 10 módulos: mentalidad, fundamentos, estilos, gráficos, tendencia, indicadores, riesgo, estrategia, **psicología del trading** y cripto práctico.
+- **43 lecciones** repartidas en 10 módulos: mentalidad, fundamentos, estilos, gráficos, tendencia, indicadores, riesgo, estrategia, **psicología del trading** y cripto práctico.
+- **Rutas guiadas**: cuatro itinerarios con orden recomendado y progreso (desde cero, riesgo, gráficos y cripto).
 - **8 estrategias de trading** con reglas, contexto, errores, quiz y backtest: tendencia, ruptura, reversión, rango, DCA y carry.
 - **Cuatro temas** (Noche, Grafito, Papel y Sepia) con detección del sistema, tipografía Inter y ajustes de lectura: tamaño, interlineado, ancho, modo concentración y fondo ambiente.
 - **Buscador global (Ctrl+K)** en lecciones, glosario, libros, estudios, explicadores y páginas.
@@ -151,6 +152,12 @@ Pensado para Vercel:
 3. Deploy.
 
 También funciona en cualquier hosting que soporte Next.js.
+
+### Mantenimiento
+
+- `GET /api/health` devuelve un JSON mínimo para monitorización externa.
+- El workflow **Refresh market data** descarga los datasets el día 1 de cada mes y abre un PR para revisarlos.
+- El workflow **Uptime** comprueba la salud de producción cada 6 horas.
 
 ## Privacidad y datos
 

@@ -5,6 +5,7 @@ export type SearchType =
   | "estudio"
   | "explicador"
   | "estrategia"
+  | "ruta"
   | "pagina";
 
 export type SearchItem = {
@@ -24,5 +25,6 @@ export const TYPE_LABELS: Record<SearchType, string> = {
   estudio: "Estudio",
   explicador: "Explicador",
   estrategia: "Estrategia",
+  ruta: "Ruta guiada",
   pagina: "Página",
 };

@@ -13,6 +13,7 @@ import {
   Library,
   Loader2,
   Radio,
+  Route,
   Search,
   X,
 } from "lucide-react";
@@ -33,6 +34,7 @@ const TYPE_ICONS: Record<SearchType, typeof Search> = {
   estudio: GraduationCap,
   explicador: Radio,
   estrategia: Compass,
+  ruta: Route,
   pagina: Search,
 };
 
