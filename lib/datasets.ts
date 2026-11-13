@@ -77,6 +77,13 @@ export const DATASETS = {
     kind: "stock",
     load: () => import("../data/tsla-1d.json"),
   },
+  "spy-2008": {
+    label: "SPY · crisis 2008",
+    symbol: "SPY",
+    interval: "1d",
+    kind: "stock",
+    load: () => import("../data/spy-2008.json"),
+  },
 } satisfies Record<string, RegistryEntry>;
 
 export type DatasetId = keyof typeof DATASETS;

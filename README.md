@@ -31,7 +31,7 @@ Web app educativa, gratuita y mobile-first para aprender trading de acciones y c
 - **Legal y confianza**: Sobre, Privacidad, Términos, Accesibilidad, Fuentes y atribuciones.
 - **Analítica opcional** agregada y sin cookies (Umami); desactivada si no se configura.
 - **E2E** de los flujos críticos con Playwright en CI.
-- **Estudios**: 5 casos históricos (LUNA, COVID, FTX, GME, dotcom) y evidencia científica (Barber & Odean, SPIVA, Dalbar…).
+- **Estudios**: 6 casos históricos (2008, LUNA, COVID, FTX, GME, dotcom) y evidencia científica (Barber & Odean, SPIVA, Dalbar…).
 - **Biblioteca**: fichas originales de 10 libros clave del trading.
 - **Glosario** con buscador y categorías.
 - **Test “¿Qué trader eres?”** con plan de 30 días.
