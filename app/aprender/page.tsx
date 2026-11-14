@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, Compass } from "lucide-react";
 import { LearnHub } from "@/components/learn/learn-hub";
+import { LearnTabs } from "@/components/learn/learn-tabs";
 import { getModulesWithLessons } from "@/lib/content";
 
 export const metadata = {
@@ -9,15 +10,6 @@ export const metadata = {
   description:
     "Ruta completa de aprendizaje: mentalidad, fundamentos, estilos de trading, gráficos, análisis técnico y gestión de riesgo.",
 };
-
-const TABS = [
-  { href: "/aprender", label: "Módulos" },
-  { href: "/aprender/rutas", label: "Rutas" },
-  { href: "/aprender/estrategias", label: "Estrategias" },
-  { href: "/aprender/estudios", label: "Estudios" },
-  { href: "/aprender/biblioteca", label: "Biblioteca" },
-  { href: "/aprender/glosario", label: "Glosario" },
-];
 
 export default function AprenderPage() {
   const modules = getModulesWithLessons();
@@ -35,21 +27,7 @@ export default function AprenderPage() {
         </p>
       </header>
 
-      <nav className="no-scrollbar -mx-1 flex gap-1 overflow-x-auto px-1 pb-1">
-        {TABS.map((tab) => (
-          <Link
-            key={tab.href}
-            href={tab.href}
-            className={
-              tab.href === "/aprender"
-                ? "shrink-0 rounded-lg bg-surface-2 px-3 py-1.5 text-[12px] font-medium text-fg"
-                : "shrink-0 rounded-lg px-3 py-1.5 text-[12px] text-muted transition-colors hover:bg-surface-2/60 hover:text-fg"
-            }
-          >
-            {tab.label}
-          </Link>
-        ))}
-      </nav>
+      <LearnTabs active="/aprender" />
 
       <Link
         href="/aprender/rutas"

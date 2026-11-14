@@ -92,15 +92,15 @@ export function Dashboard({
 
   return (
     <div className="space-y-6">
-      <div className="grid gap-4 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
+      <div className="grid gap-4 md:grid-cols-[1.15fr_0.85fr] md:items-start">
       <div className="space-y-4">
-      <section className="animate-fade-up surface-glow relative overflow-hidden rounded-3xl border border-line p-5">
+      <section className="animate-fade-up surface-glow relative overflow-hidden rounded-3xl border border-line p-4 sm:p-5">
         <div className="flex items-start justify-between gap-4">
           <div className="min-w-0">
             <Badge tone="accent" className="mb-2">
               <Sparkles className="h-3 w-3" /> Gratis y sin registro
             </Badge>
-            <h1 className="text-[26px] font-semibold leading-tight tracking-tight">
+            <h1 className="text-[24px] font-semibold leading-tight tracking-tight sm:text-[26px]">
               Aprende trading
               <br />
               viendo velas
@@ -225,7 +225,7 @@ export function Dashboard({
           </Link>
         </div>
 
-        <div className="grid gap-2.5 sm:grid-cols-2">
+        <div className="grid gap-2.5 md:grid-cols-2">
           {modules.map(({ module, lessons: moduleLessons }) => {
             const done = moduleLessons.filter(
               (l) => lessons[l.slug]?.status === "completed",

@@ -28,8 +28,8 @@ export function Header() {
 
   return (
     <header className="app-header sticky top-0 z-40 border-b border-line/70 bg-bg/95 backdrop-blur-xl">
-      <div className="mx-auto flex h-14 w-full max-w-5xl items-center justify-between gap-3 px-4">
-        <Logo />
+      <div className="mx-auto flex h-14 w-full max-w-5xl items-center justify-between gap-2 px-3 sm:gap-3 sm:px-4">
+        <Logo className="shrink-0" />
 
         <nav className="hidden items-center gap-1 md:flex" aria-label="Principal">
           {NAV.map((item) => {
@@ -52,7 +52,7 @@ export function Header() {
           })}
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 sm:gap-2">
           <button
             onClick={openSearch}
             aria-label="Buscar"
@@ -63,14 +63,14 @@ export function Header() {
             <span className="hidden md:inline">Buscar</span>
           </button>
           <span
-            className="inline-flex h-8 items-center gap-1.5 rounded-full border border-line bg-surface px-2.5 text-[12px] text-muted"
+            className="hidden h-8 items-center gap-1.5 rounded-full border border-line bg-surface px-2.5 text-[12px] text-muted sm:inline-flex"
             title="Racha de días seguidos"
           >
             <Flame className={cn("h-3.5 w-3.5", streak > 0 ? "text-accent" : "text-faint")} />
             <span className="num text-fg">{hydrated ? streak : 0}</span>
           </span>
           <span
-            className="inline-flex h-8 items-center gap-1.5 rounded-full border border-line bg-surface px-2.5 text-[12px] text-muted"
+            className="hidden h-8 items-center gap-1.5 rounded-full border border-line bg-surface px-2.5 text-[12px] text-muted sm:inline-flex"
             title="Experiencia acumulada"
           >
             <Zap className="h-3.5 w-3.5 text-info" />
