@@ -19,10 +19,11 @@ export function LearnTabs({ active }: { active: string }) {
         <Link
           key={tab.href}
           href={tab.href}
+          aria-current={tab.href === active ? "page" : undefined}
           className={
             tab.href === active
-              ? "shrink-0 rounded-lg bg-surface-2 px-2.5 py-1.5 text-[12px] font-medium text-fg sm:px-3"
-              : "shrink-0 rounded-lg px-2.5 py-1.5 text-[12px] text-muted transition-colors hover:bg-surface-2/60 hover:text-fg sm:px-3"
+              ? "shrink-0 rounded-lg bg-surface-2 px-2.5 py-2 text-[12px] font-medium text-fg sm:px-3"
+              : "shrink-0 rounded-lg px-2.5 py-2 text-[12px] text-muted transition-colors hover:bg-surface-2/60 hover:text-fg sm:px-3"
           }
         >
           {tab.label}

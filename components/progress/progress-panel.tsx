@@ -315,7 +315,7 @@ export function ProgressPanel({
             <p className="num text-[16px] font-semibold leading-none">
               {hydrated ? level.level : 1}
             </p>
-            <p className="text-[8px] uppercase tracking-widest text-faint">nivel</p>
+            <p className="text-[9px] uppercase tracking-widest text-faint">nivel</p>
           </div>
         </ProgressRing>
         <div className="min-w-0 flex-1">
@@ -331,7 +331,11 @@ export function ProgressPanel({
             {completed} lecciones completadas
             {averageQuiz > 0 && ` · media de quizzes ${averageQuiz}%`}
           </p>
-          <ProgressBar value={level.progress} className="mt-2" />
+          <ProgressBar
+            value={level.progress}
+            className="mt-2"
+            label="Progreso del nivel"
+          />
           <p className="mt-1 text-[10px] text-faint">
             {100 - level.progress} XP para el siguiente nivel
           </p>
@@ -402,7 +406,7 @@ export function ProgressPanel({
               className={`flex items-center gap-2 rounded-xl border p-2.5 ${
                 badge.done
                   ? "border-accent/25 bg-accent/10"
-                  : "border-line bg-surface opacity-55"
+                  : "border-line bg-surface text-muted"
               }`}
             >
               <badge.icon

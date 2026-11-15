@@ -39,6 +39,7 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
+                aria-current={active ? "page" : undefined}
                 className={cn(
                   "rounded-lg px-3 py-2 text-[13px] font-medium transition-colors",
                   active
@@ -57,20 +58,20 @@ export function Header() {
             onClick={openSearch}
             aria-label="Buscar"
             title="Buscar"
-            className="inline-flex h-8 items-center gap-2 rounded-full border border-line bg-surface px-2.5 text-[12px] text-muted transition-colors hover:border-line-strong hover:text-fg md:px-3"
+            className="inline-flex h-9 items-center gap-2 rounded-full border border-line bg-surface px-3 text-[12px] text-muted transition-colors hover:border-line-strong hover:text-fg"
           >
             <Search className="h-3.5 w-3.5" />
             <span className="hidden md:inline">Buscar</span>
           </button>
           <span
-            className="hidden h-8 items-center gap-1.5 rounded-full border border-line bg-surface px-2.5 text-[12px] text-muted sm:inline-flex"
+            className="hidden h-9 items-center gap-1.5 rounded-full border border-line bg-surface px-2.5 text-[12px] text-muted sm:inline-flex"
             title="Racha de días seguidos"
           >
             <Flame className={cn("h-3.5 w-3.5", streak > 0 ? "text-accent" : "text-faint")} />
             <span className="num text-fg">{hydrated ? streak : 0}</span>
           </span>
           <span
-            className="hidden h-8 items-center gap-1.5 rounded-full border border-line bg-surface px-2.5 text-[12px] text-muted sm:inline-flex"
+            className="hidden h-9 items-center gap-1.5 rounded-full border border-line bg-surface px-2.5 text-[12px] text-muted sm:inline-flex"
             title="Experiencia acumulada"
           >
             <Zap className="h-3.5 w-3.5 text-info" />
@@ -81,7 +82,7 @@ export function Header() {
             onClick={openSettings}
             aria-label="Ajustes de lectura"
             title="Ajustes de lectura"
-            className="flex h-8 w-8 items-center justify-center rounded-full border border-line bg-surface text-muted transition-colors hover:border-line-strong hover:text-fg"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-line bg-surface text-muted transition-colors hover:border-line-strong hover:text-fg"
           >
             <Settings2 className="h-3.5 w-3.5" />
           </button>

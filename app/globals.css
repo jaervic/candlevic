@@ -13,7 +13,7 @@
   --cv-line-strong: #2e3946;
   --cv-fg: #dce4ef;
   --cv-muted: #9aa7b8;
-  --cv-faint: #707c8d;
+  --cv-faint: #7c8798;
   --cv-accent: #f0b429;
   --cv-accent-soft: #3a2c0d;
   --cv-on-accent: #1b1405;
@@ -43,7 +43,7 @@
   --cv-line-strong: #2e3946;
   --cv-fg: #dce4ef;
   --cv-muted: #9aa7b8;
-  --cv-faint: #707c8d;
+  --cv-faint: #7c8798;
   --cv-accent: #f0b429;
   --cv-accent-soft: #3a2c0d;
   --cv-on-accent: #1b1405;
@@ -67,7 +67,7 @@
   --cv-line-strong: #3a424c;
   --cv-fg: #d6dbe2;
   --cv-muted: #9aa1aa;
-  --cv-faint: #79818b;
+  --cv-faint: #88919b;
   --cv-accent: #e6a92e;
   --cv-accent-soft: #3a2c0d;
   --cv-on-accent: #1b1405;
@@ -91,15 +91,15 @@
   --cv-line-strong: #d3cbbd;
   --cv-fg: #1f2933;
   --cv-muted: #5b6776;
-  --cv-faint: #67707e;
-  --cv-accent: #98651a;
+  --cv-faint: #5f6876;
+  --cv-accent: #7f5314;
   --cv-accent-soft: #f6e7c8;
   --cv-on-accent: #ffffff;
-  --cv-accent-hover: #7f5314;
+  --cv-accent-hover: #6b4510;
   --cv-accent-glow: rgba(0, 0, 0, 0.18);
-  --cv-up: #0c8148;
-  --cv-down: #d52f24;
-  --cv-info: #2563eb;
+  --cv-up: #0a6b3c;
+  --cv-down: #c92b21;
+  --cv-info: #1d4ed8;
   --cv-ambient-1: rgba(183, 121, 31, 0.11);
   --cv-ambient-2: rgba(37, 99, 235, 0.07);
   --cv-ambient-3: rgba(15, 157, 88, 0.06);
@@ -116,12 +116,12 @@
   --cv-fg: #3b2f24;
   --cv-muted: #6a5a49;
   --cv-faint: #776856;
-  --cv-accent: #8d621c;
+  --cv-accent: #835a18;
   --cv-accent-soft: #ead9b4;
   --cv-on-accent: #ffffff;
-  --cv-accent-hover: #744f14;
+  --cv-accent-hover: #6f4b12;
   --cv-accent-glow: rgba(0, 0, 0, 0.18);
-  --cv-up: #2d774b;
+  --cv-up: #286d43;
   --cv-down: #b33a2b;
   --cv-info: #2f5f9e;
   --cv-ambient-1: rgba(154, 107, 31, 0.11);
@@ -141,15 +141,15 @@
     --cv-line-strong: #d3cbbd;
     --cv-fg: #1f2933;
     --cv-muted: #5b6776;
-    --cv-faint: #67707e;
-    --cv-accent: #98651a;
+    --cv-faint: #5f6876;
+    --cv-accent: #7f5314;
     --cv-accent-soft: #f6e7c8;
     --cv-on-accent: #ffffff;
-    --cv-accent-hover: #7f5314;
+    --cv-accent-hover: #6b4510;
     --cv-accent-glow: rgba(0, 0, 0, 0.18);
-    --cv-up: #0c8148;
-    --cv-down: #d52f24;
-    --cv-info: #2563eb;
+    --cv-up: #0a6b3c;
+    --cv-down: #c92b21;
+    --cv-info: #1d4ed8;
     --cv-ambient-1: rgba(183, 121, 31, 0.11);
     --cv-ambient-2: rgba(37, 99, 235, 0.07);
     --cv-ambient-3: rgba(15, 157, 88, 0.06);
@@ -558,6 +558,19 @@ html[data-ambient="off"] .ambient-bg {
 
 html[data-reduced-motion="true"] .ambient-blob {
   animation: none !important;
+}
+
+html[data-reduced-motion="true"] {
+  scroll-behavior: auto;
+}
+
+html[data-reduced-motion="true"] *,
+html[data-reduced-motion="true"] *::before,
+html[data-reduced-motion="true"] *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
 }
 
 @media (prefers-reduced-motion: reduce) {

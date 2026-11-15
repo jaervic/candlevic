@@ -107,7 +107,7 @@ export function DatasetChart({
             {meta?.symbol} · {meta?.interval} · {meta?.source}
           </span>
         </div>
-        <div className="mt-1 flex flex-wrap items-center justify-between gap-2 text-[9px] text-faint">
+        <div className="mt-1 flex flex-wrap items-center justify-between gap-2 text-[10px] text-faint">
           <span>
             Últimas {slice.length} velas · Máx{" "}
             {formatPrice(Math.max(...slice.map((candle) => candle.high)))} · Mín{" "}
@@ -122,7 +122,7 @@ export function DatasetChart({
             type="button"
             onClick={() => setShowData((value) => !value)}
             aria-expanded={showData}
-            className="inline-flex items-center gap-1 rounded-md border border-line px-1.5 py-0.5 text-[9px] text-muted transition-colors hover:text-fg"
+            className="inline-flex items-center gap-1 rounded-md border border-line px-1.5 py-0.5 text-[10px] text-muted transition-colors hover:text-fg"
           >
             <Table2 className="h-3 w-3" />
             {showData ? "Ocultar datos" : "Ver datos"}

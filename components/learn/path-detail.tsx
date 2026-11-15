@@ -99,7 +99,11 @@ export function PathDetail({
             <ArrowRight className="h-3.5 w-3.5" />
           </Link>
         </div>
-        <ProgressBar value={pct} className="mt-3" />
+        <ProgressBar
+          value={pct}
+          className="mt-3"
+          label={`Progreso de ${path.name}`}
+        />
         <p className="mt-2 text-[10.5px] leading-relaxed text-faint">
           {complete
             ? "Ruta completada. Vuelve cuando quieras: el repaso espaciado también cuenta."

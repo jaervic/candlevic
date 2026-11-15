@@ -70,7 +70,7 @@ export function LessonActions({
           >
             <ArrowLeft className="h-4 w-4 shrink-0 text-faint" />
             <span className="min-w-0">
-              <span className="block text-[9px] uppercase tracking-wider text-faint">
+              <span className="block text-[10px] uppercase tracking-wider text-faint">
                 Anterior
               </span>
               <span className="block truncate text-[12px] text-fg/90">{prev.title}</span>
@@ -85,7 +85,7 @@ export function LessonActions({
             className="flex min-w-0 flex-1 items-center justify-end gap-2 rounded-xl border border-accent/25 bg-accent/10 p-3 text-right transition-colors hover:bg-accent/15"
           >
             <span className="min-w-0">
-              <span className="block text-[9px] uppercase tracking-wider text-accent">
+              <span className="block text-[10px] uppercase tracking-wider text-accent">
                 Siguiente
               </span>
               <span className="block truncate text-[12px] text-fg">{next.title}</span>

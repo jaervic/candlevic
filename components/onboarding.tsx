@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
@@ -52,6 +52,9 @@ export function Onboarding() {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [step, setStep] = useState(0);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const previousFocus = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     try {
@@ -61,14 +64,67 @@ export function Onboarding() {
     }
   }, []);
 
-  function close() {
+  const close = useCallback(() => {
     try {
       localStorage.setItem(KEY, "1");
     } catch {
       /* ignore */
     }
     setOpen(false);
-  }
+  }, []);
+
+  useEffect(() => {
+    if (!open) return;
+    previousFocus.current = document.activeElement as HTMLElement | null;
+    document.body.style.overflow = "hidden";
+    headingRef.current?.focus();
+
+    const background = [
+      document.querySelector("header"),
+      document.querySelector("main"),
+      document.querySelector("footer"),
+      document.querySelector(".bottom-nav"),
+    ].filter((element): element is Element => Boolean(element));
+    for (const element of background) element.setAttribute("inert", "");
+
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        close();
+        return;
+      }
+      if (event.key !== "Tab") return;
+      const panel = panelRef.current;
+      if (!panel) return;
+      const focusable = Array.from(
+        panel.querySelectorAll<HTMLElement>(
+          'button:not([disabled]), [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+        ),
+      );
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      for (const element of background) element.removeAttribute("inert");
+      document.body.style.overflow = "";
+      previousFocus.current?.focus();
+    };
+  }, [open, close]);
+
+  useEffect(() => {
+    if (open) headingRef.current?.focus();
+  }, [open, step]);
 
   if (!open) return null;
 
@@ -81,11 +137,18 @@ export function Onboarding() {
       className="fixed inset-0 z-50 flex items-end justify-center bg-black/70 p-0 backdrop-blur-sm sm:items-center sm:p-4"
       role="dialog"
       aria-modal="true"
-      aria-label="Bienvenida a Candlevic"
+      aria-labelledby="onboarding-title"
     >
-      <div className="animate-fade-up w-full max-w-md rounded-t-3xl border border-line bg-surface p-5 pb-6 shadow-2xl sm:rounded-3xl">
+      <div
+        ref={panelRef}
+        className="animate-fade-up w-full max-w-md rounded-t-3xl border border-line bg-surface p-5 pb-6 shadow-2xl sm:rounded-3xl"
+      >
         <div className="mb-5 flex items-center justify-between">
-          <div className="flex gap-1.5">
+          <div
+            className="flex gap-1.5"
+            role="group"
+            aria-label={`Paso ${step + 1} de ${STEPS.length}`}
+          >
             {STEPS.map((_, i) => (
               <span
                 key={i}
@@ -96,6 +159,7 @@ export function Onboarding() {
             ))}
           </div>
           <button
+            type="button"
             onClick={close}
             className="rounded-lg p-1.5 text-faint transition-colors hover:bg-surface-2 hover:text-fg"
             aria-label="Cerrar"
@@ -108,7 +172,14 @@ export function Onboarding() {
           <Icon className="h-6 w-6 text-accent" />
         </div>
 
-        <h2 className="text-xl font-semibold tracking-tight">{current.title}</h2>
+        <h2
+          ref={headingRef}
+          id="onboarding-title"
+          tabIndex={-1}
+          className="text-xl font-semibold tracking-tight outline-none"
+        >
+          {current.title}
+        </h2>
         <p className="mt-2 text-sm leading-relaxed text-muted">{current.body}</p>
 
         <ul className="mt-4 space-y-2">
@@ -136,6 +207,7 @@ export function Onboarding() {
             </Button>
           )}
           <Button
+            type="button"
             className="flex-1"
             onClick={() => {
               if (isLast) {
@@ -153,6 +225,7 @@ export function Onboarding() {
 
         {!isLast && (
           <button
+            type="button"
             onClick={close}
             className="mt-3 w-full text-center text-[12px] text-faint hover:text-muted"
           >

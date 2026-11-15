@@ -52,7 +52,7 @@ export function LearnHub({
                     Módulo {moduleIndex + 1}
                   </span>
                   {done === moduleLessons.length && moduleLessons.length > 0 && (
-                    <span className="rounded-full bg-up/10 px-1.5 py-0.5 text-[9px] font-medium text-up">
+                    <span className="rounded-full bg-up/10 px-1.5 py-0.5 text-[10px] font-medium text-up">
                       completado
                     </span>
                   )}
@@ -65,7 +65,11 @@ export function LearnHub({
                 </p>
                 {moduleLessons.length > 0 ? (
                   <div className="mt-2 flex items-center gap-2">
-                    <ProgressBar value={pct} className="max-w-[180px]" />
+                    <ProgressBar
+                      value={pct}
+                      className="max-w-[180px]"
+                      label={`Progreso del módulo ${module.title}`}
+                    />
                     <span className="num text-[10px] text-faint">
                       {hydrated ? done : 0}/{moduleLessons.length}
                     </span>

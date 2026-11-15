@@ -5,11 +5,13 @@ export function ProgressBar({
   max = 100,
   className,
   tone = "accent",
+  label = "Progreso",
 }: {
   value: number;
   max?: number;
   className?: string;
   tone?: "accent" | "up" | "info";
+  label?: string;
 }) {
   const pct = Math.min(100, Math.max(0, (value / Math.max(max, 1)) * 100));
   const colors = {
@@ -21,6 +23,7 @@ export function ProgressBar({
     <div
       className={cn("h-1.5 w-full overflow-hidden rounded-full bg-surface-3", className)}
       role="progressbar"
+      aria-label={label}
       aria-valuenow={Math.round(pct)}
       aria-valuemin={0}
       aria-valuemax={100}
@@ -38,17 +41,24 @@ export function ProgressRing({
   size = 56,
   stroke = 5,
   children,
+  label = "Progreso",
 }: {
   value: number;
   size?: number;
   stroke?: number;
   children?: React.ReactNode;
+  label?: string;
 }) {
   const radius = (size - stroke) / 2;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference - (Math.min(100, Math.max(0, value)) / 100) * circumference;
   return (
-    <div className="relative inline-flex items-center justify-center" style={{ width: size, height: size }}>
+    <div
+      className="relative inline-flex items-center justify-center"
+      style={{ width: size, height: size }}
+      role="img"
+      aria-label={`${label}: ${Math.round(value)}%`}
+    >
       <svg width={size} height={size} className="-rotate-90">
         <circle
           cx={size / 2}

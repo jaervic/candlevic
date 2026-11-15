@@ -214,7 +214,11 @@ export function ProfileTest() {
             Reiniciar
           </button>
         </div>
-        <ProgressBar value={step + 1} max={PROFILE_QUESTIONS.length} />
+        <ProgressBar
+          value={step + 1}
+          max={PROFILE_QUESTIONS.length}
+          label="Progreso del test"
+        />
       </div>
 
       <h1 className="text-xl font-semibold leading-snug tracking-tight">
@@ -250,7 +254,7 @@ export function ProfileTest() {
 function Fact({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-lg border border-line/70 bg-surface/60 px-2.5 py-2">
-      <p className="text-[9px] uppercase tracking-wider text-faint">{label}</p>
+      <p className="text-[10px] uppercase tracking-wider text-faint">{label}</p>
       <p className="mt-0.5 text-[11px] leading-snug text-fg/90">{value}</p>
     </div>
   );

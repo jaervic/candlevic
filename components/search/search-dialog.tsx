@@ -70,6 +70,8 @@ export function SearchDialog() {
 
   const indexRef = useRef<SearchItem[] | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const previousFocus = useRef<HTMLElement | null>(null);
 
   const results = useMemo(() => searchItems(items, query), [items, query]);
 
@@ -79,11 +81,10 @@ export function SearchDialog() {
         event.preventDefault();
         openSearch();
       }
-      if (event.key === "Escape" && open) close();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [open, openSearch, close]);
+  }, [openSearch]);
 
   useEffect(() => {
     if (!open) return;
@@ -91,7 +92,6 @@ export function SearchDialog() {
     setActive(0);
     setError(null);
     track("search_open");
-    const timer = window.setTimeout(() => inputRef.current?.focus(), 40);
 
     if (indexRef.current) {
       setItems(indexRef.current);
@@ -112,8 +112,56 @@ export function SearchDialog() {
         .finally(() => setLoading(false));
     }
 
-    return () => window.clearTimeout(timer);
   }, [open]);
+
+  useEffect(() => {
+    if (!open) return;
+    previousFocus.current = document.activeElement as HTMLElement | null;
+    const timer = window.setTimeout(() => inputRef.current?.focus(), 40);
+    document.body.style.overflow = "hidden";
+
+    const background = [
+      document.querySelector("header"),
+      document.querySelector("main"),
+      document.querySelector("footer"),
+      document.querySelector(".bottom-nav"),
+    ].filter((element): element is Element => Boolean(element));
+    for (const element of background) element.setAttribute("inert", "");
+
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        close();
+        return;
+      }
+      if (event.key !== "Tab") return;
+      const panel = panelRef.current;
+      if (!panel) return;
+      const focusable = Array.from(
+        panel.querySelectorAll<HTMLElement>(
+          'button:not([disabled]), [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+        ),
+      );
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener("keydown", onKey);
+      for (const element of background) element.removeAttribute("inert");
+      previousFocus.current?.focus();
+    };
+  }, [open, close]);
 
   useEffect(() => {
     if (!open) return;
@@ -164,6 +212,7 @@ export function SearchDialog() {
       role="presentation"
     >
       <div
+        ref={panelRef}
         role="dialog"
         aria-modal="true"
         aria-label="Buscar en Candlevic"
@@ -181,6 +230,7 @@ export function SearchDialog() {
             className="h-8 flex-1 bg-transparent text-[14px] text-fg outline-none placeholder:text-faint"
             role="combobox"
             aria-autocomplete="list"
+            aria-haspopup="listbox"
             aria-expanded={results.length > 0}
             aria-controls="search-results"
             aria-activedescendant={
@@ -205,9 +255,17 @@ export function SearchDialog() {
           )}
         </div>
 
+        <p className="sr-only" role="status" aria-live="polite">
+          {loading
+            ? "Cargando resultados"
+            : query.trim()
+              ? `${results.length} resultados`
+              : ""}
+        </p>
+
         <div
           id="search-results"
-          role="listbox"
+          role={results.length > 0 ? "listbox" : undefined}
           className="flex-1 overflow-y-auto p-2 sm:max-h-[50dvh]"
         >
           {loading && (
@@ -286,7 +344,7 @@ export function SearchDialog() {
                     <span className="truncate text-[13px] font-medium">
                       {highlight(item.title, query)}
                     </span>
-                    <span className="shrink-0 rounded-full border border-line px-1.5 py-0.5 text-[9px] text-faint">
+                    <span className="shrink-0 rounded-full border border-line px-1.5 py-0.5 text-[10px] text-faint">
                       {TYPE_LABELS[item.type]}
                     </span>
                   </span>

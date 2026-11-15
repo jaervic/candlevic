@@ -102,7 +102,7 @@ export default function GlosarioPage() {
           >
             <div className="flex items-baseline justify-between gap-2">
               <h2 className="text-[13.5px] font-semibold">{term.term}</h2>
-              <span className="shrink-0 text-[9px] uppercase tracking-wider text-faint">
+              <span className="shrink-0 text-[10px] uppercase tracking-wider text-faint">
                 {GLOSSARY_CATEGORIES.find((c) => c.id === term.category)?.label}
               </span>
             </div>

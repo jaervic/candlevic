@@ -581,12 +581,12 @@ export function Demo() {
                           <td className="py-1.5 pr-2 font-medium">
                             {item.label}
                             {item.strategy && (
-                              <span className="mt-0.5 block text-[9px] font-normal text-faint">
+                              <span className="mt-0.5 block text-[10px] font-normal text-faint">
                                 {strategyName(item.strategy)}
                               </span>
                             )}
                             {(item.stop != null || item.target != null) && (
-                              <span className="mt-0.5 block text-[9px] font-normal text-faint">
+                              <span className="mt-0.5 block text-[10px] font-normal text-faint">
                                 {item.stop != null && (
                                   <>SL {formatPrice(item.stop)}</>
                                 )}
@@ -634,13 +634,13 @@ export function Demo() {
                   <p className="text-[11px] font-medium">
                     Protección de {position.label}
                   </p>
-                  <span className="text-[9px] text-faint">
+                  <span className="text-[10px] text-faint">
                     Salida simulada con el último precio
                   </span>
                 </div>
                 <div className="mt-2 grid grid-cols-2 gap-2">
                   <label className="block">
-                    <span className="mb-1 block text-[9px] uppercase tracking-wider text-faint">
+                    <span className="mb-1 block text-[10px] uppercase tracking-wider text-faint">
                       Stop loss
                     </span>
                     <input
@@ -654,7 +654,7 @@ export function Demo() {
                     />
                   </label>
                   <label className="block">
-                    <span className="mb-1 block text-[9px] uppercase tracking-wider text-faint">
+                    <span className="mb-1 block text-[10px] uppercase tracking-wider text-faint">
                       Objetivo
                     </span>
                     <input
@@ -689,7 +689,7 @@ export function Demo() {
                       Quitar
                     </button>
                   )}
-                  <span className="text-[9.5px] text-faint">
+                  <span className="text-[10px] text-faint">
                     {stopRiskPct > 0 &&
                       `Riesgo hasta el stop ${formatNumber(stopRiskPct, 2)} %`}
                     {stopRiskPct > 0 && protectionRr > 0 && " · "}
@@ -697,7 +697,7 @@ export function Demo() {
                       `R:B ${formatNumber(protectionRr, 2)}`}
                   </span>
                 </div>
-                <p className="mt-1 text-[9px] leading-relaxed text-faint">
+                <p className="mt-1 text-[10px] leading-relaxed text-faint">
                   La demo ejecuta la venta cuando el precio cruza el stop o el
                   objetivo. No son órdenes reales.
                 </p>
@@ -741,7 +741,7 @@ export function Demo() {
                     <div className="flex flex-wrap items-center gap-2">
                       <span
                         className={cn(
-                          "inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[9px] font-semibold uppercase",
+                          "inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[10px] font-semibold uppercase",
                           trade.side === "buy"
                             ? "bg-up/10 text-up"
                             : "bg-down/10 text-down",
@@ -758,7 +758,7 @@ export function Demo() {
                         {trade.label}
                       </span>
                       {trade.strategy && (
-                        <span className="rounded-md border border-line bg-surface px-1.5 py-0.5 text-[9px] text-muted">
+                        <span className="rounded-md border border-line bg-surface px-1.5 py-0.5 text-[10px] text-muted">
                           {strategyName(trade.strategy)}
                         </span>
                       )}
@@ -776,7 +776,7 @@ export function Demo() {
                           {formatNumber(Math.abs(trade.realized), 2)}
                         </span>
                       )}
-                      <span className="text-[9px] text-faint">
+                      <span className="text-[10px] text-faint">
                         {relativeTime(trade.at)}
                       </span>
                     </div>
@@ -837,7 +837,7 @@ export function Demo() {
             </div>
 
             <div className="mt-2 flex items-center gap-1.5">
-              <span className="mr-1 text-[9px] uppercase tracking-wider text-faint">
+              <span className="mr-1 text-[10px] uppercase tracking-wider text-faint">
                 Tipo
               </span>
               {(["market", "limit"] as const).map((value) => (
@@ -965,7 +965,7 @@ export function Demo() {
                   ))}
                 </select>
                 {side === "sell" && position?.strategy && (
-                  <span className="mt-1 block text-[9.5px] leading-relaxed text-faint">
+                  <span className="mt-1 block text-[10px] leading-relaxed text-faint">
                     Esta posición se abrió con{" "}
                     {strategyName(position.strategy)}. La venta conserva esa
                     etiqueta para no mezclar el P&L.
@@ -1002,6 +1002,8 @@ export function Demo() {
 
               {status && (
                 <p
+                  role="status"
+                  aria-live="polite"
                   className={cn(
                     "flex items-start gap-1.5 rounded-lg border p-2 text-[10.5px] leading-relaxed",
                     status.type === "ok"
@@ -1037,7 +1039,7 @@ export function Demo() {
                     <div className="flex flex-wrap items-center gap-2">
                       <span
                         className={cn(
-                          "rounded-md px-1.5 py-0.5 text-[9px] font-semibold uppercase",
+                          "rounded-md px-1.5 py-0.5 text-[10px] font-semibold uppercase",
                           order.side === "buy"
                             ? "bg-up/10 text-up"
                             : "bg-down/10 text-down",
@@ -1053,7 +1055,7 @@ export function Demo() {
                         {formatPrice(order.limit)}
                       </span>
                       {order.strategy && (
-                        <span className="rounded-md border border-line bg-surface px-1.5 py-0.5 text-[9px] text-muted">
+                        <span className="rounded-md border border-line bg-surface px-1.5 py-0.5 text-[10px] text-muted">
                           {strategyName(order.strategy)}
                         </span>
                       )}
@@ -1065,7 +1067,7 @@ export function Demo() {
                         Cancelar
                       </button>
                     </div>
-                    <p className="mt-1 text-[9px] text-faint">
+                    <p className="mt-1 text-[10px] text-faint">
                       Se ejecuta si el precio{" "}
                       {order.side === "buy" ? "baja a" : "sube a"}{" "}
                       {formatPrice(order.limit)}.
@@ -1073,7 +1075,7 @@ export function Demo() {
                   </div>
                 ))}
               </div>
-              <p className="mt-2 text-[9px] leading-relaxed text-faint">
+              <p className="mt-2 text-[10px] leading-relaxed text-faint">
                 Las órdenes límite se comprueban con el último precio. Si no hay
                 saldo o posición al ejecutar, siguen pendientes.
               </p>
@@ -1143,7 +1145,7 @@ export function Demo() {
                               : "Sin estrategia"}
                           </span>
                           {group.sells > 0 && (
-                            <span className="mt-0.5 block text-[9px] text-faint">
+                            <span className="mt-0.5 block text-[10px] text-faint">
                               {formatNumber(
                                 (group.wins / group.sells) * 100,
                                 0,
@@ -1270,7 +1272,7 @@ function Stat({
 }) {
   return (
     <div className="rounded-xl border border-line bg-surface p-3">
-      <p className="text-[9px] uppercase tracking-wider text-faint">{label}</p>
+      <p className="text-[10px] uppercase tracking-wider text-faint">{label}</p>
       <p
         className={cn(
           "num mt-0.5 text-[15px] font-semibold",
@@ -1286,7 +1288,7 @@ function Stat({
 function Mini({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-lg border border-line bg-surface-2/50 px-2 py-1.5">
-      <p className="text-[8px] uppercase tracking-wider text-faint">{label}</p>
+      <p className="text-[9px] uppercase tracking-wider text-faint">{label}</p>
       <p className="num mt-0.5 text-[11px] font-medium">{value}</p>
     </div>
   );

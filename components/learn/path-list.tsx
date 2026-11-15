@@ -78,7 +78,12 @@ export function PathList({ paths }: { paths: PathSummary[] }) {
               </p>
 
               <div className="mt-3 flex items-center gap-2">
-                <ProgressBar value={done} max={total} className="max-w-[180px]" />
+                <ProgressBar
+                  value={done}
+                  max={total}
+                  className="max-w-[180px]"
+                  label={`Progreso de ${path.name}`}
+                />
                 <span className="num text-[10px] text-faint">
                   {hydrated ? done : 0}/{total} lecciones
                 </span>

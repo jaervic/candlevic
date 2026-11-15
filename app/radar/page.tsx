@@ -134,17 +134,21 @@ export default async function RadarPage({
         </p>
       </div>
 
-      <nav className="no-scrollbar -mx-1 flex gap-1 overflow-x-auto px-1 pb-1">
+      <nav
+        className="no-scrollbar -mx-1 flex gap-1 overflow-x-auto px-1 pb-1"
+        aria-label="Secciones del radar"
+      >
         {TABS.map((t) => {
           const active = tab === t.id;
           return (
             <Link
               key={t.id}
               href={`/radar?tab=${t.id}`}
+              aria-current={active ? "page" : undefined}
               className={
                 active
-                  ? "inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-surface-2 px-3 py-1.5 text-[12px] font-medium text-fg"
-                  : "inline-flex shrink-0 items-center gap-1.5 rounded-lg px-3 py-1.5 text-[12px] text-muted transition-colors hover:bg-surface-2/60 hover:text-fg"
+                  ? "inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-surface-2 px-3 py-2 text-[12px] font-medium text-fg"
+                  : "inline-flex shrink-0 items-center gap-1.5 rounded-lg px-3 py-2 text-[12px] text-muted transition-colors hover:bg-surface-2/60 hover:text-fg"
               }
             >
               <t.icon className="h-3.5 w-3.5" />
@@ -157,9 +161,9 @@ export default async function RadarPage({
       {tab === "noticias" && news && (
         <section className="overflow-hidden rounded-2xl border border-line bg-surface">
           <div className="flex items-center justify-between border-b border-line px-4 py-2.5">
-            <p className="text-[11px] font-medium text-muted">
+            <h2 className="text-[11px] font-medium text-muted">
               Últimos titulares
-            </p>
+            </h2>
             <p className="text-[10px] text-faint">
               Actualizado {relativeTime(news.updatedAt)}
             </p>
@@ -194,6 +198,7 @@ export default async function RadarPage({
 
       {tab === "eventos" && (
         <section className="space-y-2.5">
+          <h2 className="sr-only">Eventos de mercado</h2>
           <div className="rounded-xl border border-line bg-surface p-3.5 text-[11.5px] leading-relaxed text-muted">
             No inventamos fechas: aquí tienes los tipos de evento que mueven el
             mercado y dónde consultar el calendario oficial de cada uno.
@@ -236,6 +241,7 @@ export default async function RadarPage({
 
       {tab === "explicadores" && (
         <section className="grid gap-2.5 sm:grid-cols-2">
+          <h2 className="sr-only">Explicadores</h2>
           {explainers.map((doc) => (
             <Link
               key={doc.meta.slug}

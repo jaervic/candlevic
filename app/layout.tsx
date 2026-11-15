@@ -96,9 +96,19 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT }} />
         <AmbientBackground />
         <ThemeProvider>
+          <a
+            href="#contenido"
+            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-on-accent"
+          >
+            Saltar al contenido
+          </a>
           <Header />
           <OfflineBanner />
-          <main className="app-main mx-auto w-full max-w-5xl px-4 pb-28 pt-5 md:pb-16">
+          <main
+            id="contenido"
+            tabIndex={-1}
+            className="app-main mx-auto w-full max-w-5xl scroll-mt-20 px-4 pb-28 pt-5 md:pb-16"
+          >
             {children}
             <SiteFooter />
           </main>

@@ -104,6 +104,8 @@ export function Quiz({
 
       {selected != null && (
         <div
+          role="status"
+          aria-live="polite"
           className={cn(
             "mt-3 rounded-xl border p-3 text-[12.5px] leading-relaxed",
             isCorrect

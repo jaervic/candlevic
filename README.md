@@ -27,7 +27,7 @@ Web app educativa, gratuita y mobile-first para aprender trading de acciones y c
 - **Radar**: titulares en español de cripto, bolsa y macro, calendario de eventos y explicadores permanentes.
 - **Trading demo**: 10.000 $ virtuales, órdenes a mercado y límite, stop y objetivo automáticos, cartera, P&L, historial filtrable por estrategia y exportación CSV.
 - **Backtesting didáctico**: comprar y mantener, cruce de medias, Donchian, RSI, pullback, rango y DCA, con comisión, slippage, parámetros ajustables, benchmark y aviso de muestra corta.
-- **Accesibilidad**: tabla de datos OHLC, resumen textual de cada gráfico y modo daltónico con velas huecas.
+- **Accesibilidad**: contraste AA, foco gestionado en diálogos, enlace para saltar al contenido, tabla de datos OHLC, resumen textual de cada gráfico, modo daltónico y auditoría axe en CI.
 - **Legal y confianza**: Sobre, Privacidad, Términos, Accesibilidad, Fuentes y atribuciones.
 - **Analítica opcional** agregada y sin cookies (Umami), con eventos de uso y Web Vitals; desactivada si no se configura.
 - **E2E** de los flujos críticos con Playwright en CI.

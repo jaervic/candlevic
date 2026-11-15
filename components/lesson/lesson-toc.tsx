@@ -10,6 +10,8 @@ export function LessonToc({ headings }: { headings: Heading[] }) {
   const tocOpen = useUI((s) => s.tocOpen);
   const closeToc = useUI((s) => s.closeToc);
   const closeRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const previousFocus = useRef<HTMLElement | null>(null);
   const [active, setActive] = useState(headings[0]?.id ?? "");
 
   useEffect(() => {
@@ -38,16 +40,40 @@ export function LessonToc({ headings }: { headings: Heading[] }) {
 
   useEffect(() => {
     if (!tocOpen) return;
+    previousFocus.current = document.activeElement as HTMLElement | null;
     const timer = window.setTimeout(() => closeRef.current?.focus(), 40);
     document.body.style.overflow = "hidden";
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") closeToc();
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeToc();
+        return;
+      }
+      if (event.key !== "Tab") return;
+      const panel = panelRef.current;
+      if (!panel) return;
+      const focusable = Array.from(
+        panel.querySelectorAll<HTMLElement>(
+          'button:not([disabled]), [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+        ),
+      );
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     };
     window.addEventListener("keydown", onKey);
     return () => {
       window.clearTimeout(timer);
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
+      previousFocus.current?.focus();
     };
   }, [tocOpen, closeToc]);
 
@@ -58,7 +84,14 @@ export function LessonToc({ headings }: { headings: Heading[] }) {
     window.setTimeout(() => {
       const element = document.getElementById(id);
       if (element) {
-        element.scrollIntoView({ behavior: "smooth", block: "start" });
+        const reduced =
+          window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+          document.documentElement.getAttribute("data-reduced-motion") ===
+            "true";
+        element.scrollIntoView({
+          behavior: reduced ? "auto" : "smooth",
+          block: "start",
+        });
         window.history.replaceState(null, "", `#${id}`);
       }
     }, 60);
@@ -76,6 +109,7 @@ export function LessonToc({ headings }: { headings: Heading[] }) {
               <li key={heading.id}>
                 <a
                   href={`#${heading.id}`}
+                  aria-current={active === heading.id ? "location" : undefined}
                   onClick={(event) => {
                     event.preventDefault();
                     go(heading.id);
@@ -103,9 +137,10 @@ export function LessonToc({ headings }: { headings: Heading[] }) {
           role="presentation"
         >
           <div
+            ref={panelRef}
             role="dialog"
             aria-modal="true"
-            aria-label="Contenido de la lección"
+            aria-label="Índice de la lección"
             className="animate-fade-up max-h-[80dvh] w-full overflow-y-auto rounded-t-3xl border border-line bg-surface p-5 shadow-2xl"
             onClick={(event) => event.stopPropagation()}
           >
@@ -130,6 +165,7 @@ export function LessonToc({ headings }: { headings: Heading[] }) {
                 <li key={heading.id}>
                   <button
                     type="button"
+                    aria-current={active === heading.id ? "location" : undefined}
                     onClick={() => go(heading.id)}
                     className={cn(
                       "w-full rounded-lg px-2 py-2 text-left text-[13px] leading-snug transition-colors hover:bg-surface-2",

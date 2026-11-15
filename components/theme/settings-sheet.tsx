@@ -118,6 +118,13 @@ export function SettingsSheet() {
     previousFocus.current = document.activeElement as HTMLElement | null;
     document.body.style.overflow = "hidden";
     const timer = window.setTimeout(() => closeRef.current?.focus(), 40);
+    const background = [
+      document.querySelector("header"),
+      document.querySelector("main"),
+      document.querySelector("footer"),
+      document.querySelector(".bottom-nav"),
+    ].filter((element): element is Element => Boolean(element));
+    for (const element of background) element.setAttribute("inert", "");
 
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -150,6 +157,7 @@ export function SettingsSheet() {
     return () => {
       window.clearTimeout(timer);
       window.removeEventListener("keydown", onKey);
+      for (const element of background) element.removeAttribute("inert");
       document.body.style.overflow = "";
       previousFocus.current?.focus();
     };
@@ -232,7 +240,7 @@ export function SettingsSheet() {
                   </span>
                   <span
                     className={cn(
-                      "text-[9.5px] font-medium",
+                      "text-[10px] font-medium",
                       active ? "text-accent" : "text-muted",
                     )}
                   >

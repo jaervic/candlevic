@@ -111,12 +111,17 @@ export function Dashboard({
             </p>
           </div>
 
-          <ProgressRing value={hydrated ? level.progress : 0} size={72} stroke={6}>
+          <ProgressRing
+            value={hydrated ? level.progress : 0}
+            size={72}
+            stroke={6}
+            label="Progreso de nivel"
+          >
             <div className="text-center">
               <p className="num text-[15px] font-semibold leading-none">
                 {hydrated ? level.level : 1}
               </p>
-              <p className="text-[8px] uppercase tracking-widest text-faint">nivel</p>
+              <p className="text-[9px] uppercase tracking-widest text-faint">nivel</p>
             </div>
           </ProgressRing>
         </div>
@@ -141,7 +146,7 @@ export function Dashboard({
             <span>Progreso total</span>
             <span className="num">{overall}%</span>
           </div>
-          <ProgressBar value={overall} />
+          <ProgressBar value={overall} label="Progreso total" />
         </div>
       </section>
 
@@ -261,7 +266,11 @@ export function Dashboard({
                   )}
                 </div>
                 {moduleLessons.length > 0 && (
-                  <ProgressBar value={pct} className="mt-3" />
+                  <ProgressBar
+                    value={pct}
+                    className="mt-3"
+                    label={`Progreso del módulo ${module.title}`}
+                  />
                 )}
               </Link>
             );

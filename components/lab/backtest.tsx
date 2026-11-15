@@ -315,7 +315,7 @@ export function Backtest() {
               },
             ].map((field) => (
               <label key={field.key} className="block">
-                <span className="mb-1 block text-[9px] uppercase tracking-wider text-faint">
+                <span className="mb-1 block text-[10px] uppercase tracking-wider text-faint">
                   {field.label}
                 </span>
                 <input
@@ -332,7 +332,7 @@ export function Backtest() {
             ))}
           </div>
           <div className="mt-2 flex flex-wrap items-center justify-between gap-2">
-            <p className="text-[9px] leading-relaxed text-faint">
+            <p className="text-[10px] leading-relaxed text-faint">
               Cambiar parámetros es fácil; validar que funcionan fuera de la
               muestra, no. Evita ajustar hasta que el pasado quede perfecto.
             </p>
@@ -527,7 +527,7 @@ export function Backtest() {
         los futuros.{" "}
         <Link
           href="/aprender/estrategias"
-          className="text-muted underline-offset-4 hover:text-fg hover:underline"
+          className="text-muted underline decoration-muted/60 underline-offset-4 hover:text-fg hover:decoration-fg"
         >
           Ver qué hay detrás de cada estrategia
         </Link>

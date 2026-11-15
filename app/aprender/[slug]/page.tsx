@@ -115,6 +115,10 @@ export default async function LessonPage({
         {children}
       </h3>
     ),
+    table: (props: React.ComponentProps<"table">) => (
+      <table tabIndex={0} {...props} />
+    ),
+    th: (props: React.ComponentProps<"th">) => <th scope="col" {...props} />,
     Quiz: (props: React.ComponentProps<typeof Quiz>) => (
       <Quiz {...props} slug={slug} />
     ),

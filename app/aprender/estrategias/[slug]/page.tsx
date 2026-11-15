@@ -281,7 +281,7 @@ export default async function StrategyPage({
 function RiskStat({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-xl border border-line bg-surface p-3">
-      <p className="text-[9px] uppercase tracking-wider text-faint">{label}</p>
+      <p className="text-[10px] uppercase tracking-wider text-faint">{label}</p>
       <p className="num mt-0.5 text-[12px] font-medium leading-snug">{value}</p>
     </div>
   );

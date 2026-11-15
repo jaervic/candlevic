@@ -29,7 +29,12 @@ export function ChartDataTable({
   const slice = candles.slice(-rows);
 
   return (
-    <div className="overflow-x-auto border-t border-line/70 bg-surface">
+    <div
+      className="overflow-x-auto border-t border-line/70 bg-surface"
+      tabIndex={0}
+      role="region"
+      aria-label="Datos del gráfico"
+    >
       <table className="w-full text-left text-[10px]">
         <caption className="sr-only">
           Últimas {slice.length} velas con apertura, máximo, mínimo, cierre y

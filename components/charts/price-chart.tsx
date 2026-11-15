@@ -522,12 +522,17 @@ export function PriceChart({
     <div className={cn("relative w-full", className)}>
       <div
         ref={legendRef}
-        className="num pointer-events-none absolute left-2 top-1.5 z-10 max-w-[68%] truncate rounded bg-bg/60 px-1 py-0.5 text-[9px] leading-none text-muted backdrop-blur-sm"
+        className="num pointer-events-none absolute left-2 top-1.5 z-10 max-w-[68%] truncate rounded bg-bg/60 px-1 py-0.5 text-[10px] leading-none text-muted backdrop-blur-sm"
         aria-hidden="true"
       />
-      <div ref={containerRef} style={{ height }} className="w-full" />
+      <div
+        ref={containerRef}
+        style={{ height }}
+        className="w-full"
+        aria-hidden="true"
+      />
       {(showRsi || showMacd) && (
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 px-2 pt-0.5 text-[9px] text-faint">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 px-2 pt-0.5 text-[10px] text-faint">
           {showRsi && <span>RSI 14 · 70 / 30</span>}
           {showMacd && <span>MACD 12·26·9</span>}
         </div>
