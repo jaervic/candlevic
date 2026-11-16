@@ -135,12 +135,12 @@ function ComparisonTable({ strategies }: { strategies: Strategy[] }) {
         <table className="w-full text-left text-[11px]">
           <thead>
             <tr className="text-faint">
-              <th className="px-3 py-2 font-medium">Estrategia</th>
-              <th className="px-3 py-2 font-medium">Familia</th>
-              <th className="px-3 py-2 font-medium">Horizonte</th>
-              <th className="px-3 py-2 font-medium">Dificultad</th>
-              <th className="px-3 py-2 font-medium">R:B orientativo</th>
-              <th className="px-3 py-2 font-medium">Cuándo</th>
+              <th scope="col" className="px-3 py-2 font-medium">Estrategia</th>
+              <th scope="col" className="px-3 py-2 font-medium">Familia</th>
+              <th scope="col" className="px-3 py-2 font-medium">Horizonte</th>
+              <th scope="col" className="px-3 py-2 font-medium">Dificultad</th>
+              <th scope="col" className="px-3 py-2 font-medium">R:B orientativo</th>
+              <th scope="col" className="px-3 py-2 font-medium">Cuándo</th>
             </tr>
           </thead>
           <tbody>

@@ -33,6 +33,24 @@ test("la home cabe a 320 px y la cabecera no se corta", async ({ page }) => {
   expect(await horizontalOverflow(page)).toBeLessThanOrEqual(1);
 });
 
+test("en móvil los módulos aparecen antes que la checklist", async ({
+  page,
+}) => {
+  await page.goto("/");
+
+  const modules = page.getByRole("heading", { name: "Módulos", exact: true });
+  const checklist = page.getByRole("heading", {
+    name: "Ruta del principiante",
+    exact: true,
+  });
+  const moduleBox = await modules.boundingBox();
+  const checklistBox = await checklist.boundingBox();
+
+  expect(moduleBox).not.toBeNull();
+  expect(checklistBox).not.toBeNull();
+  expect(moduleBox?.y ?? 0).toBeLessThan(checklistBox?.y ?? 0);
+});
+
 test("las pestañas de Aprender se ven completas sin scroll horizontal", async ({
   page,
 }) => {

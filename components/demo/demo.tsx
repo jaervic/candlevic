@@ -555,20 +555,20 @@ export function Demo() {
                 <table className="w-full text-left text-[11px]">
                   <thead>
                     <tr className="text-faint">
-                      <th className="py-1 pr-2 font-medium">Activo</th>
-                      <th className="px-2 py-1 text-right font-medium">
+                      <th scope="col" className="py-1 pr-2 font-medium">Activo</th>
+                      <th scope="col" className="px-2 py-1 text-right font-medium">
                         Cantidad
                       </th>
-                      <th className="px-2 py-1 text-right font-medium">
+                      <th scope="col" className="px-2 py-1 text-right font-medium">
                         Precio medio
                       </th>
-                      <th className="px-2 py-1 text-right font-medium">
+                      <th scope="col" className="px-2 py-1 text-right font-medium">
                         Actual
                       </th>
-                      <th className="px-2 py-1 text-right font-medium">
+                      <th scope="col" className="px-2 py-1 text-right font-medium">
                         Valor
                       </th>
-                      <th className="px-2 py-1 text-right font-medium">P&L</th>
+                      <th scope="col" className="px-2 py-1 text-right font-medium">P&L</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -1122,12 +1122,12 @@ export function Demo() {
                 <table className="w-full text-left text-[11px]">
                   <thead>
                     <tr className="text-faint">
-                      <th className="py-1 pr-2 font-medium">Estrategia</th>
-                      <th className="px-2 py-1 text-right font-medium">Ops</th>
-                      <th className="px-2 py-1 text-right font-medium">
+                      <th scope="col" className="py-1 pr-2 font-medium">Estrategia</th>
+                      <th scope="col" className="px-2 py-1 text-right font-medium">Ops</th>
+                      <th scope="col" className="px-2 py-1 text-right font-medium">
                         Cerradas
                       </th>
-                      <th className="px-2 py-1 text-right font-medium">
+                      <th scope="col" className="px-2 py-1 text-right font-medium">
                         P&L
                       </th>
                     </tr>

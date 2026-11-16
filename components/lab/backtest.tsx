@@ -420,16 +420,16 @@ export function Backtest() {
           <table className="w-full text-left text-[11.5px]">
             <thead>
               <tr className="text-faint">
-                <th className="px-4 py-2.5 font-medium">Estrategia</th>
-                <th className="px-3 py-2.5 text-right font-medium">Final</th>
-                <th className="px-3 py-2.5 text-right font-medium">
+                <th scope="col" className="px-4 py-2.5 font-medium">Estrategia</th>
+                <th scope="col" className="px-3 py-2.5 text-right font-medium">Final</th>
+                <th scope="col" className="px-3 py-2.5 text-right font-medium">
                   Rentabilidad
                 </th>
-                <th className="px-3 py-2.5 text-right font-medium">vs. hold</th>
-                <th className="px-3 py-2.5 text-right font-medium">
+                <th scope="col" className="px-3 py-2.5 text-right font-medium">vs. hold</th>
+                <th scope="col" className="px-3 py-2.5 text-right font-medium">
                   Drawdown
                 </th>
-                <th className="px-3 py-2.5 text-right font-medium">
+                <th scope="col" className="px-3 py-2.5 text-right font-medium">
                   Operaciones
                 </th>
               </tr>

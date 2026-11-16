@@ -93,7 +93,7 @@ export function Dashboard({
   return (
     <div className="space-y-6">
       <div className="grid gap-4 md:grid-cols-[1.15fr_0.85fr] md:items-start">
-      <div className="space-y-4">
+      <div className="min-w-0 space-y-4">
       <section className="animate-fade-up surface-glow relative overflow-hidden rounded-3xl border border-line p-4 sm:p-5">
         <div className="flex items-start justify-between gap-4">
           <div className="min-w-0">
@@ -170,7 +170,7 @@ export function Dashboard({
       <ReviewCard catalog={catalog} />
       </div>
 
-      <section className="rounded-2xl border border-line bg-surface p-4">
+      <section className="order-3 min-w-0 rounded-2xl border border-line bg-surface p-4 md:order-none">
         <div className="mb-3 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Target className="h-4 w-4 text-accent" />
@@ -186,7 +186,7 @@ export function Dashboard({
             <li key={item.id}>
               <Link
                 href={item.href}
-                className="flex items-center gap-2.5 rounded-lg px-1.5 py-1.5 text-[13px] transition-colors hover:bg-surface-2"
+                className="flex items-center gap-2.5 rounded-lg px-1.5 py-2 text-[13px] transition-colors hover:bg-surface-2"
               >
                 {item.done ? (
                   <span className="flex h-4 w-4 items-center justify-center rounded-full bg-up/15 text-up">
@@ -204,7 +204,7 @@ export function Dashboard({
           {extraDone.map((item) => (
             <li
               key={item.label}
-              className="flex items-center gap-2.5 px-1.5 py-1.5 text-[13px]"
+              className="flex items-center gap-2.5 px-1.5 py-2 text-[13px]"
             >
               {item.done ? (
                 <span className="flex h-4 w-4 items-center justify-center rounded-full bg-up/15 text-up">
@@ -220,9 +220,8 @@ export function Dashboard({
           ))}
         </ul>
       </section>
-      </div>
 
-      <section>
+      <section className="order-2 min-w-0 md:order-none md:col-span-2">
         <div className="mb-3 flex items-end justify-between">
           <h2 className="text-sm font-semibold">Módulos</h2>
           <Link href="/aprender" className="text-[11px] text-muted hover:text-fg">
@@ -236,11 +235,14 @@ export function Dashboard({
               (l) => lessons[l.slug]?.status === "completed",
             ).length;
             const pct = Math.round((done / Math.max(moduleLessons.length, 1)) * 100);
+            const next = moduleLessons.find(
+              (lesson) => lessons[lesson.slug]?.status !== "completed",
+            );
             return (
               <Link
                 key={module.id}
                 href={`/aprender#${module.id}`}
-                className="group rounded-2xl border border-line bg-surface p-3.5 transition-colors hover:border-line-strong hover:bg-surface-2/60"
+                className="group flex flex-col rounded-2xl border border-line bg-surface p-4 transition-colors hover:border-line-strong hover:bg-surface-2/60"
               >
                 <div className="flex items-center gap-2.5">
                   <span
@@ -254,8 +256,8 @@ export function Dashboard({
                     <ModuleIcon name={module.icon} className="h-4 w-4" />
                   </span>
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-[13px] font-medium">{module.title}</p>
-                    <p className="text-[10px] text-faint">
+                    <p className="truncate text-[14px] font-medium">{module.title}</p>
+                    <p className="text-[11px] text-muted">
                       {moduleLessons.length === 0
                         ? "Próximamente"
                         : `${done}/${moduleLessons.length} lecciones`}
@@ -265,12 +267,27 @@ export function Dashboard({
                     <Badge tone="up">Hecho</Badge>
                   )}
                 </div>
+                {next ? (
+                  <p className="mt-2 line-clamp-1 text-[11.5px] text-muted">
+                    Siguiente:{" "}
+                    <span className="text-fg/90">{next.title}</span>
+                  </p>
+                ) : (
+                  moduleLessons.length > 0 && (
+                    <p className="mt-2 text-[11.5px] text-muted">
+                      Módulo completado. Puedes repasarlo cuando quieras.
+                    </p>
+                  )
+                )}
                 {moduleLessons.length > 0 && (
-                  <ProgressBar
-                    value={pct}
-                    className="mt-3"
-                    label={`Progreso del módulo ${module.title}`}
-                  />
+                  <div className="mt-auto flex items-center gap-2 pt-3">
+                    <ProgressBar
+                      value={pct}
+                      className="flex-1"
+                      label={`Progreso del módulo ${module.title}`}
+                    />
+                    <span className="num text-[10px] text-faint">{pct}%</span>
+                  </div>
                 )}
               </Link>
             );
@@ -278,7 +295,8 @@ export function Dashboard({
         </div>
       </section>
 
-      <section className="grid grid-cols-2 gap-2.5">
+
+      <section className="order-4 grid grid-cols-2 gap-2.5 md:order-none md:col-span-2 md:grid-cols-4">
         {[
           { href: "/radar", label: "Radar de mercado", icon: Newspaper, tone: "text-info" },
           { href: "/lab", label: "Laboratorio", icon: FlaskConical, tone: "text-up" },
@@ -295,6 +313,8 @@ export function Dashboard({
           </Link>
         ))}
       </section>
+      </div>
+
     </div>
   );
 }
