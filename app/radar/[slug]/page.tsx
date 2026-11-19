@@ -69,6 +69,7 @@ export default async function ExplicadorPage({
               ) : (
                 <a href={href} target="_blank" rel="noopener noreferrer" {...rest}>
                   {children}
+                  <span className="sr-only"> (abre en una pestaña nueva)</span>
                 </a>
               ),
           }}

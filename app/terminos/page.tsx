@@ -87,6 +87,7 @@ export default function TerminosPage() {
           rel="noopener noreferrer"
         >
           GitHub
+          <span className="sr-only"> (abre en una pestaña nueva)</span>
         </a>
         .
       </p>

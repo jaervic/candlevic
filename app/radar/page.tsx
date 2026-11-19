@@ -80,6 +80,7 @@ function NewsCard({
       >
         <h3 className="text-[13.5px] font-medium leading-snug text-fg group-hover:text-accent">
           {item.title}
+          <span className="sr-only"> (abre en una pestaña nueva)</span>
         </h3>
         <ArrowUpRight className="mt-0.5 h-3.5 w-3.5 shrink-0 text-faint group-hover:text-accent" />
       </a>

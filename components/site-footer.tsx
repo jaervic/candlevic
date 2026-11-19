@@ -32,6 +32,7 @@ export function SiteFooter() {
           className="transition-colors hover:text-fg"
         >
           GitHub
+          <span className="sr-only"> (abre en una pestaña nueva)</span>
         </a>
       </nav>
       <Disclaimer className="mt-2" />

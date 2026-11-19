@@ -8,6 +8,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { OfflineBanner } from "@/components/pwa/offline-banner";
 import { Analytics } from "@/components/analytics";
 import { WebVitals } from "@/components/analytics/web-vitals";
+import { RouteAnnouncer } from "@/components/layout/route-announcer";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { Onboarding } from "@/components/onboarding";
 import { ProgressSync } from "@/components/progress/progress-sync";
@@ -112,6 +113,7 @@ export default function RootLayout({
             {children}
             <SiteFooter />
           </main>
+          <RouteAnnouncer />
           <BottomNav />
           <Onboarding />
           <ProgressSync />

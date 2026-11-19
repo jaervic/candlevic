@@ -81,6 +81,7 @@ export default function PrivacidadPage() {
           rel="noopener noreferrer"
         >
           GitHub
+          <span className="sr-only"> (abre en una pestaña nueva)</span>
         </a>
         .
       </p>

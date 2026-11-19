@@ -11,6 +11,7 @@ export function LessonReadingBar() {
   const focusMode = useUI((s) => s.focusMode);
   const toggleFocus = useUI((s) => s.toggleFocus);
   const openToc = useUI((s) => s.openToc);
+  const tocOpen = useUI((s) => s.tocOpen);
 
   useEffect(() => {
     let frame = 0;
@@ -64,6 +65,8 @@ export function LessonReadingBar() {
             onClick={openToc}
             className="inline-flex h-8 items-center gap-1.5 rounded-lg border border-line bg-surface px-2.5 text-[12px] text-muted transition-colors hover:border-line-strong hover:text-fg lg:hidden"
             aria-label="Contenido de la lección"
+            aria-haspopup="dialog"
+            aria-expanded={tocOpen}
           >
             <List className="h-3.5 w-3.5" />
             Contenido

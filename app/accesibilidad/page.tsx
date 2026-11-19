@@ -45,6 +45,7 @@ export default function AccesibilidadPage() {
           rel="noopener noreferrer"
         >
           GitHub
+          <span className="sr-only"> (abre en una pestaña nueva)</span>
         </a>{" "}
         indicando la página y el problema. Es la forma más rápida de arreglarlo.
       </p>

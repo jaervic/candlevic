@@ -25,6 +25,8 @@ export function Header() {
   const xp = hydrated ? totalXp(lessons) : 0;
   const openSettings = useUI((s) => s.openSettings);
   const openSearch = useUI((s) => s.openSearch);
+  const searchOpen = useUI((s) => s.searchOpen);
+  const settingsOpen = useUI((s) => s.settingsOpen);
 
   return (
     <header className="app-header sticky top-0 z-40 border-b border-line/70 bg-bg/95 backdrop-blur-xl">
@@ -58,6 +60,8 @@ export function Header() {
             onClick={openSearch}
             aria-label="Buscar"
             title="Buscar"
+            aria-haspopup="dialog"
+            aria-expanded={searchOpen}
             className="inline-flex h-10 items-center gap-2 rounded-full border border-line bg-surface px-3 text-[12px] text-muted transition-colors hover:border-line-strong hover:text-fg"
           >
             <Search className="h-3.5 w-3.5" />
@@ -82,6 +86,8 @@ export function Header() {
             onClick={openSettings}
             aria-label="Ajustes de lectura"
             title="Ajustes de lectura"
+            aria-haspopup="dialog"
+            aria-expanded={settingsOpen}
             className="flex h-10 w-10 items-center justify-center rounded-full border border-line bg-surface text-muted transition-colors hover:border-line-strong hover:text-fg"
           >
             <Settings2 className="h-3.5 w-3.5" />
