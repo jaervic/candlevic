@@ -42,7 +42,10 @@ export function ChartDataTable({
         </caption>
         <thead>
           <tr className="text-faint">
-            <th scope="col" className="px-2 py-1.5 font-medium">
+            <th
+              scope="col"
+              className="sticky left-0 z-10 bg-surface px-2 py-1.5 font-medium"
+            >
               Fecha
             </th>
             <th scope="col" className="px-2 py-1.5 text-right font-medium">
@@ -65,7 +68,7 @@ export function ChartDataTable({
         <tbody>
           {slice.map((candle) => (
             <tr key={candle.time} className="border-t border-line/50">
-              <td className="num px-2 py-1 text-muted">
+              <td className="num sticky left-0 z-10 bg-surface px-2 py-1 text-muted">
                 {formatTime(candle.time, interval)}
               </td>
               <td className="num px-2 py-1 text-right text-fg/90">

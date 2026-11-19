@@ -424,6 +424,17 @@
     text-transform: uppercase;
     letter-spacing: 0.06em;
   }
+
+  @media (max-width: 640px) {
+    .prose-cv table th:first-child,
+    .prose-cv table td:first-child {
+      position: sticky;
+      left: 0;
+      z-index: 1;
+      background: var(--cv-bg);
+      box-shadow: 1px 0 0 var(--cv-line);
+    }
+  }
 }
 
 /* ------------------------------------------------------------------ */

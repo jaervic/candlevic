@@ -62,10 +62,10 @@ export default function GlosarioPage() {
           />
         </label>
 
-        <div className="no-scrollbar flex gap-1.5 overflow-x-auto pb-1">
+        <div className="flex flex-wrap gap-1.5 pb-1">
           <button
             onClick={() => setCategory("todas")}
-            className={`shrink-0 rounded-full border px-2.5 py-1 text-[11px] transition-colors ${
+            className={`min-h-9 shrink-0 rounded-full border px-3 py-1.5 text-[11px] transition-colors ${
               category === "todas"
                 ? "border-accent/30 bg-accent/10 text-accent"
                 : "border-line bg-surface text-muted hover:text-fg"
@@ -77,7 +77,7 @@ export default function GlosarioPage() {
             <button
               key={c.id}
               onClick={() => setCategory(c.id)}
-              className={`shrink-0 rounded-full border px-2.5 py-1 text-[11px] transition-colors ${
+              className={`min-h-9 shrink-0 rounded-full border px-3 py-1.5 text-[11px] transition-colors ${
                 category === c.id
                   ? "border-accent/30 bg-accent/10 text-accent"
                   : "border-line bg-surface text-muted hover:text-fg"

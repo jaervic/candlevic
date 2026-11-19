@@ -47,7 +47,7 @@ export function StrategyExplorer({ strategies }: { strategies: Strategy[] }) {
               onClick={() => setFamily(item.id)}
               aria-pressed={family === item.id}
               className={cn(
-                "shrink-0 rounded-lg border px-2.5 py-1.5 text-[11px] transition-colors",
+                "min-h-9 shrink-0 min-h-9 rounded-lg border px-2.5 py-1.5 text-[11px] transition-colors",
                 family === item.id
                   ? "border-accent/30 bg-accent/10 text-accent"
                   : "border-line bg-surface-2/60 text-muted hover:text-fg",
@@ -66,7 +66,7 @@ export function StrategyExplorer({ strategies }: { strategies: Strategy[] }) {
               onClick={() => setDifficulty(item.id)}
               aria-pressed={difficulty === item.id}
               className={cn(
-                "shrink-0 rounded-lg border px-2.5 py-1.5 text-[11px] transition-colors",
+                "min-h-9 shrink-0 min-h-9 rounded-lg border px-2.5 py-1.5 text-[11px] transition-colors",
                 difficulty === item.id
                   ? "border-info/30 bg-info/10 text-info"
                   : "border-line bg-surface-2/60 text-muted hover:text-fg",
@@ -131,11 +131,53 @@ function ComparisonTable({ strategies }: { strategies: Strategy[] }) {
   return (
     <section>
       <h2 className="mb-2 text-sm font-semibold">Comparativa rápida</h2>
-      <div className="overflow-x-auto rounded-2xl border border-line bg-surface">
+
+      <div className="space-y-2 md:hidden">
+        {strategies.map((strategy) => (
+          <article
+            key={strategy.slug}
+            className="rounded-xl border border-line bg-surface p-3"
+          >
+            <div className="flex flex-wrap items-center gap-1.5">
+              <Link
+                href={`/aprender/estrategias/${strategy.slug}`}
+                className="inline-flex min-w-0 items-center gap-1.5 text-[13px] font-medium hover:text-accent"
+              >
+                <span
+                  className="h-1.5 w-1.5 shrink-0 rounded-full"
+                  style={{ backgroundColor: strategy.accent }}
+                />
+                <span className="truncate">{strategy.name}</span>
+              </Link>
+              <span className="ml-auto rounded-md border border-line px-1.5 py-0.5 text-[10px] text-muted">
+                R:B {strategy.risk.rr}
+              </span>
+            </div>
+            <p className="mt-1 text-[10.5px] text-muted">
+              {strategy.familyLabel} · {strategy.horizon} ·{" "}
+              {strategy.difficulty}
+            </p>
+            <p className="mt-1 line-clamp-1 text-[10.5px] text-faint">
+              {strategy.context[0]}
+            </p>
+          </article>
+        ))}
+      </div>
+
+      <div className="hidden overflow-x-auto rounded-2xl border border-line bg-surface md:block">
         <table className="w-full text-left text-[11px]">
+          <caption className="sr-only">
+            Comparativa de estrategias por familia, horizonte, dificultad y
+            ratio riesgo-beneficio orientativo
+          </caption>
           <thead>
             <tr className="text-faint">
-              <th scope="col" className="px-3 py-2 font-medium">Estrategia</th>
+              <th
+                scope="col"
+                className="sticky left-0 z-10 bg-surface px-3 py-2 font-medium"
+              >
+                Estrategia
+              </th>
               <th scope="col" className="px-3 py-2 font-medium">Familia</th>
               <th scope="col" className="px-3 py-2 font-medium">Horizonte</th>
               <th scope="col" className="px-3 py-2 font-medium">Dificultad</th>
@@ -146,7 +188,7 @@ function ComparisonTable({ strategies }: { strategies: Strategy[] }) {
           <tbody>
             {strategies.map((strategy) => (
               <tr key={strategy.slug} className="border-t border-line/60">
-                <td className="px-3 py-2">
+                <td className="sticky left-0 z-10 bg-surface px-3 py-2">
                   <Link
                     href={`/aprender/estrategias/${strategy.slug}`}
                     className="inline-flex items-center gap-1.5 font-medium hover:text-accent"

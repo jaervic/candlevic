@@ -478,7 +478,7 @@ export function Demo() {
                     onClick={() => setAsset(item)}
                     aria-pressed={item.symbol === asset.symbol}
                     className={cn(
-                      "rounded-lg border px-2.5 py-1.5 text-[11px] transition-colors",
+                      "min-h-9 rounded-lg border px-2.5 py-1.5 text-[11px] transition-colors",
                       item.symbol === asset.symbol
                         ? "border-accent/30 bg-accent/10 text-accent"
                         : "border-line bg-surface-2/60 text-muted hover:text-fg",
@@ -490,7 +490,7 @@ export function Demo() {
                 <button
                   onClick={() => void loadMarket()}
                   disabled={loading}
-                  className="ml-auto inline-flex items-center gap-1 rounded-lg border border-line px-2 py-1.5 text-[10px] text-faint hover:text-fg disabled:opacity-50"
+                  className="ml-auto inline-flex min-h-9 items-center gap-1 rounded-lg border border-line px-2 py-1.5 text-[10px] text-faint hover:text-fg disabled:opacity-50"
                 >
                   <RefreshCw className={cn("h-3 w-3", loading && "animate-spin")} />
                   {loading ? "Cargando" : "Actualizar"}
@@ -551,8 +551,89 @@ export function Demo() {
                 abrir la primera operación simulada.
               </p>
             ) : (
-              <div className="mt-3 overflow-x-auto">
+              <>
+                <div className="mt-3 space-y-2 md:hidden">
+                  {positions.map((item) => {
+                    const current = prices[item.symbol] ?? item.lastPrice;
+                    const value = item.qty * current;
+                    const pnlPosition = (current - item.avgPrice) * item.qty;
+                    return (
+                      <article
+                        key={item.symbol}
+                        className="rounded-xl border border-line bg-surface-2/40 p-3"
+                      >
+                        <div className="flex items-start justify-between gap-2">
+                          <div className="min-w-0">
+                            <p className="text-[13px] font-medium">
+                              {item.label}
+                            </p>
+                            {item.strategy && (
+                              <p className="mt-0.5 text-[10px] text-faint">
+                                {strategyName(item.strategy)}
+                              </p>
+                            )}
+                          </div>
+                          <p
+                            className={cn(
+                              "num shrink-0 text-[12px] font-medium",
+                              pnlPosition >= 0 ? "text-up" : "text-down",
+                            )}
+                          >
+                            {pnlPosition >= 0 ? "+" : "−"}$
+                            {formatNumber(Math.abs(pnlPosition), 2)}
+                          </p>
+                        </div>
+                        <div className="mt-2 grid grid-cols-3 gap-2">
+                          <div>
+                            <p className="text-[10px] text-faint">Cantidad</p>
+                            <p className="num text-[11px] text-fg">
+                              {formatNumber(item.qty, 4)}
+                            </p>
+                          </div>
+                          <div>
+                            <p className="text-[10px] text-faint">
+                              Precio medio
+                            </p>
+                            <p className="num text-[11px] text-fg">
+                              {formatPrice(item.avgPrice)}
+                            </p>
+                          </div>
+                          <div>
+                            <p className="text-[10px] text-faint">Actual</p>
+                            <p className="num text-[11px] text-fg">
+                              {formatPrice(current)}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="mt-2 flex items-center justify-between border-t border-line/70 pt-2 text-[10px]">
+                          <span className="text-faint">Valor</span>
+                          <span className="num text-fg">
+                            ${formatNumber(value, 2)}
+                          </span>
+                        </div>
+                        {(item.stop != null || item.target != null) && (
+                          <p className="mt-1 text-[10px] text-faint">
+                            {item.stop != null && (
+                              <>SL {formatPrice(item.stop)}</>
+                            )}
+                            {item.stop != null && item.target != null
+                              ? " · "
+                              : ""}
+                            {item.target != null && (
+                              <>TP {formatPrice(item.target)}</>
+                            )}
+                          </p>
+                        )}
+                      </article>
+                    );
+                  })}
+                </div>
+
+                <div className="mt-3 hidden overflow-x-auto md:block">
                 <table className="w-full text-left text-[11px]">
+                  <caption className="sr-only">
+                    Posiciones abiertas de la cartera demo
+                  </caption>
                   <thead>
                     <tr className="text-faint">
                       <th scope="col" className="py-1 pr-2 font-medium">Activo</th>
@@ -626,6 +707,7 @@ export function Demo() {
                   </tbody>
                 </table>
               </div>
+              </>
             )}
 
             {position && (
@@ -892,7 +974,7 @@ export function Demo() {
                   <button
                     key={percent}
                     onClick={() => quick(percent)}
-                    className="flex-1 rounded-lg border border-line bg-surface-2/60 py-1.5 text-[10px] text-muted hover:text-fg"
+                    className="min-h-9 flex-1 rounded-lg border border-line bg-surface-2/60 py-1.5 text-[10px] text-muted hover:text-fg"
                   >
                     {percent === 1 ? "Máx" : `${percent * 100}%`}
                   </button>
