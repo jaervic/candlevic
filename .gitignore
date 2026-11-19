@@ -17,3 +17,6 @@ test-results
 playwright-report
 blob-report
 .playwright
+
+# Carpetas temporales de Lighthouse con rutas estilo Windows
+C:*
