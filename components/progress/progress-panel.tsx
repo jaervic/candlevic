@@ -372,7 +372,7 @@ export function ProgressPanel({
       <section>
         <h2 className="mb-2 text-sm font-semibold">Repaso pendiente</h2>
         {review.length === 0 ? (
-          <div className="rounded-xl border border-line bg-surface p-3 text-[11.5px] leading-relaxed text-muted">
+          <div className="rounded-xl border border-line bg-surface p-3 text-[12px] leading-relaxed text-muted">
             Nada pendiente por ahora. Sigue avanzando y vuelve en unos días.
           </div>
         ) : (
@@ -414,7 +414,7 @@ export function ProgressPanel({
                   badge.done ? "text-accent" : "text-faint"
                 }`}
               />
-              <span className="text-[11px] leading-tight">{badge.label}</span>
+              <span className="text-[12px] leading-tight">{badge.label}</span>
               {badge.done && <Check className="ml-auto h-3 w-3 text-up" />}
             </div>
           ))}
@@ -426,7 +426,7 @@ export function ProgressPanel({
           <KeyRound className="h-4 w-4 text-accent" />
           <h2 className="text-sm font-semibold">Código de guardado</h2>
         </div>
-        <p className="mt-1 text-[11.5px] leading-relaxed text-muted">
+        <p className="mt-1 text-[12px] leading-relaxed text-muted">
           {isSelf
             ? "Código autónomo: tu progreso viaja dentro del código. No depende de ningún servidor ni de este navegador. Vuelve a copiarlo cuando avances."
             : "Cifrado en tu navegador con el código. Ni siquiera el servidor puede leerlo. Si pierdes el código, pierdes el respaldo."}
@@ -485,7 +485,7 @@ export function ProgressPanel({
         )}
 
         <div className="mt-4 border-t border-line/70 pt-3">
-          <p className="mb-2 text-[11px] font-medium text-muted">
+          <p className="mb-2 text-[12px] font-medium text-muted">
             ¿Tienes un código de otro dispositivo?
           </p>
           <div className="flex gap-2">
@@ -505,7 +505,7 @@ export function ProgressPanel({
 
       {status && (
         <p
-          className={`rounded-xl border p-3 text-[11.5px] leading-relaxed ${
+          className={`rounded-xl border p-3 text-[12px] leading-relaxed ${
             status.type === "ok"
               ? "border-up/25 bg-up/10 text-fg/90"
               : "border-down/25 bg-down/10 text-fg/90"
@@ -517,7 +517,7 @@ export function ProgressPanel({
 
       <section className="rounded-2xl border border-line bg-surface p-4">
         <h2 className="text-sm font-semibold">Copia de seguridad manual</h2>
-        <p className="mt-1 text-[11.5px] leading-relaxed text-muted">
+        <p className="mt-1 text-[12px] leading-relaxed text-muted">
           Descarga un archivo JSON con todo tu progreso. Sirve como plan B si no
           quieres usar el código.
         </p>
@@ -544,7 +544,7 @@ export function ProgressPanel({
 
       <section className="rounded-2xl border border-line bg-surface p-4">
         <h2 className="text-sm font-semibold">Empezar de cero</h2>
-        <p className="mt-1 text-[11.5px] leading-relaxed text-muted">
+        <p className="mt-1 text-[12px] leading-relaxed text-muted">
           Borra el progreso de este dispositivo. No borra el respaldo de la nube.
         </p>
         <Button

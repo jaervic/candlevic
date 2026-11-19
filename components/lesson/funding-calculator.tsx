@@ -38,7 +38,7 @@ export function FundingCalculator() {
         <Repeat className="h-4 w-4 text-accent" />
         <p className="text-sm font-semibold">Calculadora de funding</p>
       </div>
-      <p className="mt-1 text-[11px] leading-relaxed text-muted">
+      <p className="mt-1 text-[12px] leading-relaxed text-muted">
         En perpetuos, largos y cortos se pagan entre sí cada cierto número de
         horas. El signo de la tasa decide quién paga.
       </p>
@@ -96,7 +96,7 @@ export function FundingCalculator() {
         </div>
       </div>
 
-      <p className="mt-3 text-[11px] leading-relaxed text-faint">
+      <p className="mt-3 text-[12px] leading-relaxed text-faint">
         {result.valid
           ? result.pays
             ? "Con esta tasa, tu posición paga funding. Es un coste que se acumula aunque el precio no se mueva."
@@ -130,7 +130,7 @@ function Field({
           onChange={(event) => set(event.target.value)}
           className="num h-9 w-full min-w-0 bg-transparent text-[13px] text-fg outline-none"
         />
-        {suffix && <span className="pl-1 text-[11px] text-faint">{suffix}</span>}
+        {suffix && <span className="pl-1 text-[12px] text-faint">{suffix}</span>}
       </div>
     </label>
   );

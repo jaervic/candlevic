@@ -171,14 +171,14 @@ export function PlanBuilder() {
         <button
           type="button"
           onClick={copy}
-          className="inline-flex h-8 items-center gap-1.5 rounded-lg border border-line bg-surface-2 px-2.5 text-[11px] text-muted transition-colors hover:text-fg"
+          className="inline-flex h-8 items-center gap-1.5 rounded-lg border border-line bg-surface-2 px-2.5 text-[12px] text-muted transition-colors hover:text-fg"
         >
           <ClipboardCopy className="h-3.5 w-3.5" /> Copiar
         </button>
         <button
           type="button"
           onClick={download}
-          className="inline-flex h-8 items-center gap-1.5 rounded-lg border border-line bg-surface-2 px-2.5 text-[11px] text-muted transition-colors hover:text-fg"
+          className="inline-flex h-8 items-center gap-1.5 rounded-lg border border-line bg-surface-2 px-2.5 text-[12px] text-muted transition-colors hover:text-fg"
         >
           <Download className="h-3.5 w-3.5" /> Descargar .md
         </button>

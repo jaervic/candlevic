@@ -478,7 +478,7 @@ export function Demo() {
                     onClick={() => setAsset(item)}
                     aria-pressed={item.symbol === asset.symbol}
                     className={cn(
-                      "min-h-9 rounded-lg border px-2.5 py-1.5 text-[11px] transition-colors",
+                      "min-h-9 rounded-lg border px-2.5 py-1.5 text-[12px] transition-colors",
                       item.symbol === asset.symbol
                         ? "border-accent/30 bg-accent/10 text-accent"
                         : "border-line bg-surface-2/60 text-muted hover:text-fg",
@@ -505,7 +505,7 @@ export function Demo() {
                   </span>
                   <span
                     className={cn(
-                      "num text-[11px]",
+                      "num text-[12px]",
                       change >= 0 ? "text-up" : "text-down",
                     )}
                   >
@@ -586,7 +586,7 @@ export function Demo() {
                         <div className="mt-2 grid grid-cols-3 gap-2">
                           <div>
                             <p className="text-[10px] text-faint">Cantidad</p>
-                            <p className="num text-[11px] text-fg">
+                            <p className="num text-[12px] text-fg">
                               {formatNumber(item.qty, 4)}
                             </p>
                           </div>
@@ -594,13 +594,13 @@ export function Demo() {
                             <p className="text-[10px] text-faint">
                               Precio medio
                             </p>
-                            <p className="num text-[11px] text-fg">
+                            <p className="num text-[12px] text-fg">
                               {formatPrice(item.avgPrice)}
                             </p>
                           </div>
                           <div>
                             <p className="text-[10px] text-faint">Actual</p>
-                            <p className="num text-[11px] text-fg">
+                            <p className="num text-[12px] text-fg">
                               {formatPrice(current)}
                             </p>
                           </div>
@@ -630,7 +630,7 @@ export function Demo() {
                 </div>
 
                 <div className="mt-3 hidden overflow-x-auto md:block">
-                <table className="w-full text-left text-[11px]">
+                <table className="w-full text-left text-[12px]">
                   <caption className="sr-only">
                     Posiciones abiertas de la cartera demo
                   </caption>
@@ -713,7 +713,7 @@ export function Demo() {
             {position && (
               <div className="mt-3 rounded-xl border border-line bg-surface-2/40 p-3">
                 <div className="flex flex-wrap items-center justify-between gap-2">
-                  <p className="text-[11px] font-medium">
+                  <p className="text-[12px] font-medium">
                     Protección de {position.label}
                   </p>
                   <span className="text-[10px] text-faint">
@@ -836,7 +836,7 @@ export function Demo() {
                         )}
                         {trade.side === "buy" ? "Compra" : "Venta"}
                       </span>
-                      <span className="text-[11.5px] font-medium">
+                      <span className="text-[12px] font-medium">
                         {trade.label}
                       </span>
                       {trade.strategy && (
@@ -984,7 +984,7 @@ export function Demo() {
                 Disponible: {formatNumber(maxQty, 4)} {asset.label}
               </p>
 
-              <div className="rounded-xl border border-line bg-surface-2/40 p-2.5 text-[11px]">
+              <div className="rounded-xl border border-line bg-surface-2/40 p-2.5 text-[12px]">
                 <div className="flex justify-between text-muted">
                   <span>
                     {orderType === "limit" ? "Precio límite" : "Precio"}
@@ -1129,7 +1129,7 @@ export function Demo() {
                       >
                         {order.side === "buy" ? "Compra" : "Venta"}
                       </span>
-                      <span className="text-[11px] font-medium">
+                      <span className="text-[12px] font-medium">
                         {order.label}
                       </span>
                       <span className="num text-[10px] text-muted">
@@ -1195,13 +1195,13 @@ export function Demo() {
             </p>
 
             {strategyPnl.length === 0 ? (
-              <p className="mt-2 text-[11px] text-muted">
+              <p className="mt-2 text-[12px] text-muted">
                 Etiqueta tus operaciones con una estrategia para comparar tu
                 resultado por tipo de plan.
               </p>
             ) : (
               <div className="mt-2 overflow-x-auto">
-                <table className="w-full text-left text-[11px]">
+                <table className="w-full text-left text-[12px]">
                   <thead>
                     <tr className="text-faint">
                       <th scope="col" className="py-1 pr-2 font-medium">Estrategia</th>
@@ -1371,7 +1371,7 @@ function Mini({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-lg border border-line bg-surface-2/50 px-2 py-1.5">
       <p className="text-[9px] uppercase tracking-wider text-faint">{label}</p>
-      <p className="num mt-0.5 text-[11px] font-medium">{value}</p>
+      <p className="num mt-0.5 text-[12px] font-medium">{value}</p>
     </div>
   );
 }

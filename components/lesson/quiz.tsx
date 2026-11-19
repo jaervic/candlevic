@@ -115,7 +115,7 @@ export function Quiz({
         >
           <p
             className={cn(
-              "mb-1 text-[11px] font-semibold",
+              "mb-1 text-[12px] font-semibold",
               isCorrect ? "text-up" : "text-down",
             )}
           >
@@ -132,7 +132,7 @@ export function Quiz({
         <div className="mt-2 flex flex-wrap items-center gap-2">
           {confidence == null ? (
             <>
-              <span className="text-[11px] text-faint">
+              <span className="text-[12px] text-faint">
                 ¿Lo tenías claro?
               </span>
               <button
@@ -175,7 +175,7 @@ export function Quiz({
       {selected != null && (
         <button
           onClick={retry}
-          className="mt-2 inline-flex items-center gap-1.5 text-[11px] text-faint transition-colors hover:text-muted"
+          className="mt-2 inline-flex items-center gap-1.5 text-[12px] text-faint transition-colors hover:text-muted"
         >
           <RotateCcw className="h-3 w-3" />
           Intentar de nuevo

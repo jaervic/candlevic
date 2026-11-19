@@ -27,7 +27,7 @@ export default function LabPage() {
           <span className="block text-[14px] font-medium">
             Backtesting didáctico
           </span>
-          <span className="block text-[11px] text-muted">
+          <span className="block text-[12px] text-muted">
             Comprar y mantener vs. cruce de medias vs. DCA
           </span>
         </span>
@@ -47,7 +47,7 @@ export default function LabPage() {
           <span className="block text-[14px] font-medium">
             Practica con una cartera virtual
           </span>
-          <span className="block text-[11px] text-muted">
+          <span className="block text-[12px] text-muted">
             10.000 $ de prueba, P&L y diario emocional
           </span>
         </span>

@@ -54,7 +54,7 @@ export function ChartQuiz({
   return (
     <div className="my-6 rounded-2xl border border-line bg-surface p-3 sm:p-4">
       <div className="mb-3 flex items-start gap-2">
-        <span className="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-accent/15 text-[11px] font-semibold text-accent">
+        <span className="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-accent/15 text-[12px] font-semibold text-accent">
           ?
         </span>
         <p className="text-sm font-medium leading-snug text-fg">{question}</p>
@@ -110,7 +110,7 @@ export function ChartQuiz({
       {picked != null && (
         <button
           onClick={reset}
-          className="mt-2 inline-flex items-center gap-1.5 text-[11px] text-faint transition-colors hover:text-muted"
+          className="mt-2 inline-flex items-center gap-1.5 text-[12px] text-faint transition-colors hover:text-muted"
         >
           <RotateCcw className="h-3 w-3" />
           Intentar de nuevo

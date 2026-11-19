@@ -96,13 +96,13 @@ export function PwaRegister() {
       {waiting && (
         <div className="flex w-full max-w-md items-center gap-3 rounded-2xl border border-accent/30 bg-surface p-3 shadow-xl">
           <RefreshCw className="h-4 w-4 shrink-0 text-accent" />
-          <p className="min-w-0 flex-1 text-[11.5px] leading-snug">
+          <p className="min-w-0 flex-1 text-[12px] leading-snug">
             Hay una nueva versión de Candlevic.
           </p>
           <button
             type="button"
             onClick={applyUpdate}
-            className="rounded-lg bg-accent px-2.5 py-1.5 text-[11px] font-medium text-on-accent"
+            className="rounded-lg bg-accent px-2.5 py-1.5 text-[12px] font-medium text-on-accent"
           >
             Actualizar
           </button>
@@ -113,7 +113,7 @@ export function PwaRegister() {
         <div className="flex w-full max-w-md items-center gap-3 rounded-2xl border border-line bg-surface p-3 shadow-xl">
           <Download className="h-4 w-4 shrink-0 text-accent" />
           <div className="min-w-0 flex-1">
-            <p className="text-[11.5px] font-medium">Instala Candlevic</p>
+            <p className="text-[12px] font-medium">Instala Candlevic</p>
             <p className="text-[10px] text-faint">
               Acceso rápido y lectura sin conexión.
             </p>
@@ -121,7 +121,7 @@ export function PwaRegister() {
           <button
             type="button"
             onClick={install}
-            className="rounded-lg bg-accent px-2.5 py-1.5 text-[11px] font-medium text-on-accent"
+            className="rounded-lg bg-accent px-2.5 py-1.5 text-[12px] font-medium text-on-accent"
           >
             Instalar
           </button>

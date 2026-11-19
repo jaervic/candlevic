@@ -47,7 +47,7 @@ export function StrategyExplorer({ strategies }: { strategies: Strategy[] }) {
               onClick={() => setFamily(item.id)}
               aria-pressed={family === item.id}
               className={cn(
-                "min-h-9 shrink-0 min-h-9 rounded-lg border px-2.5 py-1.5 text-[11px] transition-colors",
+                "min-h-9 shrink-0 min-h-9 rounded-lg border px-2.5 py-1.5 text-[12px] transition-colors",
                 family === item.id
                   ? "border-accent/30 bg-accent/10 text-accent"
                   : "border-line bg-surface-2/60 text-muted hover:text-fg",
@@ -66,7 +66,7 @@ export function StrategyExplorer({ strategies }: { strategies: Strategy[] }) {
               onClick={() => setDifficulty(item.id)}
               aria-pressed={difficulty === item.id}
               className={cn(
-                "min-h-9 shrink-0 min-h-9 rounded-lg border px-2.5 py-1.5 text-[11px] transition-colors",
+                "min-h-9 shrink-0 min-h-9 rounded-lg border px-2.5 py-1.5 text-[12px] transition-colors",
                 difficulty === item.id
                   ? "border-info/30 bg-info/10 text-info"
                   : "border-line bg-surface-2/60 text-muted hover:text-fg",
@@ -114,13 +114,13 @@ function StrategyCard({ strategy }: { strategy: Strategy }) {
       </div>
 
       <p className="mt-2 text-[14px] font-semibold">{strategy.name}</p>
-      <p className="mt-1 text-[11.5px] leading-relaxed text-muted">
+      <p className="mt-1 text-[12px] leading-relaxed text-muted">
         {strategy.tagline}
       </p>
-      <p className="mt-2 line-clamp-2 text-[11px] leading-relaxed text-faint">
+      <p className="mt-2 line-clamp-2 text-[12px] leading-relaxed text-faint">
         {strategy.context[0]}
       </p>
-      <span className="mt-2 inline-flex items-center gap-1 text-[11px] text-accent">
+      <span className="mt-2 inline-flex items-center gap-1 text-[12px] text-accent">
         Ver ficha <ArrowRight className="h-3 w-3" />
       </span>
     </Link>
@@ -165,7 +165,7 @@ function ComparisonTable({ strategies }: { strategies: Strategy[] }) {
       </div>
 
       <div className="hidden overflow-x-auto rounded-2xl border border-line bg-surface md:block">
-        <table className="w-full text-left text-[11px]">
+        <table className="w-full text-left text-[12px]">
           <caption className="sr-only">
             Comparativa de estrategias por familia, horizonte, dificultad y
             ratio riesgo-beneficio orientativo

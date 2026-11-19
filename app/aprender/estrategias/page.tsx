@@ -31,7 +31,7 @@ export default function EstrategiasPage() {
 
       <div className="flex items-start gap-2 rounded-xl border border-accent/20 bg-accent/5 p-3">
         <ShieldAlert className="mt-0.5 h-3.5 w-3.5 shrink-0 text-accent" />
-        <p className="text-[11px] leading-relaxed text-muted">
+        <p className="text-[12px] leading-relaxed text-muted">
           <span className="font-medium text-fg">
             Marcos de decisión, no señales.
           </span>{" "}
@@ -56,7 +56,7 @@ export default function EstrategiasPage() {
           <span className="block text-[14px] font-medium">
             ¿Qué estrategia encaja contigo?
           </span>
-          <span className="block text-[11px] text-muted">
+          <span className="block text-[12px] text-muted">
             Test de perfil con plan de 30 días
           </span>
         </span>

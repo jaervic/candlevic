@@ -62,7 +62,7 @@ export function LessonReadingBar() {
           <button
             type="button"
             onClick={openToc}
-            className="inline-flex h-8 items-center gap-1.5 rounded-lg border border-line bg-surface px-2.5 text-[11px] text-muted transition-colors hover:border-line-strong hover:text-fg lg:hidden"
+            className="inline-flex h-8 items-center gap-1.5 rounded-lg border border-line bg-surface px-2.5 text-[12px] text-muted transition-colors hover:border-line-strong hover:text-fg lg:hidden"
             aria-label="Contenido de la lección"
           >
             <List className="h-3.5 w-3.5" />
@@ -71,7 +71,7 @@ export function LessonReadingBar() {
           <button
             type="button"
             onClick={openSettings}
-            className="inline-flex h-8 items-center gap-1.5 rounded-lg border border-line bg-surface px-2.5 text-[11px] text-muted transition-colors hover:border-line-strong hover:text-fg"
+            className="inline-flex h-8 items-center gap-1.5 rounded-lg border border-line bg-surface px-2.5 text-[12px] text-muted transition-colors hover:border-line-strong hover:text-fg"
             aria-label="Ajustes de lectura"
           >
             <Type className="h-3.5 w-3.5" />
@@ -82,7 +82,7 @@ export function LessonReadingBar() {
             onClick={toggleFocus}
             aria-pressed={focusMode}
             className={cn(
-              "inline-flex h-8 items-center gap-1.5 rounded-lg border px-2.5 text-[11px] transition-colors",
+              "inline-flex h-8 items-center gap-1.5 rounded-lg border px-2.5 text-[12px] transition-colors",
               focusMode
                 ? "border-accent/40 bg-accent/10 text-accent"
                 : "border-line bg-surface text-muted hover:border-line-strong hover:text-fg",

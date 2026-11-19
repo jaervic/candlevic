@@ -85,7 +85,7 @@ function NewsCard({
       </a>
 
       {item.excerpt && (
-        <p className="mt-1 line-clamp-2 text-[11.5px] leading-relaxed text-muted">
+        <p className="mt-1 line-clamp-2 text-[12px] leading-relaxed text-muted">
           {item.excerpt}
         </p>
       )}
@@ -127,7 +127,7 @@ export default async function RadarPage({
 
       <div className="flex items-start gap-2 rounded-xl border border-accent/20 bg-accent/8 p-3">
         <ShieldAlert className="mt-0.5 h-3.5 w-3.5 shrink-0 text-accent" />
-        <p className="text-[11px] leading-relaxed text-muted">
+        <p className="text-[12px] leading-relaxed text-muted">
           <span className="font-medium text-fg">Contexto, no señales.</span> Un
           titular no es una estrategia. Antes de operar, comprueba tu plan y tu
           riesgo.
@@ -161,7 +161,7 @@ export default async function RadarPage({
       {tab === "noticias" && news && (
         <section className="overflow-hidden rounded-2xl border border-line bg-surface">
           <div className="flex items-center justify-between border-b border-line px-4 py-2.5">
-            <h2 className="text-[11px] font-medium text-muted">
+            <h2 className="text-[12px] font-medium text-muted">
               Últimos titulares
             </h2>
             <p className="text-[10px] text-faint">
@@ -174,7 +174,7 @@ export default async function RadarPage({
               <p className="text-[13px] text-muted">
                 No se pudieron cargar las noticias ahora mismo.
               </p>
-              <p className="mt-1 text-[11px] text-faint">
+              <p className="mt-1 text-[12px] text-faint">
                 Las fuentes externas no respondieron. Prueba a recargar en unos
                 minutos; el resto de la app funciona sin conexión.
               </p>
@@ -199,7 +199,7 @@ export default async function RadarPage({
       {tab === "eventos" && (
         <section className="space-y-2.5">
           <h2 className="sr-only">Eventos de mercado</h2>
-          <div className="rounded-xl border border-line bg-surface p-3.5 text-[11.5px] leading-relaxed text-muted">
+          <div className="rounded-xl border border-line bg-surface p-3.5 text-[12px] leading-relaxed text-muted">
             No inventamos fechas: aquí tienes los tipos de evento que mueven el
             mercado y dónde consultar el calendario oficial de cada uno.
           </div>
@@ -230,7 +230,7 @@ export default async function RadarPage({
                 href={event.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-2 inline-flex items-center gap-1 text-[11px] text-muted underline-offset-4 hover:text-fg hover:underline"
+                className="mt-2 inline-flex items-center gap-1 text-[12px] text-muted underline-offset-4 hover:text-fg hover:underline"
               >
                 Calendario oficial <ExternalLink className="h-3 w-3" />
               </a>
@@ -259,7 +259,7 @@ export default async function RadarPage({
               <p className="mt-2 text-[13.5px] font-medium leading-snug">
                 {doc.meta.title}
               </p>
-              <p className="mt-1 text-[11.5px] leading-relaxed text-muted">
+              <p className="mt-1 text-[12px] leading-relaxed text-muted">
                 {doc.meta.summary}
               </p>
             </Link>

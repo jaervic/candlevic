@@ -33,14 +33,14 @@ export default async function ExplicadorPage({
     <article className="reading-shell">
       <Link
         href="/radar?tab=explicadores"
-        className="mb-4 inline-flex items-center gap-1.5 text-[11px] text-faint hover:text-muted"
+        className="mb-4 inline-flex items-center gap-1.5 text-[12px] text-faint hover:text-muted"
       >
         <ArrowLeft className="h-3 w-3" /> Explicadores
       </Link>
 
       <div className="flex flex-wrap items-center gap-1.5">
         <Badge tone="accent">Explicador</Badge>
-        <span className="flex items-center gap-1 text-[11px] text-faint">
+        <span className="flex items-center gap-1 text-[12px] text-faint">
           <Clock className="h-3 w-3" /> {doc.meta.minutes} min
         </span>
         {doc.meta.tags.map((tag) => (

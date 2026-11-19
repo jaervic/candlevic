@@ -84,7 +84,7 @@ export function ProfileTest() {
           <div className="flex items-start gap-2">
             <TriangleAlert className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
             <div>
-              <p className="text-[11px] font-semibold uppercase tracking-wider text-accent">
+              <p className="text-[12px] font-semibold uppercase tracking-wider text-accent">
                 Lo que hay que vigilar
               </p>
               <p className="mt-1 text-[12.5px] leading-relaxed text-fg/85">
@@ -113,7 +113,7 @@ export function ProfileTest() {
                   {week.tasks.map((task) => (
                     <li
                       key={task}
-                      className="flex items-start gap-2 text-[11.5px] leading-snug text-muted"
+                      className="flex items-start gap-2 text-[12px] leading-snug text-muted"
                     >
                       <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-accent" />
                       {task}
@@ -255,7 +255,7 @@ function Fact({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-lg border border-line/70 bg-surface/60 px-2.5 py-2">
       <p className="text-[10px] uppercase tracking-wider text-faint">{label}</p>
-      <p className="mt-0.5 text-[11px] leading-snug text-fg/90">{value}</p>
+      <p className="mt-0.5 text-[12px] leading-snug text-fg/90">{value}</p>
     </div>
   );
 }

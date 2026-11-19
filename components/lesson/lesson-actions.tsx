@@ -34,7 +34,7 @@ export function LessonActions({
             <p className="text-[13px] font-medium">
               {done ? "Lección completada" : "¿Ya lo tienes?"}
             </p>
-            <p className="mt-0.5 text-[11px] text-muted">
+            <p className="mt-0.5 text-[12px] text-muted">
               {entry?.quizScore != null
                 ? `Mejor resultado en los quizzes: ${entry.quizScore}%`
                 : "Complétala para sumar XP y avanzar en tu ruta."}

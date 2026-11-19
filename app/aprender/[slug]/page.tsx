@@ -147,7 +147,7 @@ export default async function LessonPage({
       />
       <LessonReadingBar />
 
-      <nav className="mb-4 flex items-center gap-1 text-[11px] text-faint">
+      <nav className="mb-4 flex items-center gap-1 text-[12px] text-faint">
         <Link href="/aprender" className="hover:text-muted">
           Aprender
         </Link>
@@ -160,7 +160,7 @@ export default async function LessonPage({
       <header>
         <div className="flex flex-wrap items-center gap-2">
           <Badge tone="accent">{moduleMeta.title}</Badge>
-          <span className="flex items-center gap-1 text-[11px] text-faint">
+          <span className="flex items-center gap-1 text-[12px] text-faint">
             <Clock className="h-3 w-3" /> {meta.minutes} min
           </span>
           <Badge tone="outline">{meta.level}</Badge>
@@ -176,7 +176,7 @@ export default async function LessonPage({
         <div className="mt-5 rounded-2xl border border-line bg-surface p-4">
           <div className="mb-2 flex items-center gap-2">
             <Target className="h-4 w-4 text-accent" />
-            <p className="text-[11px] font-semibold uppercase tracking-wider text-muted">
+            <p className="text-[12px] font-semibold uppercase tracking-wider text-muted">
               Al terminar sabrás
             </p>
           </div>

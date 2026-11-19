@@ -43,7 +43,7 @@ export function PathDetail({
     <article className="mx-auto max-w-3xl">
       <Link
         href="/aprender/rutas"
-        className="mb-3 inline-flex items-center gap-1.5 text-[11px] text-faint hover:text-muted"
+        className="mb-3 inline-flex items-center gap-1.5 text-[12px] text-faint hover:text-muted"
       >
         <ArrowLeft className="h-3 w-3" /> Rutas guiadas
       </Link>
@@ -118,7 +118,7 @@ export function PathDetail({
             {path.outcomes.map((outcome) => (
               <li
                 key={outcome}
-                className="rounded-xl border border-line bg-surface p-3 text-[11px] leading-relaxed text-fg/90"
+                className="rounded-xl border border-line bg-surface p-3 text-[12px] leading-relaxed text-fg/90"
               >
                 <span className="mb-1 block h-1 w-6 rounded-full bg-accent" />
                 {outcome}
@@ -150,7 +150,7 @@ export function PathDetail({
                 >
                   <span
                     className={cn(
-                      "num flex h-7 w-7 shrink-0 items-center justify-center rounded-full border text-[11px]",
+                      "num flex h-7 w-7 shrink-0 items-center justify-center rounded-full border text-[12px]",
                       completed
                         ? "border-up/25 bg-up/10 text-up"
                         : "border-line bg-surface-2 text-muted",
@@ -167,7 +167,7 @@ export function PathDetail({
                     >
                       {lesson.title}
                     </p>
-                    <p className="mt-0.5 line-clamp-1 text-[11px] text-faint">
+                    <p className="mt-0.5 line-clamp-1 text-[12px] text-faint">
                       {lesson.summary}
                     </p>
                   </div>

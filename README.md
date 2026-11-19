@@ -28,6 +28,7 @@ Web app educativa, gratuita y mobile-first para aprender trading de acciones y c
 - **Trading demo**: 10.000 $ virtuales, órdenes a mercado y límite, stop y objetivo automáticos, cartera, P&L, historial filtrable por estrategia y exportación CSV.
 - **Backtesting didáctico**: comprar y mantener, cruce de medias, Donchian, RSI, pullback, rango y DCA, con comisión, slippage, parámetros ajustables, benchmark y aviso de muestra corta.
 - **Accesibilidad**: contraste AA, foco gestionado en diálogos, enlace para saltar al contenido, tabla de datos OHLC, resumen textual de cada gráfico, modo daltónico y auditoría axe en CI.
+- **Rendimiento medido**: Lighthouse móvil con 96–97 en rendimiento, 100 en accesibilidad y 100 en buenas prácticas; LCP de 2,3–2,8 s.
 - **Legal y confianza**: Sobre, Privacidad, Términos, Accesibilidad, Fuentes y atribuciones.
 - **Analítica opcional** agregada y sin cookies (Umami), con eventos de uso y Web Vitals; desactivada si no se configura.
 - **E2E** de los flujos críticos con Playwright en CI.

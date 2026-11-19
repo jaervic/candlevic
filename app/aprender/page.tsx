@@ -41,7 +41,7 @@ export default function AprenderPage() {
             ¿No sabes por dónde empezar?
           </span>
           <span className="block text-[14px] font-medium">Rutas guiadas</span>
-          <span className="block text-[11px] text-muted">
+          <span className="block text-[12px] text-muted">
             Cuatro itinerarios con orden recomendado y progreso
           </span>
         </span>

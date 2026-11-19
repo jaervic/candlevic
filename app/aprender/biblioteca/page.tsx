@@ -50,13 +50,13 @@ export default function BibliotecaPage() {
             <p className="mt-3 text-[13.5px] font-semibold leading-snug">
               {book.title}
             </p>
-            <p className="mt-0.5 text-[11px] text-faint">
+            <p className="mt-0.5 text-[12px] text-faint">
               {book.author} · {book.year}
             </p>
             <p className="mt-2 flex-1 text-[12px] leading-relaxed text-muted">
               {book.idea}
             </p>
-            <span className="mt-2 inline-flex items-center gap-1 text-[11px] text-accent">
+            <span className="mt-2 inline-flex items-center gap-1 text-[12px] text-accent">
               Ver ficha <ArrowRight className="h-3 w-3" />
             </span>
           </Link>

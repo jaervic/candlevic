@@ -53,7 +53,7 @@ export default function EstudiosPage() {
               <p className="mt-1 text-[12px] leading-relaxed text-muted">
                 {doc.meta.summary}
               </p>
-              <span className="mt-2 inline-flex items-center gap-1 text-[11px] text-accent">
+              <span className="mt-2 inline-flex items-center gap-1 text-[12px] text-accent">
                 Leer el caso <ArrowRight className="h-3 w-3" />
               </span>
             </Link>
@@ -78,7 +78,7 @@ export default function EstudiosPage() {
               <BookMarked className="mt-0.5 h-4 w-4 shrink-0 text-info" />
               <div className="min-w-0 flex-1">
                 <p className="text-[13px] font-medium leading-snug">{doc.meta.title}</p>
-                <p className="mt-0.5 text-[11px] leading-snug text-muted">
+                <p className="mt-0.5 text-[12px] leading-snug text-muted">
                   {doc.meta.source ?? doc.meta.summary}
                 </p>
               </div>

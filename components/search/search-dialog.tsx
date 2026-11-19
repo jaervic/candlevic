@@ -296,13 +296,13 @@ export function SearchDialog() {
                     key={suggestion}
                     type="button"
                     onClick={() => setQuery(suggestion)}
-                    className="rounded-full border border-line bg-surface-2/60 px-2.5 py-1 text-[11px] text-muted transition-colors hover:border-line-strong hover:text-fg"
+                    className="rounded-full border border-line bg-surface-2/60 px-2.5 py-1 text-[12px] text-muted transition-colors hover:border-line-strong hover:text-fg"
                   >
                     {suggestion}
                   </button>
                 ))}
               </div>
-              <p className="mt-4 text-[11px] leading-relaxed text-faint">
+              <p className="mt-4 text-[12px] leading-relaxed text-faint">
                 Busca en lecciones, glosario, libros, estudios, explicadores y
                 páginas.
               </p>
@@ -353,7 +353,7 @@ export function SearchDialog() {
                       {item.subtitle}
                     </span>
                   )}
-                  <span className="mt-0.5 line-clamp-1 block text-[11px] text-muted">
+                  <span className="mt-0.5 line-clamp-1 block text-[12px] text-muted">
                     {item.summary}
                   </span>
                 </span>

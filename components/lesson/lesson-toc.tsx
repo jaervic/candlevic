@@ -115,7 +115,7 @@ export function LessonToc({ headings }: { headings: Heading[] }) {
                     go(heading.id);
                   }}
                   className={cn(
-                    "block border-l-2 py-1.5 text-[11.5px] leading-snug transition-colors",
+                    "block border-l-2 py-1.5 text-[12px] leading-snug transition-colors",
                     heading.level === 2 ? "pl-3" : "pl-5",
                     active === heading.id
                       ? "border-accent text-fg"

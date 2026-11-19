@@ -75,7 +75,7 @@ export function StepList({
     <ol className="my-5 space-y-3">
       {steps.map((step, i) => (
         <li key={step.title} className="flex gap-3">
-          <span className="num mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-line-strong bg-surface-2 text-[11px] font-semibold text-accent">
+          <span className="num mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-line-strong bg-surface-2 text-[12px] font-semibold text-accent">
             {i + 1}
           </span>
           <div className="min-w-0">

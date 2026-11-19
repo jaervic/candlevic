@@ -192,7 +192,7 @@ export function Lab() {
                 key={id}
                 onClick={() => setDatasetId(id)}
                 className={cn(
-                  "min-h-9 shrink-0 min-h-9 rounded-lg border px-2.5 py-1.5 text-[11px] transition-colors",
+                  "min-h-9 shrink-0 min-h-9 rounded-lg border px-2.5 py-1.5 text-[12px] transition-colors",
                   id === datasetId && !liveCandles
                     ? "border-accent/30 bg-accent/10 text-accent"
                     : "border-line bg-surface-2/60 text-muted hover:text-fg",
@@ -215,7 +215,7 @@ export function Lab() {
                   key={interval}
                   onClick={() => loadLive(interval)}
                   disabled={liveLoading}
-                  className="min-h-9 rounded-lg border border-line bg-surface-2/60 px-2.5 py-1.5 text-[11px] text-muted transition-colors hover:text-fg disabled:opacity-50"
+                  className="min-h-9 rounded-lg border border-line bg-surface-2/60 px-2.5 py-1.5 text-[12px] text-muted transition-colors hover:text-fg disabled:opacity-50"
                 >
                   {liveLoading ? "…" : `${interval} en vivo`}
                 </button>
@@ -226,7 +226,7 @@ export function Lab() {
                     setLiveCandles(null);
                     setLiveInfo(null);
                   }}
-                  className="min-h-9 rounded-lg border border-line px-2.5 py-1.5 text-[11px] text-faint hover:text-fg"
+                  className="min-h-9 rounded-lg border border-line px-2.5 py-1.5 text-[12px] text-faint hover:text-fg"
                 >
                   Volver al dataset
                 </button>
@@ -248,7 +248,7 @@ export function Lab() {
                 key={indicator.id}
                 onClick={() => toggle(indicator.id)}
                 className={cn(
-                  "min-h-9 rounded-lg border px-2.5 py-1.5 text-[11px] transition-colors",
+                  "min-h-9 rounded-lg border px-2.5 py-1.5 text-[12px] transition-colors",
                   enabled[indicator.id]
                     ? "border-accent/30 bg-accent/10 text-accent"
                     : "border-line bg-surface-2/60 text-muted hover:text-fg",
@@ -318,7 +318,7 @@ export function Lab() {
               onClick={() => setShowData((value) => !value)}
               aria-pressed={showData}
               className={cn(
-                "inline-flex items-center gap-1.5 min-h-9 rounded-lg border px-2.5 py-1.5 text-[11px] transition-colors",
+                "inline-flex items-center gap-1.5 min-h-9 rounded-lg border px-2.5 py-1.5 text-[12px] transition-colors",
                 showData
                   ? "border-info/30 bg-info/10 text-info"
                   : "border-line text-muted hover:text-fg",
@@ -329,7 +329,7 @@ export function Lab() {
             <button
               onClick={() => setDrawMode((d) => !d)}
               className={cn(
-                "inline-flex items-center gap-1.5 min-h-9 rounded-lg border px-2.5 py-1.5 text-[11px] transition-colors",
+                "inline-flex items-center gap-1.5 min-h-9 rounded-lg border px-2.5 py-1.5 text-[12px] transition-colors",
                 drawMode
                   ? "border-info/30 bg-info/10 text-info"
                   : "border-line text-muted hover:text-fg",
@@ -341,7 +341,7 @@ export function Lab() {
             {lines.length > 0 && (
               <button
                 onClick={() => setLines([])}
-                className="inline-flex min-h-9 items-center gap-1 rounded-lg border border-line px-2 py-1.5 text-[11px] text-faint hover:text-fg"
+                className="inline-flex min-h-9 items-center gap-1 rounded-lg border border-line px-2 py-1.5 text-[12px] text-faint hover:text-fg"
               >
                 <Eraser className="h-3.5 w-3.5" /> Limpiar
               </button>
@@ -363,7 +363,7 @@ export function Lab() {
                 </span>
                 <span
                   className={cn(
-                    "num text-[11px]",
+                    "num text-[12px]",
                     change >= 0 ? "text-up" : "text-down",
                   )}
                 >
@@ -405,7 +405,7 @@ export function Lab() {
         )}
       </section>
 
-      <div className="rounded-xl border border-line bg-surface p-3.5 text-[11.5px] leading-relaxed text-muted">
+      <div className="rounded-xl border border-line bg-surface p-3.5 text-[12px] leading-relaxed text-muted">
         <span className="font-medium text-fg">Cómo practicar: </span>
         activa el replay y decide si comprarías o venderías antes de ver la
         siguiente vela. Anota la decisión, el stop y el objetivo. Al terminar,

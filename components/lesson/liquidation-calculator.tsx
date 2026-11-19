@@ -46,7 +46,7 @@ export function LiquidationCalculator() {
         <AlertTriangle className="h-4 w-4 text-down" />
         <p className="text-sm font-semibold">Calculadora de liquidación</p>
       </div>
-      <p className="mt-1 text-[11px] leading-relaxed text-muted">
+      <p className="mt-1 text-[12px] leading-relaxed text-muted">
         Margen aislado, sin comisiones ni funding. Sirve para entender la
         distancia, no para operar con apalancamiento.
       </p>
@@ -102,7 +102,7 @@ export function LiquidationCalculator() {
         <Result label="Unidades" value={formatNumber(result.units, 4)} />
       </div>
 
-      <p className="mt-3 text-[11px] leading-relaxed text-faint">
+      <p className="mt-3 text-[12px] leading-relaxed text-faint">
         {result.valid
           ? `Con ${formatNumber(result.leverage, 0)}x, un movimiento del ${formatNumber(
               Math.abs(result.distance),
@@ -137,7 +137,7 @@ function Field({
           onChange={(event) => set(event.target.value)}
           className="num h-9 w-full min-w-0 bg-transparent text-[13px] text-fg outline-none"
         />
-        <span className="pl-1 text-[11px] text-faint">{suffix}</span>
+        <span className="pl-1 text-[12px] text-faint">{suffix}</span>
       </div>
     </label>
   );

@@ -73,7 +73,7 @@ export function RiskCalculator() {
                 onChange={(e) => field.set(e.target.value)}
                 className="num h-9 w-full min-w-0 bg-transparent text-[13px] text-fg outline-none"
               />
-              <span className="pl-1 text-[11px] text-faint">{field.suffix}</span>
+              <span className="pl-1 text-[12px] text-faint">{field.suffix}</span>
             </div>
           </label>
         ))}
@@ -104,7 +104,7 @@ export function RiskCalculator() {
         </div>
       </div>
 
-      <p className="mt-3 text-[11px] leading-relaxed text-faint">
+      <p className="mt-3 text-[12px] leading-relaxed text-faint">
         {result.valid
           ? `Con un stop en ${formatNumber(toNumber(stop), 2)} comprarías ${formatNumber(result.size, 4)} unidades. ${
               result.leverage > 1

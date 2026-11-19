@@ -59,7 +59,7 @@ function Chip({
       onClick={onClick}
       aria-pressed={active}
       className={cn(
-        "inline-flex items-center justify-center gap-1.5 rounded-lg border px-2.5 py-2 text-[11px] font-medium transition-colors",
+        "inline-flex items-center justify-center gap-1.5 rounded-lg border px-2.5 py-2 text-[12px] font-medium transition-colors",
         active
           ? "border-accent/40 bg-accent/10 text-accent"
           : "border-line bg-surface-2/60 text-muted hover:border-line-strong hover:text-fg",
@@ -188,7 +188,7 @@ export function SettingsSheet() {
             <h2 id="settings-title" className="text-[15px] font-semibold">
               Ajustes de lectura
             </h2>
-            <p className="mt-0.5 text-[11px] text-faint">
+            <p className="mt-0.5 text-[12px] text-faint">
               Se guarda en este dispositivo.
             </p>
           </div>
@@ -256,7 +256,7 @@ export function SettingsSheet() {
           <SectionLabel icon={Type}>Texto</SectionLabel>
           <div className="rounded-xl border border-line bg-surface-2/40 p-3">
             <div className="flex items-center justify-between gap-2">
-              <span className="text-[11px] text-muted">Tamaño</span>
+              <span className="text-[12px] text-muted">Tamaño</span>
               <div className="flex items-center gap-1">
                 <button
                   type="button"
@@ -293,7 +293,7 @@ export function SettingsSheet() {
             </div>
 
             <div className="mt-2 flex items-center justify-between gap-2">
-              <span className="text-[11px] text-muted">Interlineado</span>
+              <span className="text-[12px] text-muted">Interlineado</span>
               <div className="flex gap-1">
                 {[
                   { value: 1.6, label: "Compacto" },
@@ -312,7 +312,7 @@ export function SettingsSheet() {
             </div>
 
             <div className="mt-2 flex items-center justify-between gap-2">
-              <span className="text-[11px] text-muted">Ancho</span>
+              <span className="text-[12px] text-muted">Ancho</span>
               <div className="flex gap-1">
                 {[
                   { value: 58, label: "Estrecho" },
@@ -348,7 +348,7 @@ export function SettingsSheet() {
           <SectionLabel icon={Waves}>Ambiente y movimiento</SectionLabel>
           <div className="space-y-2">
             <div className="flex items-center justify-between gap-2">
-              <span className="text-[11px] text-muted">Fondo animado</span>
+              <span className="text-[12px] text-muted">Fondo animado</span>
               <div className="flex gap-1">
                 {(
                   [
@@ -368,7 +368,7 @@ export function SettingsSheet() {
               </div>
             </div>
             <div className="flex items-center justify-between gap-2">
-              <span className="text-[11px] text-muted">Movimiento</span>
+              <span className="text-[12px] text-muted">Movimiento</span>
               <div className="flex gap-1">
                 {(
                   [
@@ -393,7 +393,7 @@ export function SettingsSheet() {
           <SectionLabel icon={Eye}>Accesibilidad</SectionLabel>
           <div className="flex items-center justify-between gap-2">
             <div>
-              <p className="text-[11px] text-muted">Velas huecas (daltónico)</p>
+              <p className="text-[12px] text-muted">Velas huecas (daltónico)</p>
               <p className="text-[10px] text-faint">
                 Forma además de color: alcista hueca, bajista rellena.
               </p>
@@ -413,7 +413,7 @@ export function SettingsSheet() {
           <button
             type="button"
             onClick={reset}
-            className="inline-flex items-center gap-1.5 text-[11px] text-faint transition-colors hover:text-fg"
+            className="inline-flex items-center gap-1.5 text-[12px] text-faint transition-colors hover:text-fg"
           >
             <RotateCcw className="h-3.5 w-3.5" />
             Restablecer

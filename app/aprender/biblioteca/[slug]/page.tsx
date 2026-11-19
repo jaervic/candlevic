@@ -30,7 +30,7 @@ export default async function LibroPage({ params }: { params: Promise<Params> })
     <article className="mx-auto max-w-2xl">
       <Link
         href="/aprender/biblioteca"
-        className="mb-4 inline-flex items-center gap-1.5 text-[11px] text-faint hover:text-muted"
+        className="mb-4 inline-flex items-center gap-1.5 text-[12px] text-faint hover:text-muted"
       >
         <ArrowLeft className="h-3 w-3" /> Biblioteca
       </Link>
@@ -78,7 +78,7 @@ export default async function LibroPage({ params }: { params: Promise<Params> })
       <div className="mt-6 flex gap-2.5 rounded-2xl border border-accent/25 bg-accent/10 p-4">
         <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
         <div>
-          <p className="text-[11px] font-semibold uppercase tracking-wider text-accent">
+          <p className="text-[12px] font-semibold uppercase tracking-wider text-accent">
             Qué cuestionar
           </p>
           <p className="mt-1 text-[12.5px] leading-relaxed text-fg/85">
@@ -100,7 +100,7 @@ export default async function LibroPage({ params }: { params: Promise<Params> })
               <Link
                 key={id}
                 href={`/aprender#${id}`}
-                className="inline-flex items-center gap-1.5 rounded-lg border border-line bg-surface px-2.5 py-1.5 text-[11px] text-muted transition-colors hover:border-line-strong hover:text-fg"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-line bg-surface px-2.5 py-1.5 text-[12px] text-muted transition-colors hover:border-line-strong hover:text-fg"
               >
                 <Check className="h-3 w-3 text-up" />
                 {moduleMeta.title}

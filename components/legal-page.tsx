@@ -15,7 +15,7 @@ export function LegalPage({
         Candlevic
       </p>
       <h1 className="mt-1 text-2xl font-semibold tracking-tight">{title}</h1>
-      <p className="mt-1 text-[11px] text-faint">
+      <p className="mt-1 text-[12px] text-faint">
         Última actualización: {updated}
       </p>
       <div className="prose-cv mt-5">{children}</div>

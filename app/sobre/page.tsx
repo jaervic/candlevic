@@ -71,7 +71,7 @@ export default function SobrePage() {
         y después sigue la ruta del principiante.
       </p>
 
-      <p className="text-[11px] text-faint">
+      <p className="text-[12px] text-faint">
         Candlevic es contenido educativo. No es asesoramiento financiero. Nunca
         inviertas dinero que no puedas permitirte perder.
       </p>

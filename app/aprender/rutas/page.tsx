@@ -39,7 +39,7 @@ export default function RutasPage() {
 
       <div className="flex items-start gap-2 rounded-xl border border-info/20 bg-info/5 p-3">
         <Compass className="mt-0.5 h-3.5 w-3.5 shrink-0 text-info" />
-        <p className="text-[11px] leading-relaxed text-muted">
+        <p className="text-[12px] leading-relaxed text-muted">
           <span className="font-medium text-fg">No son caminos cerrados.</span>{" "}
           Puedes saltar lecciones o combinar rutas. El orden está pensado para
           que cada idea apoye a la siguiente.

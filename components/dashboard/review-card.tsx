@@ -27,7 +27,7 @@ export function ReviewCard({ catalog }: { catalog: ReviewCatalogItem[] }) {
           {queue.length} pendientes
         </span>
       </div>
-      <p className="mt-1 text-[11px] leading-relaxed text-muted">
+      <p className="mt-1 text-[12px] leading-relaxed text-muted">
         Vuelve a lo que estás a punto de olvidar. Cinco minutos bastan.
       </p>
       <ul className="mt-2 space-y-0.5">

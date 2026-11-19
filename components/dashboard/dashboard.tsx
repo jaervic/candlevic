@@ -163,7 +163,7 @@ export function Dashboard({
               {completed === 0 ? "Empieza por aquí" : "Continúa donde lo dejaste"}
             </p>
             <p className="truncate text-[14px] font-medium">{nextLesson.title}</p>
-            <p className="text-[11px] text-muted">{nextLesson.minutes} min de lectura</p>
+            <p className="text-[12px] text-muted">{nextLesson.minutes} min de lectura</p>
           </div>
         </Link>
       )}
@@ -176,7 +176,7 @@ export function Dashboard({
             <Target className="h-4 w-4 text-accent" />
             <h2 className="text-sm font-semibold">Ruta del principiante</h2>
           </div>
-          <span className="num text-[11px] text-faint">
+          <span className="num text-[12px] text-faint">
             {checklist.filter((c) => c.done).length}/{checklist.length + extraDone.length}
           </span>
         </div>
@@ -224,7 +224,7 @@ export function Dashboard({
       <section className="order-2 min-w-0 md:order-none md:col-span-2">
         <div className="mb-3 flex items-end justify-between">
           <h2 className="text-sm font-semibold">Módulos</h2>
-          <Link href="/aprender" className="text-[11px] text-muted hover:text-fg">
+          <Link href="/aprender" className="text-[12px] text-muted hover:text-fg">
             Ver todos
           </Link>
         </div>
@@ -257,7 +257,7 @@ export function Dashboard({
                   </span>
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-[14px] font-medium">{module.title}</p>
-                    <p className="text-[11px] text-muted">
+                    <p className="text-[12px] text-muted">
                       {moduleLessons.length === 0
                         ? "Próximamente"
                         : `${done}/${moduleLessons.length} lecciones`}
@@ -268,13 +268,13 @@ export function Dashboard({
                   )}
                 </div>
                 {next ? (
-                  <p className="mt-2 line-clamp-1 text-[11.5px] text-muted">
+                  <p className="mt-2 line-clamp-1 text-[12px] text-muted">
                     Siguiente:{" "}
                     <span className="text-fg/90">{next.title}</span>
                   </p>
                 ) : (
                   moduleLessons.length > 0 && (
-                    <p className="mt-2 text-[11.5px] text-muted">
+                    <p className="mt-2 text-[12px] text-muted">
                       Módulo completado. Puedes repasarlo cuando quieras.
                     </p>
                   )

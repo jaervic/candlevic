@@ -192,7 +192,7 @@ export function Onboarding() {
         </ul>
 
         {isLast && (
-          <p className="mt-4 flex items-start gap-2 rounded-xl border border-line bg-surface-2 p-3 text-[11px] leading-relaxed text-faint">
+          <p className="mt-4 flex items-start gap-2 rounded-xl border border-line bg-surface-2 p-3 text-[12px] leading-relaxed text-faint">
             <ShieldCheck className="mt-0.5 h-3.5 w-3.5 shrink-0 text-muted" />
             Candlevic es contenido educativo. No es asesoramiento financiero ni una
             recomendación de inversión. Nunca inviertas dinero que no puedas permitirte

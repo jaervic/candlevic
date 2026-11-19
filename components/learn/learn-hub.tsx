@@ -116,7 +116,7 @@ export function LearnHub({
                       >
                         {lesson.title}
                       </p>
-                      <p className="mt-0.5 line-clamp-1 text-[11px] text-faint">
+                      <p className="mt-0.5 line-clamp-1 text-[12px] text-faint">
                         {lesson.summary}
                       </p>
                     </div>

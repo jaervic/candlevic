@@ -56,7 +56,7 @@ export default async function StrategyPage({
     <article className="mx-auto max-w-3xl">
       <Link
         href="/aprender/estrategias"
-        className="mb-3 inline-flex items-center gap-1.5 text-[11px] text-faint hover:text-muted"
+        className="mb-3 inline-flex items-center gap-1.5 text-[12px] text-faint hover:text-muted"
       >
         <ArrowLeft className="h-3 w-3" /> Estrategias
       </Link>
@@ -64,7 +64,7 @@ export default async function StrategyPage({
       <div className="flex flex-wrap items-center gap-1.5">
         <Badge tone="accent">{strategy.familyLabel}</Badge>
         <Badge tone="outline">{strategy.difficulty}</Badge>
-        <span className="text-[11px] text-faint">{strategy.horizon}</span>
+        <span className="text-[12px] text-faint">{strategy.horizon}</span>
       </div>
 
       <h1 className="mt-2 text-[28px] font-semibold leading-tight tracking-tight">
@@ -257,7 +257,7 @@ export default async function StrategyPage({
               <Link
                 key={lesson.meta.slug}
                 href={`/aprender/${lesson.meta.slug}`}
-                className="inline-flex items-center gap-1.5 rounded-lg border border-line bg-surface px-2.5 py-1.5 text-[11px] text-muted transition-colors hover:border-line-strong hover:text-fg"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-line bg-surface px-2.5 py-1.5 text-[12px] text-muted transition-colors hover:border-line-strong hover:text-fg"
               >
                 {lesson.meta.title}
               </Link>

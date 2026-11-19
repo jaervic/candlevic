@@ -67,13 +67,13 @@ export function PathList({ paths }: { paths: PathSummary[] }) {
                   <h2 className="mt-1 text-[15px] font-semibold leading-tight">
                     {path.name}
                   </h2>
-                  <p className="mt-0.5 text-[11.5px] leading-relaxed text-muted">
+                  <p className="mt-0.5 text-[12px] leading-relaxed text-muted">
                     {path.tagline}
                   </p>
                 </div>
               </div>
 
-              <p className="mt-3 line-clamp-2 text-[11px] leading-relaxed text-faint">
+              <p className="mt-3 line-clamp-2 text-[12px] leading-relaxed text-faint">
                 {path.description}
               </p>
 
@@ -99,7 +99,7 @@ export function PathList({ paths }: { paths: PathSummary[] }) {
               <Link
                 href={`/aprender/${next}`}
                 className={cn(
-                  "inline-flex items-center gap-1 text-[11px] font-medium",
+                  "inline-flex items-center gap-1 text-[12px] font-medium",
                   complete ? "text-muted hover:text-fg" : "text-accent",
                 )}
               >

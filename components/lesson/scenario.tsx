@@ -74,7 +74,7 @@ export function Scenario({
         <button
           type="button"
           onClick={() => setPicked(null)}
-          className="mt-2 inline-flex items-center gap-1.5 text-[11px] text-faint transition-colors hover:text-muted"
+          className="mt-2 inline-flex items-center gap-1.5 text-[12px] text-faint transition-colors hover:text-muted"
         >
           <RotateCcw className="h-3 w-3" />
           Repetir el escenario

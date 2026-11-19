@@ -141,7 +141,7 @@ export function Backtest() {
   return (
     <div className="space-y-5">
       <header>
-        <div className="mb-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-faint">
+        <div className="mb-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-[12px] text-faint">
           <Link
             href="/lab"
             className="inline-flex items-center gap-1.5 hover:text-muted"
@@ -180,7 +180,7 @@ export function Backtest() {
                 onClick={() => setDatasetId(id)}
                 aria-pressed={id === datasetId}
                 className={cn(
-                  "min-h-9 shrink-0 min-h-9 rounded-lg border px-2.5 py-1.5 text-[11px] transition-colors",
+                  "min-h-9 shrink-0 min-h-9 rounded-lg border px-2.5 py-1.5 text-[12px] transition-colors",
                   id === datasetId
                     ? "border-accent/30 bg-accent/10 text-accent"
                     : "border-line bg-surface-2/60 text-muted hover:text-fg",
@@ -208,7 +208,7 @@ export function Backtest() {
                   onClick={() => toggleStrategy(id)}
                   aria-pressed={active}
                   className={cn(
-                    "min-h-9 rounded-lg border px-2.5 py-1.5 text-[11px] transition-colors",
+                    "min-h-9 rounded-lg border px-2.5 py-1.5 text-[12px] transition-colors",
                     active
                       ? "border-accent/30 bg-accent/10 text-accent"
                       : "border-line bg-surface-2/60 text-muted hover:text-fg",
@@ -230,7 +230,7 @@ export function Backtest() {
               onClick={() => setWithFees(false)}
               aria-pressed={!withFees}
               className={cn(
-                "min-h-9 rounded-lg border px-2.5 py-1.5 text-[11px]",
+                "min-h-9 rounded-lg border px-2.5 py-1.5 text-[12px]",
                 !withFees
                   ? "border-accent/30 bg-accent/10 text-accent"
                   : "border-line text-muted hover:text-fg",
@@ -242,7 +242,7 @@ export function Backtest() {
               onClick={() => setWithFees(true)}
               aria-pressed={withFees}
               className={cn(
-                "min-h-9 rounded-lg border px-2.5 py-1.5 text-[11px]",
+                "min-h-9 rounded-lg border px-2.5 py-1.5 text-[12px]",
                 withFees
                   ? "border-accent/30 bg-accent/10 text-accent"
                   : "border-line text-muted hover:text-fg",
@@ -268,7 +268,7 @@ export function Backtest() {
                 onClick={() => setSlippage(option.value)}
                 aria-pressed={slippage === option.value}
                 className={cn(
-                  "min-h-9 rounded-lg border px-2.5 py-1.5 text-[11px]",
+                  "min-h-9 rounded-lg border px-2.5 py-1.5 text-[12px]",
                   slippage === option.value
                     ? "border-accent/30 bg-accent/10 text-accent"
                     : "border-line text-muted hover:text-fg",
@@ -326,7 +326,7 @@ export function Backtest() {
                   onChange={(event) =>
                     updateParam(field.key, event.target.value)
                   }
-                  className="num h-8 w-full rounded-lg border border-line bg-surface-2 px-2 text-[11px] text-fg outline-none focus:border-accent/40"
+                  className="num h-8 w-full rounded-lg border border-line bg-surface-2 px-2 text-[12px] text-fg outline-none focus:border-accent/40"
                 />
               </label>
             ))}
@@ -461,7 +461,7 @@ export function Backtest() {
                     <p className="num text-[12px] text-fg">{result.trades}</p>
                   </div>
                 </div>
-                <div className="mt-3 flex items-center justify-between border-t border-line/70 pt-2 text-[11px]">
+                <div className="mt-3 flex items-center justify-between border-t border-line/70 pt-2 text-[12px]">
                   <span className="text-faint">vs. comprar y mantener</span>
                   <span
                     className={cn(
@@ -489,7 +489,7 @@ export function Backtest() {
 
       {results.length > 0 && (
         <section className="hidden overflow-x-auto rounded-2xl border border-line bg-surface md:block">
-          <table className="w-full text-left text-[11.5px]">
+          <table className="w-full text-left text-[12px]">
             <caption className="sr-only">
               Comparativa de estrategias sobre el activo seleccionado
             </caption>
@@ -589,7 +589,7 @@ export function Backtest() {
             className="rounded-xl border border-line bg-surface p-3"
           >
             <p className="text-[12px] font-medium">{item.title}</p>
-            <p className="mt-1 text-[11px] leading-relaxed text-muted">
+            <p className="mt-1 text-[12px] leading-relaxed text-muted">
               {item.body}
             </p>
           </div>
